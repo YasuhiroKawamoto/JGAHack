@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 namespace Play.Enemy
 {
 
+    //簡易射撃テストスクリプト
+
     public class TestShot : MonoBehaviour
     {
-
+        //生成オブジェクト（弾）
         [SerializeField]
         GameObject _bullet;
-
+        //弾の速さ
         [SerializeField]
         float _bulletSpeed;
         //弾のベクトル
@@ -21,16 +25,17 @@ namespace Play.Enemy
         Vector3 _shotOffset;
 
 
-
+        //発射間隔
         [SerializeField]
         float _shotInterval = 2;
-
+        //発射カウント
         [SerializeField]
         float _shotCount;
 
         // Use this for initialization
         void Start()
         {
+            //発射カウントのリセット
             _shotCount = _shotInterval;
 
 
@@ -41,12 +46,12 @@ namespace Play.Enemy
         // Update is called once per frame
         void Update()
         {
-
+            //発射カウントダウン
             _shotCount -= Time.deltaTime;
-
+            //発射カウント0時
             if (_shotCount <= 0)
             {
-                //方向決定
+                //方向決定と弾生成時オフセット設定
                 switch (GetComponent<EnemyStates>().direction)
                 {
                     case Play.Enemy.EnemyStates.Direction.Up:

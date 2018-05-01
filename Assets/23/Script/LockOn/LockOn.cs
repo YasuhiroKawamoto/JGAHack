@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//ロックオン用スクリプト
+
 
 namespace Play.LockOn
-{ 
-
+{
+    //ロックオン用スクリプト
 
     public class LockOn : MonoBehaviour {
 

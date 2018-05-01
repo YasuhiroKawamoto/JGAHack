@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 namespace Play.Enemy
 {
+    //敵用ステータス
     public class EnemyStates : MonoBehaviour
     {
 
