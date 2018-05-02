@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4145146068028724}
   - component: {fileID: 212559020080150312}
-  - component: {fileID: 114659521051051850}
-  - component: {fileID: 114373195579186744}
-  - component: {fileID: 114083282305471062}
   - component: {fileID: 61137813468843776}
   - component: {fileID: 50714839280983088}
-  - component: {fileID: 114891588893405946}
+  - component: {fileID: 114901254124905822}
+  - component: {fileID: 114241070570435448}
+  - component: {fileID: 114332612336627492}
+  - component: {fileID: 114855983649778092}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Element
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689526210436626}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.1, y: -1.12, z: 0}
+  m_LocalPosition: {x: 1.8637586, y: 1.275203, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -91,35 +91,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!114 &114083282305471062
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689526210436626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f80f39e18a722144bc74025249e1f80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 20
-  _moveAmountLimit: 100
-  _moveAmount: 0
-  _reversFlag: 0
---- !u!114 &114373195579186744
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689526210436626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ad8248e7552c3a4a8eb07f35d050770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 3
-  _direction: 3
---- !u!114 &114659521051051850
+--- !u!114 &114241070570435448
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -131,12 +103,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 1007883470759848, guid: f5238d6a5d5f15849996b699751ecb80, type: 2}
-  _bulletSpeed: 2
+  _bulletSpeed: 10
   _bulletVel: {x: 0, y: 0, z: 0}
   _shotOffset: {x: 0, y: 0, z: 0}
   _shotInterval: 1
   _shotCount: 0
---- !u!114 &114891588893405946
+--- !u!114 &114332612336627492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689526210436626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad8248e7552c3a4a8eb07f35d050770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 3
+  _direction: 1
+--- !u!114 &114855983649778092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689526210436626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f80f39e18a722144bc74025249e1f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 10
+  _moveAmountLimit: 50
+  _moveAmount: 0
+  _reversFlag: 0
+--- !u!114 &114901254124905822
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
