@@ -26,14 +26,14 @@ namespace Play.LockOn
         // Update is called once per frame
         void Update() {
 
-            ////右キリックでカメラに映るオブジェクトを取得
-            //if (Input.GetMouseButtonDown(1))
-            //{
-            //    GetTargetOnScreen();
+            //右キリックでカメラに映るオブジェクトを取得
+            if (Input.GetMouseButtonDown(1))
+            {
+                GetTargetOnScreen();
 
-            //}
+            }
 
-            //ListCheck();
+            ListCheck();
 
         }
 

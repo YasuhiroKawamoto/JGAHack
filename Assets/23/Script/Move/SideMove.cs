@@ -11,25 +11,33 @@ namespace Play.Element
     {
         //移動速度
         [SerializeField]
-        private float _speed = 1.0f;
-        //移動量制限
-        [SerializeField]
-        private float _moveAmountLimit = 100.0f;
+        private float _speed;
         //移動量
         [SerializeField]
         private float _moveAmount;
+        //所要時間
+        [SerializeField]
+        private float _requiredTime;
         //反転フラグ
+        [SerializeField]
         private bool _reversFlag = false;
-        // 前回加えた移動量
-        private Vector3 _addSpeed = Vector3.zero;
+
+       
+    
+
+        //リジットボディ
+        private Rigidbody2D _rigitBody2d;
 
         /// <summary>
         /// 初期化
         /// </summary>
         public override void Initialize()
         {
-            //移動量の設定初期化
-            _moveAmount = _moveAmountLimit;
+            _rigitBody2d = GetComponent<Rigidbody2D>();
+
+            _speed = _moveAmount / _requiredTime;
+
+            
 
         }
 
@@ -38,52 +46,36 @@ namespace Play.Element
         /// </summary>
         private void Update()
         {
-            var position = transform.position;
-
-            // 前回移動した分を減らす(反転対応)
-            if (_reversFlag)
-            {
-                position += _addSpeed;
-            }
-            else
-            {
-                position -= _addSpeed;
-            }
-
-            var addX = Time.time * _speed;
+            var addX = _speed;
             var addY = 0;
 
-            _addSpeed = new Vector3(addX, addY, 0.0f);
 
             //移動量加算（反転対応）
             if (_reversFlag)
             {
-                this.PosX = position.x - addX;
-                this.PosY = position.y - addY;
+                _rigitBody2d.velocity = new Vector3(-addX, addY, 0.0f);
             }
             else
             {
-                this.PosX = position.x + addX;
-                this.PosY = position.y + addY;
+                _rigitBody2d.velocity = new Vector3(addX, addY, 0.0f);
             }
 
-            CheckMovement();
+
+
+           
+
 
 
         }
 
 
-        private void CheckMovement()
-        {
-            //移動量の減算
-            _moveAmount -= Mathf.Abs(_speed) * Time.deltaTime;
-            //移動量リセット
-            if (_moveAmount <= 0)
-            {
-                _reversFlag = !_reversFlag;
-                _moveAmount = _moveAmountLimit;
-            }
-        }
+      
+
+
+
+        
 
     }
+
+
 }
