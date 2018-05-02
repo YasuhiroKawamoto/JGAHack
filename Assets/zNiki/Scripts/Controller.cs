@@ -2,8 +2,12 @@
 
 public class Controller : MonoBehaviour
 {
+    void Update()
+    {
+        CheckInput();
+    }
 
-    public void CheckInput () {
+    private void CheckInput () {
         
         if (Input.GetButtonDown("Fire1"))
         {
