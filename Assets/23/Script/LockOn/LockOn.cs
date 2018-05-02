@@ -9,7 +9,8 @@ namespace Play.LockOn
 {
     //ロックオン用スクリプト
 
-    public class LockOn : MonoBehaviour {
+    public class LockOn : MonoBehaviour
+    {
 
         //ロックオンリスト
         [SerializeField]
@@ -18,18 +19,21 @@ namespace Play.LockOn
 
         // Use this for initialization
         void Start() {
-
+            //カメラに写ってるオブジェクト取得
+            GetTargetOnScreen();
         }
 
         // Update is called once per frame
         void Update() {
 
-            //右キリックでカメラに映るオブジェクトを取得
-            if (Input.GetMouseButtonDown(1))
-            {
-                GetTargetOnScreen();
+            ////右キリックでカメラに映るオブジェクトを取得
+            //if (Input.GetMouseButtonDown(1))
+            //{
+            //    GetTargetOnScreen();
 
-            }
+            //}
+
+            //ListCheck();
 
         }
 
@@ -38,12 +42,10 @@ namespace Play.LockOn
         {
             //リストのクリア
             _lockOnList.Clear();
-            //指定したtypeのオブジェクトを全て引っ張ってくる（今は問答無用にゲームオブジェクト）
-            foreach (GameObject obj in UnityEngine.Object.FindObjectsOfType(typeof(GameObject)))
+            //指定したタグのオブジェクトを全て引っ張ってくる
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Element"))
             {
-                // シーン上に存在するオブジェクトならば処理.
-                if (obj.activeInHierarchy)
-                {
+                
                     //カメラ範囲内に映っていた場合に処理
                     if (CheckOnScreen(obj.transform.position))
                     {
@@ -51,9 +53,34 @@ namespace Play.LockOn
                         _lockOnList.Add(obj);
                     }
 
-                }
+                
             }
+        }
 
+
+        //リスト内にmissingがあれば排斥
+        void ListCheck()
+        {
+            //消すオブジェ
+            GameObject　exclusionObj = null;
+
+            //リスト内のチェック
+            foreach (GameObject obj in _lockOnList)
+            {
+                //missing or null だった場合
+                if (!obj)
+                {
+                    exclusionObj = obj;
+                   
+                }
+
+            }
+            //排斥対象があれば
+            if (exclusionObj)
+            {
+                //リストから排斥
+                _lockOnList.Remove(exclusionObj);
+            }
         }
 
         //カメラ範囲内に映ってるか？（対象の位置を参照）
@@ -76,6 +103,8 @@ namespace Play.LockOn
         //ロックオンリストの取得
         public List<GameObject> GetLockOnList()
         {
+            GetTargetOnScreen();
+
             return _lockOnList;
         }
 
