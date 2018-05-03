@@ -1,73 +1,70 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
     void Update()
     {
-        var controllerNames = Input.GetJoystickNames();
-
-        if (controllerNames.Length > 0)
-        {
-            CheckGamepadInput();
-        }
+        CheckInput();
     }
 
-    private void CheckGamepadInput()
-    {
-        if (Input.GetButtonDown("ChangeDate"))
+    private void CheckInput () {
+        
+        if (Input.GetButtonDown("Fire1"))
         {
-            // ペーストするデータの切り替え
-            Debug.Log("ChangeDate");
+            Debug.Log("Press Fire1 Button");
         }
-        if (Input.GetButtonDown("Copy"))
+        if (Input.GetButtonDown("Fire3"))
         {
-            // データのコピー
-            Debug.Log("Copy");
+            Debug.Log("Press Fire3 Button");
         }
-        if (Input.GetButtonDown("Paste"))
+        if (Input.GetButtonDown("Jump"))
         {
-            // データのペースト
-            Debug.Log("Paste");
+            Debug.Log("Press Jump Button");
         }
 
         // ロックオン
-        if (Input.GetButtonDown("Lockon CClockwise") && Input.GetButton("Lockon Clockwise") ||
-            Input.GetButton("Lockon CClockwise") && Input.GetButtonDown("Lockon Clockwise"))
+        if (Input.GetButtonDown("LockOnLeft"))
         {
-            // ロックオン解除
-            Debug.Log("Release Lockon");
+            Debug.Log("Press LockOnLeft Button");
         }
-        else if (Input.GetButtonDown("Lockon CClockwise"))
+        if (Input.GetButtonDown("LockOnRight"))
         {
-            // ロックオン左回り
-            Debug.Log("Lockon CounterClockwise");
-        }
-        else if (Input.GetButtonDown("Lockon Clockwise"))
-        {
-            // ロックオン右回り
-            Debug.Log("Lockon Clockwise");
+            Debug.Log("Press LockOnRight Button");
         }
 
         // 左3Dスティック
         if (Input.GetAxis("Axis 1") == 1)
         {
-            // 右方向へ移動
             Debug.Log("Move Right");
         }
         if (Input.GetAxis("Axis 1") == -1)
         {
-            // 左方向へ移動
             Debug.Log("Move Left");
         }
         if (Input.GetAxis("Axis 2") == 1)
         {
-            // 上方向へ移動
             Debug.Log("Move Up");
         }
         if (Input.GetAxis("Axis 2") == -1)
         {
-            // 下方向へ移動
+            Debug.Log("Move Down");
+        }
+
+        // 左十字キー
+        if (Input.GetAxis("Axis 5") == 1)
+        {
+            Debug.Log("Move Right");
+        }
+        if (Input.GetAxis("Axis 5") == -1)
+        {
+            Debug.Log("Move Left");
+        }
+        if (Input.GetAxis("Axis 6") == 1)
+        {
+            Debug.Log("Move Up");
+        }
+        if (Input.GetAxis("Axis 6") == -1)
+        {
             Debug.Log("Move Down");
         }
     }
