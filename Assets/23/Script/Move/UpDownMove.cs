@@ -11,6 +11,7 @@ namespace Play.Element
     {
         //移動速度
         [SerializeField]
+
         private float _speed;
         //移動量
         [SerializeField]
@@ -38,12 +39,14 @@ namespace Play.Element
 
 
 
+
         /// <summary>
         /// 初期化
         /// </summary>
         public override void Initialize()
         {
             _rigitBody2d = GetComponent<Rigidbody2D>();
+
 
             _speed = _moveAmount / _requiredTime;
 
@@ -52,6 +55,8 @@ namespace Play.Element
             _UpEndPos = _basePos - new Vector3(0, -_moveAmount, 0);
 
             _DownEndPos = _basePos - new Vector3(0, _moveAmount, 0);
+
+          
 
         }
 
@@ -63,8 +68,7 @@ namespace Play.Element
 
             var addX = 0;
             var addY = _speed;
-
-
+            
             //移動量加算（反転対応）
             if (_reversFlag)
             {
@@ -73,6 +77,7 @@ namespace Play.Element
             else
             {
                 _rigitBody2d.velocity = new Vector3(addX, addY, 0.0f);
+
             }
 
 
@@ -86,6 +91,7 @@ namespace Play.Element
 
         private void CheckMovement()
         {
+
             _moveCount -= Time.deltaTime;
 
 
@@ -124,6 +130,7 @@ namespace Play.Element
                 }
 
             }
+
 
 
 

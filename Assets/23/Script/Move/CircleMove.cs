@@ -11,6 +11,7 @@ namespace Play.Element
     {
         //移動速度
         [SerializeField]
+
         private float _speed;
         //回転半径
         [SerializeField]
@@ -32,15 +33,18 @@ namespace Play.Element
         {
 
             _rigitBody2d = GetComponent<Rigidbody2D>();
+
             //円周と周期から回転速度を求める
             _speed =Mathf.Abs( (2.0f * Mathf.PI * _radius) / _requiredTime);
         }
+
 
 
         /// 更新　円移動
         /// </summary>
         private void Update()
         {
+
 
             float x = Mathf.Cos((Time.time * (Mathf.PI * 2.0f)) / _requiredTime) * (_radius*2*0.1f);
             float y = Mathf.Sin((Time.time * (Mathf.PI * 2.0f)) / _requiredTime) * (_radius*2*0.1f);
@@ -51,6 +55,15 @@ namespace Play.Element
 
         }
 
+
+
+
+          
+
+      
+
+         
+        
 
 
 
