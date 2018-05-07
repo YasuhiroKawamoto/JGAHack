@@ -32,6 +32,21 @@ namespace Extensions
         }
 
         /// <summary>
+        /// すべての子を破棄
+        /// </summary>
+        /// <param name="transform"></param>
+        public static void DestroyAllChild(this Transform transform)
+        {
+            var list = transform.GetAllChild();
+
+            foreach (var child in list)
+            {
+                if (child != null)
+                    Object.Destroy(child);
+            }
+        }
+
+        /// <summary>
         /// position、rotation、scaleをリセットする
         /// </summary>
         public static void Reset(this Transform transform)

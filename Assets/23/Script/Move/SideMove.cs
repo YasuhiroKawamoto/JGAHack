@@ -16,10 +16,10 @@ namespace Play.Element
         private float _speed;
         //移動量
         [SerializeField]
-        private float _moveAmount;
+        private float _moveAmount = 1;
         //所要時間
         [SerializeField]
-        private float _requiredTime;
+        private float _requiredTime = 3;
         //反転フラグ
         [SerializeField]
         private bool _reversFlag = false;
@@ -38,6 +38,10 @@ namespace Play.Element
         //リジットボディ
         private Rigidbody2D _rigitBody2d;
 
+        void Awake()
+        {
+            _type = ElementType.Move;
+        }
         /// <summary>
         /// 初期化
         /// </summary>

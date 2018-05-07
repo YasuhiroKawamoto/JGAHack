@@ -15,10 +15,10 @@ namespace Play.Element
         private float _speed;
         //回転半径
         [SerializeField]
-        private float _radius;
-        //一回転ぼ所要時間
+        private float _radius = 1.0f;
+        //一回転所要時間
         [SerializeField]
-        private float _requiredTime;
+        private float _requiredTime = 2.0f;
         //反転フラグ
         [SerializeField]
         private bool _reversFlag = false;
@@ -26,18 +26,25 @@ namespace Play.Element
         private Rigidbody2D _rigitBody2d;
 
 
+        void Awake()
+        {
+            // タイプ設定
+            _type = ElementType.Move;
+        }
+
+
         /// <summary>
         /// 初期化
         /// </summary>
         public override void Initialize()
         {
-
             _rigitBody2d = GetComponent<Rigidbody2D>();
+
 
             //円周と周期から回転速度を求める
             _speed =Mathf.Abs( (2.0f * Mathf.PI * _radius) / _requiredTime);
+      
         }
-
 
 
         /// 更新　円移動
@@ -54,17 +61,6 @@ namespace Play.Element
             _rigitBody2d.MovePosition(transform.position + new Vector3(x, y, 0) * Time.deltaTime);
 
         }
-
-
-
-
-          
-
-      
-
-         
-        
-
 
 
     }

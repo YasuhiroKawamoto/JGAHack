@@ -15,13 +15,14 @@ namespace Play.Element
         private float _speed;
         //移動量
         [SerializeField]
-        private float _moveAmount;
+        private float _moveAmount = 1;
         //所要時間
         [SerializeField]
-        private float _requiredTime;
+        private float _requiredTime = 3;
         //反転フラグ
         [SerializeField]
         private bool _reversFlag = false;
+
 
         [SerializeField]
         private Vector3 _basePos;
@@ -40,12 +41,20 @@ namespace Play.Element
 
 
 
+
+        void Awake()
+        {
+            _type = ElementType.Move;
+        }
+
+
         /// <summary>
         /// 初期化
         /// </summary>
         public override void Initialize()
         {
             _rigitBody2d = GetComponent<Rigidbody2D>();
+
 
 
             _speed = _moveAmount / _requiredTime;
@@ -58,6 +67,7 @@ namespace Play.Element
 
           
 
+
         }
 
         /// <summary>
@@ -68,7 +78,7 @@ namespace Play.Element
 
             var addX = 0;
             var addY = _speed;
-            
+
             //移動量加算（反転対応）
             if (_reversFlag)
             {
@@ -92,6 +102,7 @@ namespace Play.Element
         private void CheckMovement()
         {
 
+
             _moveCount -= Time.deltaTime;
 
 
@@ -106,11 +117,8 @@ namespace Play.Element
             if (_moveCount <= 0)
             {
 
-
                 _reversFlag = !_reversFlag;
                 _moveCount = _requiredTime * 2;
-
-
 
             }
             else
@@ -130,9 +138,6 @@ namespace Play.Element
                 }
 
             }
-
-
-
 
         }
 

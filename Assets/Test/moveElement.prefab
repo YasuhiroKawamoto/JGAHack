@@ -20,12 +20,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4932665425552658}
   - component: {fileID: 212812387197480892}
-  - component: {fileID: 114724856372020634}
   - component: {fileID: 114921784812698740}
+  - component: {fileID: 114830863834357794}
+  - component: {fileID: 114915954686503698}
   - component: {fileID: 61674248716211946}
+  - component: {fileID: 50200867679048094}
   m_Layer: 0
   m_Name: moveElement
-  m_TagString: Untagged
+  m_TagString: Element
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,13 +38,33 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1654035856441668}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50200867679048094
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1654035856441668}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61674248716211946
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -68,7 +90,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!114 &114724856372020634
+--- !u!114 &114830863834357794
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,11 +98,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1654035856441668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc52ccc3aff8a644285b1f4416f84112, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f80f39e18a722144bc74025249e1f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
-  _radius: 1
+  _speed: 40
+  _moveAmountLimit: 200
+  _moveAmount: 0
+  _reversFlag: 0
+--- !u!114 &114915954686503698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1654035856441668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e72b802019c8d49b461305e037c146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114921784812698740
 MonoBehaviour:
   m_ObjectHideFlags: 1

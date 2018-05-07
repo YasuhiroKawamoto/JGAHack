@@ -4,33 +4,58 @@ using UnityEngine;
 
 namespace Play.Element
 {
-	// 要素を持つオブジェクトクラス
-	public class ElementObject : Extensions.MonoBehaviourEx
-	{
-		[SerializeField, Extensions.ReadOnly]
-		private List<ElementBase> _elementList = null;
+    // 要素を持つオブジェクトクラス
+    public class ElementObject : Extensions.MonoBehaviourEx
+    {
+        // 付与されている要素たち
+        [SerializeField, Extensions.ReadOnly]
+        private ElementBase[] _elementList = null;
 
-		public List<ElementBase> ElementList
-		{
-			get { return _elementList; }
-			set { _elementList = value; }
-		}
+        public ElementBase[] ElementList
+        {
+            get { return _elementList; }
+            set { _elementList = value; }
+        }
 
-		private void Start()
-		{
-			ElementUpdate();
-		}
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        private void Start()
+        {
+            ElementUpdate();
+        }
 
-		public void ElementUpdate()
-		{
-			ElementList = new List<ElementBase>();
-			var array = this.GetComponents<ElementBase>();
-			ElementList.AddRange(array);
+        /// <summary>
+        /// アタッチされている要素を検出
+        /// </summary>
+        public void ElementUpdate()
+        {
+            int index = (int)ElementType.length;
+            ElementList = new ElementBase[index];
 
-			foreach (var element in ElementList)
-			{
-				element.Initialize();
-			}
-		}
-	}
+            var array = this.GetComponents<ElementBase>();
+
+            foreach (var element in array)
+            {
+                int typeIndex = (int)element.Type;
+
+                if (typeIndex < 0)
+                {
+                    // タイプがない場合は削除
+                    Object.Destroy(element);
+                }
+
+                if (_elementList[typeIndex] == null)
+                {
+                    _elementList[typeIndex] = element;
+                    element.Initialize();
+                }
+                else
+                {
+                    // タイプがかぶっているので2個目からは破棄
+                    Object.Destroy(element);
+                }
+            }
+        }
+    }
 }
