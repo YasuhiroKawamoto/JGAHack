@@ -11,7 +11,6 @@ namespace Play.LockOn
         [SerializeField]
         public List<GameObject> _lockOnList = new List<GameObject>();
 
-
         // Use this for initialization
         void Start() {
             //カメラに写ってるオブジェクト取得
@@ -21,7 +20,6 @@ namespace Play.LockOn
         // Update is called once per frame
         void Update()
         {
-
 
         }
 

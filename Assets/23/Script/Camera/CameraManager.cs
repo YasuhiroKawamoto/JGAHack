@@ -11,20 +11,16 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-
-
     //プレイヤー状態確認用
     [SerializeField]
     private GameObject _player;
-
     //メインのプレイヤー追従カメラ
     [SerializeField]
     private GameObject _mainCam;
-
     //ステージ開始時のゴール→プレイヤー誘導カメラ
     [SerializeField]
     private GameObject _startCam;
-
+    //プレイヤー死亡時のプレイヤー死亡地点→スタート地点カメラ
     [SerializeField]
     private GameObject _deadCam;
 
@@ -37,33 +33,26 @@ public class CameraManager : MonoBehaviour
     {
         //プレイヤー取得
         _player = GameObject.Find("Player");
-
+        //ステージ開始カメラ起動
         StageStartCameraMove();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-        //プレイヤー追従カメラの起動テスト
+        //TODO　プレイヤー追従カメラの起動テスト
         if (Input.GetMouseButtonDown(0))
         {
             MainCameraMove();
         }
 
-        //死亡時カメラの起動テスト
+        //TODO　死亡時カメラの起動テスト
         if (Input.GetMouseButtonDown(1))
         {
             DeadCameraMove();
         }
 
-
-
-
-
     }
-
 
     //ステージ開始時演出用カメラ起動
     public void StageStartCameraMove()
@@ -76,7 +65,6 @@ public class CameraManager : MonoBehaviour
         _deadCam.GetComponent<Cinemachine.CinemachineBlendListCamera>().enabled = false;
     }
 
-
     //メインのプレイヤー追従カメラの起動
     public void MainCameraMove()
     {
@@ -88,7 +76,6 @@ public class CameraManager : MonoBehaviour
         _deadCam.GetComponent<Cinemachine.CinemachineBlendListCamera>().enabled = false;
     }
 
-
     //死亡時演出用カメラの起動
     public void DeadCameraMove()
     {
@@ -99,7 +86,5 @@ public class CameraManager : MonoBehaviour
         //死亡位置からスタート地点カメラのOFF
         _deadCam.GetComponent<Cinemachine.CinemachineBlendListCamera>().enabled = true;
     }
-
-
 
 }

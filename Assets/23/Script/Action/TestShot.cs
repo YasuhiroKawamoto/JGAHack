@@ -8,7 +8,6 @@ namespace Play.Enemy
 {
 
     //簡易射撃テストスクリプト
-
     public class TestShot : MonoBehaviour
     {
         //生成オブジェクト（弾）
@@ -23,8 +22,6 @@ namespace Play.Enemy
         //発射時のズレ
         [SerializeField]
         Vector3 _shotOffset;
-
-
         //発射間隔
         [SerializeField]
         float _shotInterval = 2;
@@ -36,11 +33,7 @@ namespace Play.Enemy
         void Start()
         {
             //発射カウントのリセット
-            _shotCount = _shotInterval;
-
-
-           
-
+            _shotCount = _shotInterval;         
         }
 
         // Update is called once per frame
@@ -73,7 +66,6 @@ namespace Play.Enemy
                         _bulletVel = new Vector3(_bulletSpeed, 0, 0);
                         _shotOffset = new Vector3 (gameObject.GetComponent<SpriteRenderer>().bounds.size.x, 0, 0);
                         break;
-
                 }
 
                 // 弾丸の複製
@@ -86,7 +78,6 @@ namespace Play.Enemy
                 //発車時間の再設定
                 _shotCount = _shotInterval;
             }
-
         }
     }
 }

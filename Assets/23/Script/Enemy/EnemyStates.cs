@@ -47,9 +47,7 @@ namespace Play.Enemy
 
 
         void OnTriggerEnter2D(Collider2D col)
-        {
-            
-            
+        {    
                 //被ダメ
                 HP--;
                
@@ -58,10 +56,7 @@ namespace Play.Enemy
                 {
                     Destroy(this.gameObject);
                 }
-
-            
-
-
+        
         }
     }
 }

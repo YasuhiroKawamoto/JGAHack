@@ -2,32 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//弾の消滅用スクリプト
-
 namespace Play.Enemy
 {
+    //弾の消滅用スクリプト
     public class BulletDestroyer : MonoBehaviour
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         void OnTriggerEnter2D(Collider2D col)
         {
-
+            //何かに当たれば弾消滅
             Destroy(gameObject);
 
         }
     }
-
 }

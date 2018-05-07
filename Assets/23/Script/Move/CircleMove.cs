@@ -10,8 +10,7 @@ namespace Play.Element
     public class CircleMove : ElementBase
     {
         //移動速度
-        [SerializeField]
-
+        [SerializeField, ReadOnly]
         private float _speed;
         //回転半径
         [SerializeField]
@@ -25,43 +24,44 @@ namespace Play.Element
         //リジットボディ
         private Rigidbody2D _rigitBody2d;
 
-
         void Awake()
         {
             // タイプ設定
             _type = ElementType.Move;
         }
 
-
         /// <summary>
         /// 初期化
         /// </summary>
         public override void Initialize()
         {
+            //リジットボディ取得
             _rigitBody2d = GetComponent<Rigidbody2D>();
-
-
             //円周と周期から回転速度を求める
-            _speed =Mathf.Abs( (2.0f * Mathf.PI * _radius) / _requiredTime);
-      
-        }
+            _speed = Mathf.Abs((2.0f * Mathf.PI * _radius) / _requiredTime);
 
+        }
 
         /// 更新　円移動
         /// </summary>
         private void Update()
         {
 
-
-            float x = Mathf.Cos((Time.time * (Mathf.PI * 2.0f)) / _requiredTime) * (_radius*2*0.1f);
-            float y = Mathf.Sin((Time.time * (Mathf.PI * 2.0f)) / _requiredTime) * (_radius*2*0.1f);
+            //移動量の計算（三角関数使用）
+            float x = Mathf.Cos((Time.time * (Mathf.PI * 2.0f)) / _requiredTime) * (_radius * 2 * 0.1f);
+            float y = Mathf.Sin((Time.time * (Mathf.PI * 2.0f)) / _requiredTime) * (_radius * 2 * 0.1f);
 
             // _rigitBody2d.velocity =  new Vector3(x,  y, 0);
-
-            _rigitBody2d.MovePosition(transform.position + new Vector3(x, y, 0) * Time.deltaTime);
+            //TODO 移動処理(反転対応)
+            if (_reversFlag)
+            {
+                _rigitBody2d.MovePosition(transform.position + new Vector3(x, y, 0) * Time.deltaTime);
+            }
+            else
+            {
+                _rigitBody2d.MovePosition(transform.position + new Vector3(-x, y, 0) * Time.deltaTime);
+            }
 
         }
-
-
     }
 }
