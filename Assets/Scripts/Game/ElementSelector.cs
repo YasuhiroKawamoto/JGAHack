@@ -48,10 +48,11 @@ namespace Play
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (_targetList == null)
+                var lockOn = new LockOn.LockOn();
+                _targetList = lockOn.GetLockOnList();
+
+                if (_targetObject == null)
                 {
-                    var lockOn = new LockOn.LockOn();
-                    _targetList = lockOn.GetLockOnList();
                     _targetNum = lockOn.GetNearObjOnList();
                 }
 
@@ -84,7 +85,10 @@ namespace Play
             // 要素を移す
             if (Input.GetKeyDown(KeyCode.C))
             {
+                if(_selectObject && _targetObject)
+                {
                 MoveElement(_targetObject);
+                }
             }
         }
 
@@ -146,7 +150,7 @@ namespace Play
             // 子に要素追加
             var text = GameObject.Instantiate(_elementText);
             _targetObject.transform.SetChild(text.gameObject);
-            text.transform.localPosition = Vector3.zero;
+            text.transform.localPosition = new Vector3(0,0,-0.1f);
             text.gameObject.AddComponent<Canvas>();
             var scaler = text.gameObject.AddComponent<CanvasScaler>();
             scaler.dynamicPixelsPerUnit = 20;
@@ -297,7 +301,7 @@ namespace Play
                 var type = element.Type;
 
                 // 子に要素追加
-                var pos = new Vector3(-430.0f, -50.0f + y, 0.0f);
+                var pos = new Vector3(-230.0f, -50.0f + y, 0.0f);
                 var text = GameObject.Instantiate(_elementText);
 
                 // UIルート取得
@@ -308,6 +312,7 @@ namespace Play
 
                 // テキスト変更
                 text.text = type.ToString();
+                text.color = Color.cyan;
 
                 _textList[(int)type] = text;
 

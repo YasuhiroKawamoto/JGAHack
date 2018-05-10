@@ -13,7 +13,7 @@ namespace Play.Enemy
             if (col.gameObject.tag == "Player")
             {
                 //プレイヤー死亡処理
-                Debug.Log("プレイヤーは死んだ");
+                InGameManager.Instance.StageOver();
 
             }
 
@@ -25,7 +25,7 @@ namespace Play.Enemy
             if (col.gameObject.tag == "Player")
             {
                 //プレイヤー死亡処理
-                Debug.Log("Player is dead");
+                InGameManager.Instance.StageOver();
 
             }
 
