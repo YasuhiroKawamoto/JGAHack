@@ -29,5 +29,10 @@ namespace Play.Stage
             // 初期位置に移動
             _player.transform.position = _startPos;
         }
+
+        public Vector3 GetStartPos()
+        {
+            return _startPos;
+        }
     }
 }
