@@ -97,5 +97,10 @@ namespace Play
         {
             _state = State.Pause;
         }
+
+        public Vector3 GetStartPos()
+        {
+            return _stageManager.GetStartPos();
+        }
     }
 }

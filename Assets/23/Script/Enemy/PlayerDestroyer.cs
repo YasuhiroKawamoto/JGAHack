@@ -7,13 +7,24 @@ namespace Play.Enemy
 
     public class PlayerDestroyer : MonoBehaviour
     {
+        [SerializeField]
+        GameObject CamMan;
+
+
+        private void Awake()
+        {
+            CamMan = GameObject.Find("CameraManager");
+        }
+
 
         void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.tag == "Player")
             {
                 //プレイヤー死亡処理
-                Debug.Log("プレイヤーは死んだ");
+                InGameManager.Instance.StageOver();
+                //カメラの切り替え
+                CamMan.GetComponent<CameraManager>().MainCameraChange();
 
             }
 
@@ -25,7 +36,9 @@ namespace Play.Enemy
             if (col.gameObject.tag == "Player")
             {
                 //プレイヤー死亡処理
-                Debug.Log("Player is dead");
+                InGameManager.Instance.StageOver();
+                //カメラの切り替え
+                CamMan.GetComponent<CameraManager>().MainCameraChange();
 
             }
 
