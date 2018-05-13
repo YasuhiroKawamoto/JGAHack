@@ -88,13 +88,9 @@ namespace Play.Element
             //反転識別用移動カウントダウン
             _moveCount -= Time.deltaTime;
 
-            //移動開始座標（往復運動中心地点）付近で経過時間調整
-            if (Mathf.Abs(gameObject.transform.position.x - _basePos.x) < 0.1f)
-            {
-                _moveCount = _requiredTime;
-            }
+          
 
-            //移動時間での反転
+            //移動時間での反転(壁に引っかかるなど停滞時用)
             if (_moveCount <= 0)
             {
                 //反転フラグの切り替え

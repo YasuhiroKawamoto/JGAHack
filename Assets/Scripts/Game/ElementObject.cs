@@ -24,6 +24,10 @@ namespace Play.Element
         [SerializeField]
         private Vector3 _initPos = Vector3.zero;
 
+        // 上書き時の位置リスト
+        [SerializeField]
+        private List<Vector3> _overwritePosList = new List<Vector3>();
+
         // 我に戻る時間(秒)
         static readonly float _returnTime = 5.0f;
 
@@ -111,7 +115,12 @@ namespace Play.Element
                     // 要素の更新
                     this.ElementUpdate();
                 }
+               
             }
+
+            //上書き時の位置を保存
+            _overwritePosList.Add(transform.position);
+           
 
             // n秒後思い出すコルーチン
             StartCoroutine(WaitSanity());
@@ -143,7 +152,7 @@ namespace Play.Element
         {
             // 今の要素を忘れる
             ForgetAllElement();
-
+            
             // 元の位置に戻る
             yield return ReturnToInitPos();
 
@@ -156,10 +165,50 @@ namespace Play.Element
         /// </summary>
         private IEnumerator ReturnToInitPos()
         {
-            // TODO: ナビメッシュあたりの処理はここ
+            //リスト内要素逆回し用のカウント
+            int Count = _overwritePosList.Count-1;
+            //上書き時の位置をセット
+            gameObject.GetComponent<Play.Action.ReturnToPosition>().SetReturnMove(_overwritePosList[Count]);
 
-            // 移動するまで待つ
-            yield return null;
+            //ループ処理
+            while (true)
+            {
+                //上書き位置に戻れば
+                if (transform.position == _overwritePosList[Count])
+                {
+                    //Debug.Log("我戻れり");
+                    if (0 < Count)
+                    {
+                        Count--;
+                        //上書き時の位置をセット
+                        gameObject.GetComponent<Play.Action.ReturnToPosition>().SetReturnMove(_overwritePosList[Count]);
+                    }
+                    else
+                    {
+                        //初期位置をセット
+                        gameObject.GetComponent<Play.Action.ReturnToPosition>().SetReturnMove(_initPos);
+                    }            
+                }
+                   
+                //元の位置に戻れば
+                if (transform.position == _initPos)
+                {
+                    
+                    //Debug.Log("我完全に戻れり");
+                    //上書き位置リストのクリア
+                    _overwritePosList.Clear();
+                    //コルーチン終わり
+                    yield break;
+                }
+                else
+                {
+                    // TODO: 元の位置に向かって移動
+                    gameObject.GetComponent<Play.Action.ReturnToPosition>().ReturnMove();
+                }
+
+                // 毎フレームループ
+                yield return null; 
+            }   
         }
 
         // 現在の要素をすべて忘れる
