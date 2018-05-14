@@ -10,9 +10,11 @@ namespace Play
     //カメラマネージャ
     public class CameraManager : MonoBehaviour
     {
+
+        private const int MUST = 30;
         private const int HI = 15;
         private const int LOW = 10;
-
+        private const int LOWEST = 5;
         //プレイヤー
         [SerializeField]
         private GameObject _player;
@@ -31,6 +33,9 @@ namespace Play
         //ゴールカメラ
         [SerializeField, ReadOnly]
         private GameObject _camGoal;
+        //ステージカメラ
+        [SerializeField, ReadOnly]
+        private GameObject _camStage;
         //現在のカメラ
         [SerializeField, ReadOnly]
         private GameObject _currentCam;
@@ -45,6 +50,9 @@ namespace Play
         private bool _isChanging = false;
         //開始フラグ（初期演出用）
         private bool _isStarted = false;
+        //固定カメラかどうか？
+        [SerializeField]
+        private bool _isFixed = false;
 
         private void Awake()
         {
@@ -120,7 +128,7 @@ namespace Play
         //ゴール表示カメラの優先度変更
         void StartCamMove()
         {
-            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = 5;
+            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
         }
 
         //カメラの設定変更
@@ -175,6 +183,7 @@ namespace Play
             _camA = _camArray[0].gameObject;
             _camB = _camArray[1].gameObject;
             _camGoal = _camArray[2].gameObject;
+            _camStage = _camArray[3].gameObject;
             //疑似カメラ詳細設定
             //疑似カメラAセッティング
             _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _player.transform;
@@ -185,8 +194,23 @@ namespace Play
             //ゴールカメラセッティング
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _goal.transform;
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = _goal.transform;
-            //ゴール位置カメラの優先度設定（高い程優先される）
-            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = 30;
+
+
+            if (_isFixed)
+            {
+                //ステージ位置カメラの優先度設定（高い程優先される）
+                _camStage.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST;
+                //ゴール位置カメラの優先度設定（初期演出用）
+                _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST+1;
+            }
+            else
+            {
+                //ゴール位置カメラの優先度設定（初期演出用）
+                _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST;
+            }
+           
+            
+
         }
     }
 }
