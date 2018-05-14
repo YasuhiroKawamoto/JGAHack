@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Extensions;
 
 namespace Play.Element
 {
@@ -31,12 +32,25 @@ namespace Play.Element
         // 我に戻る時間(秒)
         static readonly float _returnTime = 5.0f;
 
+        //移動速度
+        [SerializeField]
+        private float _speed;
+
+          //帰るべき場所
+        [SerializeField, ReadOnly]
+        private Vector3 _returnPosition;
+
+        //リジットボディ
+        Rigidbody2D _rigidBody2d;
+        
         /// <summary>
         /// 初期化
         /// </summary>
         private void Awake()
         {
             _initPos = transform.position;
+            //リジットボディ取得
+            _rigidBody2d = gameObject.GetComponent<Rigidbody2D>();
         }
         private void Start()
         {
@@ -168,7 +182,7 @@ namespace Play.Element
             //リスト内要素逆回し用のカウント
             int Count = _overwritePosList.Count-1;
             //上書き時の位置をセット
-            gameObject.GetComponent<Play.Action.ReturnToPosition>().SetReturnMove(_overwritePosList[Count]);
+            SetReturnMove(_overwritePosList[Count]);
 
             //ループ処理
             while (true)
@@ -181,19 +195,18 @@ namespace Play.Element
                     {
                         Count--;
                         //上書き時の位置をセット
-                        gameObject.GetComponent<Play.Action.ReturnToPosition>().SetReturnMove(_overwritePosList[Count]);
+                        SetReturnMove(_overwritePosList[Count]);
                     }
                     else
                     {
                         //初期位置をセット
-                        gameObject.GetComponent<Play.Action.ReturnToPosition>().SetReturnMove(_initPos);
+                        SetReturnMove(_initPos);
                     }            
                 }
                    
                 //元の位置に戻れば
                 if (transform.position == _initPos)
-                {
-                    
+                {            
                     //Debug.Log("我完全に戻れり");
                     //上書き位置リストのクリア
                     _overwritePosList.Clear();
@@ -203,7 +216,7 @@ namespace Play.Element
                 else
                 {
                     // TODO: 元の位置に向かって移動
-                    gameObject.GetComponent<Play.Action.ReturnToPosition>().ReturnMove();
+                    ReturnMove();
                 }
 
                 // 毎フレームループ
@@ -238,6 +251,23 @@ namespace Play.Element
             }
             // 更新
             ElementUpdate();
+        }
+
+        private void SetReturnMove(Vector3 returnPos)
+        {
+            // Debug.Log("回帰セットぉ");
+            //速度セット
+            _speed = 1.0f;     
+            //帰るべき場所セット
+            _returnPosition = returnPos;
+        }
+
+        private void ReturnMove()
+        {
+            //目的位置に向かって一定速度で移動
+            // Debug.Log("移動中");
+            _rigidBody2d.MovePosition(Vector3.MoveTowards(transform.position, _returnPosition, Time.deltaTime * _speed));
+
         }
     }
 }
