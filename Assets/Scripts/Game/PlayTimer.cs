@@ -11,16 +11,20 @@ namespace Play.Timer
         private int _minuteCount;
         //経過時間カウント
         private float _secondCount;
-        //経過時間表示用テキスト
-        [SerializeField]
-        Text _timeText;
         //計測中か
         [SerializeField]
         private bool _isCounting;
+        //GUIスタイル
+        private GUIStyle style;
+
+
 
         // Use this for initialization
         void Start()
         {
+            style = new GUIStyle();
+            style.fontSize = 100;
+            style.normal.textColor = new Vector4(1, 1, 1, 1);
             //分数初期化
             _minuteCount = 0;
             //秒数初期化
@@ -71,23 +75,27 @@ namespace Play.Timer
                 }
 
             }
-            //テキスト更新
-            TextUpdate();
+         
         }
 
-        //テキスト更新
-        void TextUpdate()
+
+        void OnGUI()
         {
+            
+
             //秒数によって変更
             if (_secondCount < 10)
             {
-                _timeText.text = "Time:" + _minuteCount.ToString("00") + ":0" + _secondCount.ToString("F2");
+                GUI.Label(new Rect(370, 50, 100, 50), "Time:" + _minuteCount.ToString("00") + ":0" + _secondCount.ToString("F2"), style);
+
             }
             else
             {
-                _timeText.text = "Time:" + _minuteCount.ToString("00") + ":" + _secondCount.ToString("F2");
-            }
+                GUI.Label(new Rect(370, 50, 100, 50), "Time:" + _minuteCount.ToString("00") + ":" + _secondCount.ToString("F2"), style);
 
+            }
         }
+
+     
     }
 }
