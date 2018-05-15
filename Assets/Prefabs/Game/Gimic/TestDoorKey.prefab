@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61041584019542332}
   - component: {fileID: 50633945772689416}
   - component: {fileID: 212819403513569804}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TestDoorKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,9 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22edcf08f6eb3584483976bccde4b75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switch: 0
   _type: 1
-  _door: {fileID: 0}
+  _event: {fileID: 0}
 --- !u!212 &212819403513569804
 SpriteRenderer:
   m_ObjectHideFlags: 1
