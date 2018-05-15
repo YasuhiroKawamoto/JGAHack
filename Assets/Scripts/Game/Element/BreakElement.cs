@@ -25,11 +25,12 @@ namespace Play.Element
                 {
                     //再生を司るものに情報を送る
                     //Debug.Log("わが魂をうけとれぇ");
-
+                    //オブジェクトを非アクティブにする
+                    gameObject.SetActive(false);
+                    return;
                 }
                 //Debug.Log("壊れるぅ");
-                //オブジェクトを非アクティブにする
-                gameObject.SetActive(false);
+                Destroy(gameObject);    
             }
         }
     }
