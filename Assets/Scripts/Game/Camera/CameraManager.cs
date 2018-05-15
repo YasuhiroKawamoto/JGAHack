@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Extensions;
 
-
-
 namespace Play
 {
     //カメラマネージャ
     public class CameraManager : MonoBehaviour
     {
-
         private const int MUST = 30;
         private const int HI = 15;
         private const int LOW = 10;
@@ -61,9 +58,7 @@ namespace Play
         }
         // Use this for initialization
         void Start()
-        {
-            //現在のカメラの設定
-            _currentCam = _camA;
+        { 
             //カメラ切り替え時間の設定
             _camChangeTime = _camChangeTimeLimit;
             //カメラのセット
@@ -77,6 +72,14 @@ namespace Play
         {
             //カメラの状態チェック
             CamCheck();
+
+            //TODO　カメラ振動テスト
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    //振動
+            //    Debug.Log("カメラ揺らし");
+            //    GetComponent<Play.CameraShake>().ShakeCamera();
+            //}
         }
 
         //遅れて呼び出し（演出の動作の安定性のため）
@@ -110,9 +113,8 @@ namespace Play
                 _currentCam = _camB;
                 //切り替えフラグON
                 _isChanging = true;
-
             }
-            else
+            else if(_currentCam == _camB)
             {
                 //カメラの優先度切り替え
                 _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
@@ -122,7 +124,6 @@ namespace Play
                 //切り替えフラグON
                 _isChanging = true;
             }
-
         }
 
         //ゴール表示カメラの優先度変更
@@ -137,7 +138,6 @@ namespace Play
             //フォロー対象をプレイヤーにセット
             nextCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _player.transform;
             nextCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = _player.transform;
-
             //プレイヤー復活地点を取得
             Vector3 resetPos = InGameManager.Instance.GetStartPos();
             resetPos.z = -10.0f;
@@ -145,13 +145,13 @@ namespace Play
             oldCam.transform.position = resetPos;
         }
 
-
         //カメラの状態チェック
         void CamCheck()
         {
             //カメラ切り替え中にセッティング変更
             if (_isChanging)
             {
+                //切り替えディレイ
                 _camChangeTime -= Time.deltaTime;
 
                 if (_camChangeTime <= 0)
@@ -194,23 +194,32 @@ namespace Play
             //ゴールカメラセッティング
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _goal.transform;
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = _goal.transform;
-
-
+    
+            //固定カメラモードなら
             if (_isFixed)
             {
                 //ステージ位置カメラの優先度設定（高い程優先される）
                 _camStage.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST;
                 //ゴール位置カメラの優先度設定（初期演出用）
                 _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST+1;
+                //現在カメラのセット
+                _currentCam = _camStage;
             }
             else
             {
                 //ゴール位置カメラの優先度設定（初期演出用）
                 _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST;
-            }
-           
-            
+                //ステージ位置カメラの優先度設定（高い程優先される）
+                _camStage.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
+                //現在カメラのセット
+                _currentCam = _camA;
+            }  
+        }
 
+        //現在の疑似カメラの情報を送る
+        public Cinemachine.CinemachineVirtualCamera GetCullentVCam()
+        {
+            return _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         }
     }
 }
