@@ -23,6 +23,8 @@ namespace Play.Enemy
             {
                 //プレイヤー死亡処理
                 InGameManager.Instance.StageOver();
+                //カメラシェイク
+                CamMan.GetComponent<CameraManager>().ShakeCamera();
                 //カメラの切り替え
                 CamMan.GetComponent<CameraManager>().MainCameraChange();
 
@@ -37,6 +39,8 @@ namespace Play.Enemy
             {
                 //プレイヤー死亡処理
                 InGameManager.Instance.StageOver();
+                //カメラシェイク
+                CamMan.GetComponent<CameraManager>().ShakeCamera();
                 //カメラの切り替え
                 CamMan.GetComponent<CameraManager>().MainCameraChange();
 

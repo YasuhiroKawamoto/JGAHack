@@ -73,13 +73,6 @@ namespace Play
             //カメラの状態チェック
             CamCheck();
 
-            //TODO　カメラ振動テスト
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    //振動
-            //    Debug.Log("カメラ揺らし");
-            //    GetComponent<Play.CameraShake>().ShakeCamera();
-            //}
         }
 
         //遅れて呼び出し（演出の動作の安定性のため）
@@ -220,6 +213,12 @@ namespace Play
         public Cinemachine.CinemachineVirtualCamera GetCullentVCam()
         {
             return _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        }
+
+        public void ShakeCamera()
+        {
+            //カメラ揺らし
+            GetComponent<Play.CameraShake>().ShakeCamera();
         }
     }
 }
