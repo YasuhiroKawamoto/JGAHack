@@ -48,7 +48,7 @@ namespace Play
         /// </summary>
         private void CheckConnect()
         {
-            var controllerNames = Input.GetJoystickNames();
+            var controllerNames = Input.GetJoystickNames()[0];
 
             if (controllerNames.Length > 0)
             {
@@ -73,6 +73,8 @@ namespace Play
             {
                 if (Input.GetButtonDown(button))
                 {
+                    var tmpJoystickName = Input.GetJoystickNames()[0];
+                    Debug.Log(tmpJoystickName);
                     return true;
                 }
             }
