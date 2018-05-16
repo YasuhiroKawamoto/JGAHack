@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class test : MonoBehaviour {
+public class test : MonoBehaviour
+{
 
     Play.GameController con;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         con = Play.GameController.Instance;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (con.GetConnectFlag())
         {
             if (con.ButtonDown(Play.Button.A))
@@ -62,19 +65,19 @@ public class test : MonoBehaviour {
                 Debug.Log("R3");
             }
 
-            if (con.Move(Play.Direction.UP))
+            if (con.Move(Direction.Front))
             {
                 Debug.Log("UP");
             }
-            if (con.Move(Play.Direction.DOWN))
+            if (con.Move(Direction.Back))
             {
                 Debug.Log("DOWN");
             }
-            if (con.Move(Play.Direction.LEFT))
+            if (con.Move(Direction.Left))
             {
                 Debug.Log("LEFT");
             }
-            if (con.Move(Play.Direction.RIGHT))
+            if (con.Move(Direction.Right))
             {
                 Debug.Log("RIGHT");
             }

@@ -18,14 +18,6 @@ namespace Play
         R3,
     }
 
-    public enum Direction
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-    }
-
     public class GameController : Util.SingletonMonoBehaviour<GameController>
     {
         private bool _connected = false;
@@ -88,28 +80,28 @@ namespace Play
 
             switch (d)
             {
-                case Direction.UP:
+                case Direction.Front:
                     if (Input.GetAxis("StickVertical") == 1 || Input.GetAxis("CrossButtonVertical") == 1)
                     {
                         return true;
                     }
                     break;
 
-                case Direction.DOWN:
+                case Direction.Back:
                     if (Input.GetAxis("StickVertical") == -1 || Input.GetAxis("CrossButtonVertical") == -1)
                     {
                         return true;
                     }
                     break;
 
-                case Direction.LEFT:
+                case Direction.Left:
                     if (Input.GetAxis("StickHorizontal") == -1 || Input.GetAxis("CrossButtonHorizontal") == -1)
                     {
                         return true;
                     }
                     break;
 
-                case Direction.RIGHT:
+                case Direction.Right:
                     if (Input.GetAxis("StickHorizontal") == 1 || Input.GetAxis("CrossButtonHorizontal") == 1)
                     {
                         return true;
