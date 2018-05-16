@@ -73,8 +73,6 @@ namespace Play
             {
                 if (Input.GetButtonDown(button))
                 {
-                    var tmpJoystickName = Input.GetJoystickNames()[0];
-                    Debug.Log(tmpJoystickName);
                     return true;
                 }
             }
