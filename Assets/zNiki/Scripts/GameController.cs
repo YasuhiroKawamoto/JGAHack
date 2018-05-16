@@ -81,28 +81,28 @@ namespace Play
             switch (d)
             {
                 case Direction.Front:
-                    if (Input.GetAxis("StickVertical") == 1 || Input.GetAxis("CrossButtonVertical") == 1)
+                    if (Input.GetAxis("StickVertical") >= 0.1f || Input.GetAxis("CrossButtonVertical") >= 0.1f)
                     {
                         return true;
                     }
                     break;
 
                 case Direction.Back:
-                    if (Input.GetAxis("StickVertical") == -1 || Input.GetAxis("CrossButtonVertical") == -1)
+                    if (Input.GetAxis("StickVertical") <= -0.1f || Input.GetAxis("CrossButtonVertical") <= -0.1f)
                     {
                         return true;
                     }
                     break;
 
                 case Direction.Left:
-                    if (Input.GetAxis("StickHorizontal") == -1 || Input.GetAxis("CrossButtonHorizontal") == -1)
+                    if (Input.GetAxis("StickHorizontal") <= -0.1f || Input.GetAxis("CrossButtonHorizontal") <= -0.1f)
                     {
                         return true;
                     }
                     break;
 
                 case Direction.Right:
-                    if (Input.GetAxis("StickHorizontal") == 1 || Input.GetAxis("CrossButtonHorizontal") == 1)
+                    if (Input.GetAxis("StickHorizontal") >= 0.1f || Input.GetAxis("CrossButtonHorizontal") >= 0.1f)
                     {
                         return true;
                     }
