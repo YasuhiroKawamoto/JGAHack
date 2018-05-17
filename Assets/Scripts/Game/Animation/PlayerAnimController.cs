@@ -22,7 +22,6 @@ public class PlayerAnimController : MonoBehaviour
     {
         Vector3 direction = vec;
 
-        //Debug.Log(direction);
 
         _anim.SetBool("Side", false);
         _anim.SetBool("Front", false);
