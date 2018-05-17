@@ -25,7 +25,7 @@ namespace Play.Element
         public override void Initialize()
         {
             //リジットボディ取得
-            _rigitBody2d = GetComponentInChildren<Rigidbody2D>();
+            _rigitBody2d = GetComponentInParent<Rigidbody2D>();
             //滞在位置取得
             _stayPos = transform.position;
 

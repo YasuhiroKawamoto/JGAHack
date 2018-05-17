@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114697729547784942}
   - component: {fileID: 114341245269835074}
   - component: {fileID: 114755572862633682}
-  - component: {fileID: 114749343197622208}
+  - component: {fileID: 114231313855684682}
   m_Layer: 0
   m_Name: EnemyElement
   m_TagString: Element
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 50715875664856172}
   - component: {fileID: 95636095501081504}
   - component: {fileID: 114218790890985316}
+  - component: {fileID: 114904623446993022}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -70,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1226374070059844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 4559477479850780}
@@ -151,6 +152,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 0}
+--- !u!114 &114231313855684682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1141800042515396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c993a294a5139564b99432c54c5bdc7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stayPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114341245269835074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,18 +197,6 @@ MonoBehaviour:
   _overwritePosList: []
   _speed: 0
   _returnPosition: {x: 0, y: 0, z: 0}
---- !u!114 &114749343197622208
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1141800042515396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf193fb9fd433b641b51ceae0252663d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CamMan: {fileID: 0}
 --- !u!114 &114755572862633682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +209,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _direction: 0
+--- !u!114 &114904623446993022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1226374070059844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf193fb9fd433b641b51ceae0252663d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CamMan: {fileID: 0}
 --- !u!212 &212875001060320038
 SpriteRenderer:
   m_ObjectHideFlags: 1
