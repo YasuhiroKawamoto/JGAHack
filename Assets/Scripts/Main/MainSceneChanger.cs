@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Util
+namespace Main
 {
-    /// <summary>
-    /// シーンロードのサンプル
-    /// </summary>
-    public class AsyncLoadSample : MonoBehaviour
+    public class MainSceneChanger : MonoBehaviour
     {
+
         // 初期ディスプレイ
         [SerializeField]
-        private Display.DisplayBase _initDisplay = null;
+        private Util.Display.DisplayBase _initDisplay = null;
 
         // 遷移する際押すマウスの対応した番号
         [SerializeField]
@@ -24,15 +22,16 @@ namespace Util
         private void Awake()
         {
             // 初期ディスプレイ
-            Display.DisplayManager.Instance.ChangeDisplay(_initDisplay);
+            Util.Display.DisplayManager.Instance.ChangeDisplay(_initDisplay);
         }
 
         void Update()
         {
             if (Input.GetMouseButtonDown(_button))
             {
+                TakeOverData.Instance.StageNum = 1;
                 // 呼び出しはこれ
-                Scene.SceneManager.Instance.ChangeSceneFadeInOut(_sceneName);
+                Util.Scene.SceneManager.Instance.ChangeSceneFadeInOut(_sceneName);
             }
         }
     }

@@ -44,7 +44,7 @@ namespace Play
             {
                 tryMove = KeyboardControl();
             }
-
+            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
             _rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
         }
 

@@ -15,9 +15,21 @@ namespace Play
         //プレイヤー
         [SerializeField]
         private GameObject _player;
+        public GameObject Player
+        {
+            get { return _player; }
+            set { _player = value; }
+        }
+
         //ゴール
         [SerializeField]
         private GameObject _goal;
+        public GameObject Goal
+        {
+            get { return _goal; }
+            set { _goal = value; }
+        }
+
         //カメラ本体
         [SerializeField, ReadOnly]
         private GameObject _mainCam;
@@ -51,21 +63,7 @@ namespace Play
         [SerializeField]
         private bool _isFixed = false;
 
-        private void Awake()
-        {
-            //カメラの初期設定
-            InitCamera();
-        }
-        // Use this for initialization
-        void Start()
-        { 
-            //カメラ切り替え時間の設定
-            _camChangeTime = _camChangeTimeLimit;
-            //カメラのセット
-            CameraSetting(_camB, _camA);
-            //カメラの切り替わり所要時間の変更
-            _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 3;
-        }
+    
 
         // Update is called once per frame
         void Update()
@@ -75,17 +73,7 @@ namespace Play
 
         }
 
-        //遅れて呼び出し（演出の動作の安定性のため）
-        void LateUpdate()
-        {
-            //開始時のみ呼ばれる
-            if (!_isStarted)
-            {
-                //開始時のカメラ挙動
-                StartCamMove();
-                _isStarted = true;
-            }
-        }
+     
 
         //メインカメラの切り替え
         public void MainCameraChange()
@@ -107,7 +95,7 @@ namespace Play
                 //切り替えフラグON
                 _isChanging = true;
             }
-            else if(_currentCam == _camB)
+            else if (_currentCam == _camB)
             {
                 //カメラの優先度切り替え
                 _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
@@ -129,8 +117,9 @@ namespace Play
         void CameraSetting(GameObject oldCam, GameObject nextCam)
         {
             //フォロー対象をプレイヤーにセット
-            nextCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _player.transform;
-            nextCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = _player.transform;
+            nextCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = Player.transform;
+            nextCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = Player.transform;
+
             //プレイヤー復活地点を取得
             Vector3 resetPos = InGameManager.Instance.GetStartPos();
             resetPos.z = -10.0f;
@@ -141,6 +130,9 @@ namespace Play
         //カメラの状態チェック
         void CamCheck()
         {
+         
+
+
             //カメラ切り替え中にセッティング変更
             if (_isChanging)
             {
@@ -166,7 +158,7 @@ namespace Play
         }
 
         //カメラの初期設定
-        private void InitCamera()
+        public void InitCamera()
         {
             //メインカメラ取得
             _mainCam = Camera.main.gameObject;
@@ -179,15 +171,15 @@ namespace Play
             _camStage = _camArray[3].gameObject;
             //疑似カメラ詳細設定
             //疑似カメラAセッティング
-            _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _player.transform;
-            _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = _player.transform;
+            _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = Player.transform;
+            _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = Player.transform;
             //疑似カメラBセッティング
             _camB.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = null;
             _camB.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = null;
             //ゴールカメラセッティング
-            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = _goal.transform;
-            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = _goal.transform;
-    
+            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = Goal.transform;
+            _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = Goal.transform;
+
             //固定カメラモードなら
             if (_isFixed)
             {
@@ -206,7 +198,27 @@ namespace Play
                 _camStage.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
                 //現在カメラのセット
                 _currentCam = _camA;
-            }  
+            }
+
+
+            //カメラ切り替え時間の設定
+            _camChangeTime = _camChangeTimeLimit;
+            //カメラのセット
+            CameraSetting(_camB, _camA);
+            //カメラの切り替わり所要時間の変更
+            _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 3;
+            //シェイクカメラリセット
+            GetComponent<CameraShake>().CameraReset();
+
+
+
+            //開始時のみ呼ばれる
+            if (!_isStarted)
+            {
+                //開始時のカメラ挙動
+                StartCamMove();
+                _isStarted = true;
+            }
         }
 
         //現在の疑似カメラの情報を送る
