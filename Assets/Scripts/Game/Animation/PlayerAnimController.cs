@@ -36,12 +36,12 @@ public class PlayerAnimController : MonoBehaviour
             //左
             if (-0.4f >= direction.x)
             {
-                transform.localScale = new Vector3(5, 5, 1);
+                transform.localScale = new Vector3(1, 1, 1);
                 _anim.SetBool("Side", true);
             }
             else if (0.4f <= direction.x)
             {
-                transform.localScale = new Vector3(-5, 5, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
                 _anim.SetBool("Side", true);
             }
 
@@ -54,18 +54,18 @@ public class PlayerAnimController : MonoBehaviour
             //上
             if (0.4f >= Mathf.Abs(direction.x))
             {
-                transform.localScale = new Vector3(5, 5, 1);
+                transform.localScale = new Vector3(1, 1, 1);
                 _anim.SetBool("Front", true);
             }
             else if (-0.4f >= direction.x)
             {
-                transform.localScale = new Vector3(5, 5, 1);
+                transform.localScale = new Vector3(1, 1, 1);
                 _anim.SetBool("SideFront", true);
 
             }
             else if (0.4f <= direction.x)
             {
-                transform.localScale = new Vector3(-5, 5, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
                 _anim.SetBool("SideFront", true);
             }
 
@@ -79,17 +79,17 @@ public class PlayerAnimController : MonoBehaviour
             //下
             if (0.4f >= Mathf.Abs(direction.x))
             {
-                transform.localScale = new Vector3(5, 5, 1);
+                transform.localScale = new Vector3(1, 1, 1);
                 _anim.SetBool("Back", true);
             }
             else if (-0.4f >= direction.x)
             {
-                transform.localScale = new Vector3(5, 5, 1);
+                transform.localScale = new Vector3(1, 1, 1);
                 _anim.SetBool("SideBack", true);
             }
             else if (0.4f <= direction.x)
             {
-                transform.localScale = new Vector3(-5, 5, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
                 _anim.SetBool("SideBack", true);
             }
 
