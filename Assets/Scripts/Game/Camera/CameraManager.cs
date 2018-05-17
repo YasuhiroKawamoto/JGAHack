@@ -110,6 +110,7 @@ namespace Play
         //ゴール表示カメラの優先度変更
         void StartCamMove()
         {
+            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
         }
 
@@ -209,8 +210,6 @@ namespace Play
             _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 3;
             //シェイクカメラリセット
             GetComponent<CameraShake>().CameraReset();
-
-
 
             //開始時のみ呼ばれる
             if (!_isStarted)

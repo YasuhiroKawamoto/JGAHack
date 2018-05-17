@@ -36,7 +36,7 @@ namespace Play.Element
         public override void Initialize()
         {
             //リジットボディ取得
-            _rigitBody2d = GetComponent<Rigidbody2D>();
+            _rigitBody2d = GetComponentInChildren<Rigidbody2D>();
             //円周と周期から回転速度を求める
             _speed = Mathf.Abs((2.0f * Mathf.PI * _radius) / _requiredTime);
 
