@@ -63,20 +63,7 @@ namespace Play
         [SerializeField]
         private bool _isFixed = false;
 
-        private void Awake()
-        {
-            //カメラの初期設定
-            InitCamera();
-        }
-        void Start()
-        {
-            //カメラ切り替え時間の設定
-            _camChangeTime = _camChangeTimeLimit;
-            //カメラのセット
-            CameraSetting(_camB, _camA);
-            //カメラの切り替わり所要時間の変更
-            _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 3;
-        }
+    
 
         // Update is called once per frame
         void Update()
@@ -86,17 +73,7 @@ namespace Play
 
         }
 
-        //遅れて呼び出し（演出の動作の安定性のため）
-        void LateUpdate()
-        {
-            //開始時のみ呼ばれる
-            if (!_isStarted)
-            {
-                //開始時のカメラ挙動
-                StartCamMove();
-                _isStarted = true;
-            }
-        }
+     
 
         //メインカメラの切り替え
         public void MainCameraChange()
@@ -153,6 +130,9 @@ namespace Play
         //カメラの状態チェック
         void CamCheck()
         {
+         
+
+
             //カメラ切り替え中にセッティング変更
             if (_isChanging)
             {
@@ -178,7 +158,7 @@ namespace Play
         }
 
         //カメラの初期設定
-        private void InitCamera()
+        public void InitCamera()
         {
             //メインカメラ取得
             _mainCam = Camera.main.gameObject;
@@ -218,6 +198,26 @@ namespace Play
                 _camStage.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
                 //現在カメラのセット
                 _currentCam = _camA;
+            }
+
+
+            //カメラ切り替え時間の設定
+            _camChangeTime = _camChangeTimeLimit;
+            //カメラのセット
+            CameraSetting(_camB, _camA);
+            //カメラの切り替わり所要時間の変更
+            _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 3;
+            //シェイクカメラリセット
+            GetComponent<CameraShake>().CameraReset();
+
+
+
+            //開始時のみ呼ばれる
+            if (!_isStarted)
+            {
+                //開始時のカメラ挙動
+                StartCamMove();
+                _isStarted = true;
             }
         }
 

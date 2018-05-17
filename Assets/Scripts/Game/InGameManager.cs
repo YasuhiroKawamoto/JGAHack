@@ -88,6 +88,10 @@ namespace Play
             CameraManager.Player = StageManager.Player.gameObject;
             CameraManager.Goal = StageManager.Goal.gameObject;
 
+            Debug.Log("初期化");
+            //カメラ初期化
+            CameraManager.InitCamera();
+
             yield return null;
         }
 
