@@ -161,8 +161,17 @@ namespace Play.LockOn
             //リスト内のオブジェクトをプレイヤーとの距離で比較
             foreach (GameObject obs in _lockOnList)
             {
-                //自身と取得したオブジェクトの距離を取得
-                tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
+                //自身と取得したオブジェクトの距離を取得]
+                if (obs.transform.parent != null)
+                {
+                    tmpDis = Vector3.Distance(obs.transform.parent.position, nowObj.transform.parent.position);
+                }
+                else
+                {
+                    tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.parent.position);
+                }
+               
+                  
 
                 //オブジェクトの距離が近いか、距離0であればオブジェクトを取得
                 //一時変数に距離を格納
