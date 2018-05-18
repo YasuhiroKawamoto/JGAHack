@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Extensions;
 
 #if UNITY_EDITOR
 
@@ -46,7 +47,7 @@ namespace UnityEditor
         /// <param name="position"></param>
         public override void Erase(GridLayout grid, GameObject layer, Vector3Int position)
         {
-            foreach (var obj in AllObjects)
+            foreach (var obj in GetLayer().GetAllChild())
             {
                 if (grid.WorldToCell(obj.transform.position) == position)
                 {
