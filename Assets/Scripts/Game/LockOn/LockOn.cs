@@ -12,70 +12,25 @@ namespace Play.LockOn
         [SerializeField]
         public List<GameObject> _lockOnList = new List<GameObject>();
 
-        // Use this for initialization
-        void Start()
-        {
-            //カメラに写ってるオブジェクト取得
-            GetTargetOnScreen();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        //画面内のTarget対象を取得
-        void GetTargetOnScreen()
+        //ステージ内のすべての「Element」タグオブジェをリストに収納(シーン開始時に呼ぶ)
+        void CreateLockonList()
         {
             //リストのクリア
             _lockOnList.Clear();
+
             //指定したタグのオブジェクトを全て引っ張ってくる
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Element"))
-            {
-                //カメラ範囲内に映っていた場合に処理
-                if (CheckOnScreen(obj.transform.position))
-                {
+            {         
                     //ロックオンリストに追加
                     _lockOnList.Add(obj);
-                }
             }
 
             //ロックオンリストの内容をtransform.position.xでソート(昇順)
             _lockOnList.Sort(ComparePosXAsc);
-            ////TODO リスト内オブジェクトの表示
-            //ShowListContentsInTheDebugLog(_lockOnList);
-            ////TODO 一番近いリスト内オブジェクトのリスト番号を取得表示
-            //Debug.Log(GetNearObjOnList());
-
-        }
-
-        //リスト内にmissingがあれば排斥
-        void ListCheck()
-        {
-            //消すオブジェ
-            GameObject exclusionObj = null;
-            //リスト内のチェック
-            foreach (GameObject obj in _lockOnList)
-            {
-                //missing or null だった場合
-                if (!obj)
-                {
-                    //該当オブジェクトを排斥対象に
-                    exclusionObj = obj;
-                }
-
-            }
-            //排斥対象があれば
-            if (exclusionObj)
-            {
-                //リストから排斥
-                _lockOnList.Remove(exclusionObj);
-            }
         }
 
         //カメラ範囲内に映ってるか？（対象の位置を参照）
-        private bool CheckOnScreen(Vector3 _pos)
+        public bool CheckOnScreen(Vector3 _pos)
         {
             //メインカメラ範囲に対しての対象の座標を参照
             Vector3 view_pos = Camera.main.WorldToViewportPoint(_pos);
@@ -94,8 +49,9 @@ namespace Play.LockOn
         //ロックオンリストの取得
         public List<GameObject> GetLockOnList()
         {
-            GetTargetOnScreen();
-
+            //TODO　ロックオンリスト作成
+             CreateLockonList();           
+            //ロックオンリストを返す
             return _lockOnList;
         }
 
@@ -124,11 +80,11 @@ namespace Play.LockOn
         }
 
 
-        //リスト内の要素をDebug.Logに表示する
+        //リスト内の要素をDebug.Logに表示する(デバッグ用)
         public void ShowListContentsInTheDebugLog<T>(List<T> list)
-        {
+        {      
             string log = "";
-
+  
             foreach (var content in list.Select((val, idx) => new { val, idx }))
             {
                 if (content.idx == list.Count - 1)
@@ -136,12 +92,8 @@ namespace Play.LockOn
                 else
                     log += content.val.ToString() + ", ";
             }
-
-            Debug.Log(log);
+            Debug.Log(log+ "要素数"+list.Count);
         }
-
-
-
 
 
         //指定されたオブジェクトに最も近いオブジェクトをリストから取得しその要素番号を返す。
@@ -170,9 +122,7 @@ namespace Play.LockOn
                 {
                     tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.parent.position);
                 }
-               
-                  
-
+                           
                 //オブジェクトの距離が近いか、距離0であればオブジェクトを取得
                 //一時変数に距離を格納
                 if (nearDis == 0 || nearDis > tmpDis)
@@ -184,16 +134,9 @@ namespace Play.LockOn
                 }
                 //カウントアップ
                 count++;
-
             }
             //最も近かったオブジェクトのリスト内番号を返す
             return nearObjNum;
         }
-
-
     }
-
-
-
-
 }

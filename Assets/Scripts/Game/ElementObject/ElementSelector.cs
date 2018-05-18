@@ -79,13 +79,14 @@ namespace Play
 
             if (isTarget != TargetChoice.None)
             {
+                //TODO ココの処理をシーン開始時に読んでください
                 if (_targetList == null)
                 {
                     var lockOn = new LockOn.LockOn();
                     _targetList = lockOn.GetLockOnList();
                     _targetNum = lockOn.GetNearObjOnList();
                 }
-
+      
                 // 次のターゲットオブジェクトを取得
                 if (isTarget != TargetChoice.Next)
                 {
@@ -125,12 +126,16 @@ namespace Play
         }
 
         /// <summary>
-        /// 次のターゲットを取得
+        /// 次のターゲットを取得(リスト整理込み)
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
         private GameObject GetNextTarget()
         {
+
+            //消すオブジェ
+            GameObject exclusionObj = null;
+
             _targetNum++;
 
             if (_targetList.Count <= _targetNum)
@@ -138,21 +143,43 @@ namespace Play
                 _targetNum = 0;
             }
             var obj = _targetList[_targetNum];
-
+            //オブジェクトが「missing」（破壊済み）の場合
             if (obj == null)
             {
+                //該当オブジェクトを排斥対象に
+                exclusionObj = obj;
+                //リストから排斥
+                _targetList.Remove(exclusionObj);
+                //再起呼び出し
                 obj = GetNextTarget();
+            }
+            //オブジェクトのチェックが外れている（再生待機）時
+            else if (obj.activeInHierarchy == false)
+            {
+                //再起呼び出し
+                obj = GetOldTarget();
+            }
+
+            var lockOn = new LockOn.LockOn();
+            //カメラ内に入っていなければ飛ばし
+            if (lockOn.CheckOnScreen(obj.transform.position) == false)
+            {
+                //再起呼び出し
+                obj = GetOldTarget();
             }
 
             return obj;
         }
 
         /// <summary>
-        /// 一個前のターゲット
+        /// 一個前のターゲット(リスト整理込み)
         /// </summary>
         /// <returns></returns>
         private GameObject GetOldTarget()
         {
+            //消すオブジェ
+            GameObject exclusionObj = null;
+
             _targetNum--;
 
             if (_targetNum < 0)
@@ -161,8 +188,28 @@ namespace Play
             }
             var obj = _targetList[_targetNum];
 
+            //オブジェクトが「missing」（破壊済み）の場合
             if (obj == null)
             {
+                //該当オブジェクトを排斥対象に
+                exclusionObj = obj;
+                //リストから排斥
+                _targetList.Remove(exclusionObj);
+                //再起呼び出し
+                obj = GetOldTarget();
+            }
+            //オブジェクトのチェックが外れている（再生待機）時
+            else if(obj.activeInHierarchy == false)
+            {
+                //再起呼び出し
+                obj = GetOldTarget();
+            }
+
+            var lockOn = new LockOn.LockOn();
+            //カメラ内に入っていなければ飛ばし
+            if (lockOn.CheckOnScreen(obj.transform.position) == false)
+            {
+                //再起呼び出し
                 obj = GetOldTarget();
             }
 
