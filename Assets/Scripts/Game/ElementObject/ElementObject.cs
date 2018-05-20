@@ -298,5 +298,21 @@ namespace Play.Element
 			_rigidBody2d.MovePosition(Vector3.MoveTowards(transform.position, _returnPosition, Time.deltaTime * _speed));
 
 		}
+
+		/// <summary>
+		/// 復活
+		/// </summary>
+		public void Reborn()
+		{
+			// 初期化
+			// 初期位置
+			_rigidBody2d.gameObject.transform.position = _initPos;
+
+			// 動きリセット
+			ElementUpdate();
+
+			// 復活
+			transform.parent.gameObject.SetActive(true);
+		}
 	}
 }

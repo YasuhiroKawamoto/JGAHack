@@ -6,157 +6,176 @@ using UnityEngine.SceneManagement;
 
 namespace Play
 {
-    // インゲームの管理クラス
-    public class InGameManager : Util.SingletonMonoBehaviour<InGameManager>
-    {
-        // ゲームの状態
-        public enum State
-        {
-            Stand = 0,
-            Play,
-            Pause,
-            Clear,
-            Over
-        }
+	// インゲームの管理クラス
+	public class InGameManager : Util.SingletonMonoBehaviour<InGameManager>
+	{
+		// ゲームの状態
+		public enum State
+		{
+			Stand = 0,
+			Play,
+			Pause,
+			Clear,
+			Over
+		}
 
-        // 状態
-        [SerializeField, Extensions.ReadOnly]
-        private State _state = State.Stand;
-        public State GameState
-        {
-            get { return _state; }
-        }
+		// 状態
+		[SerializeField, Extensions.ReadOnly]
+		private State _state = State.Stand;
+		public State GameState
+		{
+			get { return _state; }
+		}
 
-        // UIRoot
-        [SerializeField]
-        private GameObject _uiRoot = null;
-        public GameObject UIRoot
-        {
-            get { return _uiRoot; }
-        }
+		// UIRoot
+		[SerializeField]
+		private GameObject _uiRoot = null;
+		public GameObject UIRoot
+		{
+			get { return _uiRoot; }
+		}
 
-        // ElementRoot
-        [SerializeField]
-        private GameObject _elementObjRoot = null;
-        public GameObject ElementObjRoot
-        {
-            get { return _elementObjRoot; }
-        }
+		// ElementRoot
+		[SerializeField]
+		private GameObject _elementObjRoot = null;
+		public GameObject ElementObjRoot
+		{
+			get { return _elementObjRoot; }
+		}
 
-        // ステージ管理
-        [SerializeField]
-        private Stage.StageManager _stageManager = null;
-        public StageManager StageManager
-        {
-            get { return _stageManager; }
-        }
+		// ステージ管理
+		[SerializeField]
+		private Stage.StageManager _stageManager = null;
+		public StageManager StageManager
+		{
+			get { return _stageManager; }
+		}
 
-        // カメラ管理
-        [SerializeField]
-        private CameraManager _cameraManager = null;
+		// カメラ管理
+		[SerializeField]
+		private CameraManager _cameraManager = null;
 
-        public CameraManager CameraManager
-        {
-            get { return _cameraManager; }
-        }
+		public CameraManager CameraManager
+		{
+			get { return _cameraManager; }
+		}
 
-        void OnGUI()
-        {
-            if (_state == State.Clear)
-            {
-                GUI.Label(new Rect(370, 50, 100, 50), "Clear");
-                // ボタンを表示する
-                if (GUI.Button(new Rect(320, 170, 100, 50), "ReStart"))
-                {
-                    GameReLoad();
-                }
-            }
-        }
+		// 復活管理システム
+		[SerializeField]
+		private RebornManager _rebornManager = null;
 
-        void Start()
-        {
-            // ゲームの設定
-            StartCoroutine(StartSetUp());
-        }
+		void OnGUI()
+		{
+			if (_state == State.Clear)
+			{
+				GUI.Label(new Rect(370, 50, 100, 50), "Clear");
+				// ボタンを表示する
+				if (GUI.Button(new Rect(320, 170, 100, 50), "ReStart"))
+				{
+					GameReLoad();
+				}
+			}
+		}
 
-        private IEnumerator StartSetUp()
-        {
-            // ステージプレハブの設定
-            yield return LoadStage();
+		void Start()
+		{
+			// ゲームの設定
+			StartCoroutine(StartSetUp());
+		}
 
-            // カメラに必要な要素を設定
-            CameraManager.Player = StageManager.Player.gameObject;
-            CameraManager.Goal = StageManager.Goal.gameObject;
+		private IEnumerator StartSetUp()
+		{
+			// 復活マネージャーの取得
+			_rebornManager = this.GetComponent<RebornManager>();
 
-            //カメラ初期化
-            CameraManager.InitCamera();
+			// ステージプレハブの設定
+			yield return LoadStage();
 
-            yield return null;
-        }
+			// カメラに必要な要素を設定
+			CameraManager.Player = StageManager.Player.gameObject;
+			CameraManager.Goal = StageManager.Goal.gameObject;
 
-        /// <summary>
-        /// ステージの読み込み
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator LoadStage()
-        {
-            // アセットのロード
-            var stageAsset = Resources.LoadAsync("Stage/TestGrid");
+			//カメラ初期化
+			CameraManager.InitCamera();
 
-            // ロード待ち
-            yield return new WaitWhile(() => !stageAsset.isDone);
+			yield return null;
+		}
 
-            var stageObj = stageAsset.asset as GameObject;
-            var stage = Instantiate(stageObj);
+		/// <summary>
+		/// ステージの読み込み
+		/// </summary>
+		/// <returns></returns>
+		private IEnumerator LoadStage()
+		{
+			// アセットのロード
+			var stageAsset = Resources.LoadAsync("Stage/TestGrid");
 
-            var manager = stage.GetComponent<StageManager>();
+			// ロード待ち
+			yield return new WaitWhile(() => !stageAsset.isDone);
 
-            // ステージマネージャーの設定
-            _stageManager = manager;
-        }
+			var stageObj = stageAsset.asset as GameObject;
+			var stage = Instantiate(stageObj);
 
-        /// <summary>
-        /// ゲームの開始
-        /// </summary>
-        public void GameStart()
-        {
-            _state = State.Play;
-        }
+			var manager = stage.GetComponent<StageManager>();
 
-        /// <summary>
-        /// ステージのクリア
-        /// </summary>
-        public void StageClear()
-        {
-            _state = State.Clear;
-        }
+			// ステージマネージャーの設定
+			_stageManager = manager;
+		}
 
-        /// <summary>
-        /// ステージの失敗
-        /// </summary>
-        public void StageOver()
-        {
-            StageManager.ReTry();
-        }
+		/// <summary>
+		/// ゲームの開始
+		/// </summary>
+		public void GameStart()
+		{
+			_state = State.Play;
+		}
 
-        public void GameReLoad()
-        {
-            Scene loadScene = SceneManager.GetActiveScene();
-            // Sceneの読み直し
-            SceneManager.LoadScene(loadScene.name);
-        }
+		/// <summary>
+		/// ステージのクリア
+		/// </summary>
+		public void StageClear()
+		{
+			_state = State.Clear;
+		}
 
-        /// <summary>
-        /// ゲームの一時停止
-        /// </summary>
-        public void GamePause()
-        {
-            _state = State.Pause;
-        }
+		/// <summary>
+		/// ステージの失敗
+		/// </summary>
+		public void StageOver()
+		{
+			StageManager.ReTry();
+		}
 
-        public Vector3 GetStartPos()
-        {
-            return StageManager.GetStartPos();
-        }
-    }
+		public void GameReLoad()
+		{
+			Scene loadScene = SceneManager.GetActiveScene();
+			// Sceneの読み直し
+			SceneManager.LoadScene(loadScene.name);
+		}
+
+		/// <summary>
+		/// ゲームの一時停止
+		/// </summary>
+		public void GamePause()
+		{
+			_state = State.Pause;
+		}
+
+		public Vector3 GetStartPos()
+		{
+			return StageManager.GetStartPos();
+		}
+
+		/// <summary>
+		/// 復活のセット
+		/// </summary>
+		/// <param name="bObj"></param>
+		public void RebornSet(Element.BreakElement bObj)
+		{
+			if (_rebornManager)
+			{
+				_rebornManager.RebornSet(bObj);
+			}
+		}
+	}
 }

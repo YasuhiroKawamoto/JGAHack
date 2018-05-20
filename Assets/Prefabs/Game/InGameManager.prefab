@@ -35,6 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4246242612407680}
   - component: {fileID: 114994067485788136}
+  - component: {fileID: 114865087551257350}
   m_Layer: 0
   m_Name: InGameManager
   m_TagString: Untagged
@@ -104,6 +105,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114865087551257350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1618923966080664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9008b2db680a04e825956f6573f0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114867473040883678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,6 +152,8 @@ MonoBehaviour:
   _uiRoot: {fileID: 1702075069288618}
   _elementObjRoot: {fileID: 1031779106701318}
   _stageManager: {fileID: 0}
+  _cameraManager: {fileID: 0}
+  _rebornManager: {fileID: 0}
 --- !u!223 &223941375936764176
 Canvas:
   m_ObjectHideFlags: 1
