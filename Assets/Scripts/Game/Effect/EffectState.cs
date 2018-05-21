@@ -5,24 +5,13 @@ using Extensions;
 
 public class EffectState : MonoBehaviour {
 
-    //RectTransformか？
-    [SerializeField]
-    private bool _isRect = false;
+   
     //活動時間
     [SerializeField]
-    private float _ActivTime;
-
-
-    public bool GetIsRect()
-    {
-        return _isRect;
-    }
-
+    private float _ActivTime = 0;
 
     public float GetIsActTime()
     {
         return _ActivTime;
     }
-
-
 }
