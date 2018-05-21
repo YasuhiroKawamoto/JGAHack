@@ -80,8 +80,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af42689180ada9f47bbd950061d1e89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  __effects: []
+  _effects: []
   _effectPlace: {fileID: 1684713812828636}
-  _effectNum: 6
-  _createPos: {x: 0, y: 0, z: 0}
-  _parentGameObj: {fileID: 0}

@@ -215,7 +215,7 @@ namespace Play
             var text = GameObject.Instantiate(_elementText);
             _targetObject.transform.SetChild(text.gameObject);
             // ターゲットマーカー作成
-            var obj = Instantiate(_target);
+            var obj = InGameManager.Instance.EffectManager.CreateEffect(EffectID.LookOn);
             text.transform.SetChild(obj);
             text.transform.localPosition = Vector3.zero;
             text.gameObject.AddComponent<Canvas>();

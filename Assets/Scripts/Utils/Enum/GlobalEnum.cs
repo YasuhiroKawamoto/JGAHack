@@ -62,7 +62,6 @@ public static class EffectIDEx
             case EffectID.EnemyRecovery:
                 isRect = true;
                 break;
-
             case EffectID.EnemyRespown:
                 isRect = false;
                 break;

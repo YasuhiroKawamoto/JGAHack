@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222516665444897716}
   - component: {fileID: 114981734148704836}
   - component: {fileID: 95462655963860612}
+  - component: {fileID: 114379482246311198}
   m_Layer: 5
   m_Name: EnemyRecovery
   m_TagString: Untagged
@@ -91,6 +92,18 @@ MonoBehaviour:
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
+--- !u!114 &114379482246311198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1655535840521488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a65d8dd7eeb6b7242bab8732b9daf921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActivTime: 0
 --- !u!114 &114687344779055396
 MonoBehaviour:
   m_ObjectHideFlags: 1
