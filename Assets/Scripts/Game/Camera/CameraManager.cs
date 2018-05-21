@@ -62,8 +62,12 @@ namespace Play
         //固定カメラかどうか？
         [SerializeField]
         private bool _isFixed = false;
+        //演出が終わったか？
+        [SerializeField,ReadOnly]
+        private bool _isEndProduction = false;
 
-    
+
+
 
         // Update is called once per frame
         void Update()
@@ -72,8 +76,6 @@ namespace Play
             CamCheck();
 
         }
-
-     
 
         //メインカメラの切り替え
         public void MainCameraChange()
@@ -112,6 +114,7 @@ namespace Play
         {
             _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
+            
         }
 
         //カメラの設定変更
@@ -131,9 +134,6 @@ namespace Play
         //カメラの状態チェック
         void CamCheck()
         {
-         
-
-
             //カメラ切り替え中にセッティング変更
             if (_isChanging)
             {
@@ -159,7 +159,7 @@ namespace Play
         }
 
         //カメラの初期設定
-        public void InitCamera()
+        public  IEnumerator InitCamera()
         {
             //メインカメラ取得
             _mainCam = Camera.main.gameObject;
@@ -218,6 +218,11 @@ namespace Play
                 StartCamMove();
                 _isStarted = true;
             }
+            //カメラ遷移時間分待機
+             yield return new WaitForSeconds(_mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time);
+            //演出終わりフラグON
+            _isEndProduction = true;
+
         }
 
         //現在の疑似カメラの情報を送る
@@ -230,6 +235,19 @@ namespace Play
         {
             //カメラ揺らし
             GetComponent<Play.CameraShake>().ShakeCamera();
+        }
+
+
+        //初期演出終了フラグ検知
+        public bool GetEndProduction()
+        {
+            return _isEndProduction;
+        }
+
+        //カメラ切り替え中か？
+        public bool GetChangeCam()
+        {
+            return _isChanging;
         }
     }
 }
