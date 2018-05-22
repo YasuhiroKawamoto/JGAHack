@@ -6,7 +6,7 @@ using Extensions;
 
 namespace Play.Enemy
 {
-    //Tackle
+    //タックルアクション
     public class Tackle : MonoBehaviour
     {
         //タックルの速度
@@ -31,10 +31,10 @@ namespace Play.Enemy
         [SerializeField, ReadOnly]
         private bool _isFound = false;
 
-
-        // Use this for initialization
+        //アクティブ時
         void OnEnable()
         {
+            //初期位置首都機
             _startPos = transform.position;
             //剛体取得
             _rigidBody2d = GetComponentInParent<Rigidbody2D>();
@@ -42,17 +42,18 @@ namespace Play.Enemy
             _dir = gameObject.GetComponentInChildren<Play.Element.DiectionTest>().GetDir();
             //タックル用当たり判定生成
             SetCollider();
-
-
+        }
+    
+        private void OnDisable()
+        {
+            //非アクティブ時にコライダー破棄
+            Destroy(GetComponent<BoxCollider2D>());
         }
 
-
-
+        //プレイヤー発見用のコライダーを作成。
         private void SetCollider()
-        {
-            //// 空のオブジェクト
-            //GameObject gameObject = new GameObject();
-            //// BoxのColliderを貼り付ける
+        {        
+            //// オブジェクトにBoxCollider2Dを貼り付ける
             gameObject.AddComponent<BoxCollider2D>();
             //新しく作成した空のオブジェクトに自分をはっつける
             gameObject.transform.parent = transform;
@@ -86,11 +87,10 @@ namespace Play.Enemy
                     gameObject.GetComponent<BoxCollider2D>().size = new Vector3(_range, 1, 1);
                     break;
             }
-
         }
 
 
-         private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             //攻撃判定に触れたのがプレイヤーなら
             if (collision.gameObject.tag == "Player")
@@ -100,11 +100,10 @@ namespace Play.Enemy
                 {
                     StartCoroutine(TackleMove(collision.gameObject));
                 }
-               
             }
         }
 
-     
+
         private IEnumerator TackleMove(GameObject obj)
         {
             _isFound = true;
@@ -114,18 +113,13 @@ namespace Play.Enemy
             //タックル終了地点セット
             _endPos = obj.transform.position;
 
-            Debug.Log("ムーブ開始");
-
             while (transform.position != _endPos)
             {
-               
                 // 目標置に向かって移動
                 _rigidBody2d.MovePosition(Vector3.MoveTowards(transform.parent.position, _endPos, Time.deltaTime * _speed));
-
                 yield return null;
-
             }
-
+            //元の位置に戻るコルーチン開始
             yield return StartCoroutine(ReturnStartPos());
         }
 
@@ -133,20 +127,14 @@ namespace Play.Enemy
         //開始位置に戻る
         private IEnumerator ReturnStartPos()
         {
-
-            Debug.Log("帰る");
-
             while (transform.position != _startPos)
             {
-               
-                    // TODO: 元の位置に向かって移動
-                    _rigidBody2d.MovePosition(Vector3.MoveTowards(transform.parent.position, _startPos, Time.deltaTime * _speed));
-
+                // TODO: 元の位置に向かって移動
+                _rigidBody2d.MovePosition(Vector3.MoveTowards(transform.parent.position, _startPos, Time.deltaTime * _speed));
                 yield return null;
             }
-
-            Debug.Log("帰宅");
+            //プレイヤー未発見状態に戻る
             _isFound = false;
         }
-    }    
+    }
 }
