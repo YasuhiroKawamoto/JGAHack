@@ -19,22 +19,26 @@ namespace Play.Enemy
 
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Player"&&gameObject.GetComponent<BoxCollider2D>().isTrigger)
+            //持っているコライダーで処理変更
+            if (gameObject.GetComponent<CircleCollider2D>())
             {
-                //プレイヤー死亡処理
-                InGameManager.Instance.StageOver();
-                //カメラシェイク
-                CamMan.GetComponent<CameraManager>().ShakeCamera();
-                //カメラの切り替え
-                CamMan.GetComponent<CameraManager>().MainCameraChange();
-
+                //Circleコライダー（弾）に当たった場合。
+                if (col.gameObject.tag == "Player" && gameObject.GetComponent<CircleCollider2D>().isTrigger)
+                {
+                    //プレイヤー死亡処理
+                    InGameManager.Instance.StageOver();
+                    //カメラシェイク
+                    CamMan.GetComponent<CameraManager>().ShakeCamera();
+                    //カメラの切り替え
+                    CamMan.GetComponent<CameraManager>().MainCameraChange();
+                }
             }
-
         }
 
 
         void OnCollisionEnter2D(Collision2D col)
         {
+            //ボックスコライダー（敵本体）に当たった時の判定
             if (col.gameObject.tag == "Player"&&!gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
                 //プレイヤー死亡処理
@@ -45,7 +49,6 @@ namespace Play.Enemy
                 CamMan.GetComponent<CameraManager>().MainCameraChange();
 
             }
-
         }
     }
     

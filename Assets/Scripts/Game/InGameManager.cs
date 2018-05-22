@@ -88,7 +88,11 @@ namespace Play
 
 			// ゲームの設定
 			StartCoroutine(StartSetUp());
-		}
+
+           
+
+
+        }
 
 		private IEnumerator StartSetUp()
 		{
@@ -102,9 +106,11 @@ namespace Play
 			CameraManager.Player = StageManager.Player.gameObject;
 			CameraManager.Goal = StageManager.Goal.gameObject;
 
-			//カメラ初期化
-			CameraManager.InitCamera();
-		}
+            //カメラ初期化
+            StartCoroutine(CameraManager.InitCamera());
+
+
+        }
 
 		/// <summary>
 		/// ステージの読み込み

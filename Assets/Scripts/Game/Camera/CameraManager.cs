@@ -112,9 +112,8 @@ namespace Play
         //ゴール表示カメラの優先度変更
         void StartCamMove()
         {
-            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
             _camGoal.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOWEST;
-            
+            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = MUST;         
         }
 
         //カメラの設定変更
