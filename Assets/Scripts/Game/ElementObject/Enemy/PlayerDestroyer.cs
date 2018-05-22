@@ -19,7 +19,7 @@ namespace Play.Enemy
 
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Player")
+            if (col.gameObject.tag == "Player"&&gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
                 //プレイヤー死亡処理
                 InGameManager.Instance.StageOver();
@@ -35,7 +35,7 @@ namespace Play.Enemy
 
         void OnCollisionEnter2D(Collision2D col)
         {
-            if (col.gameObject.tag == "Player")
+            if (col.gameObject.tag == "Player"&&!gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
                 //プレイヤー死亡処理
                 InGameManager.Instance.StageOver();
