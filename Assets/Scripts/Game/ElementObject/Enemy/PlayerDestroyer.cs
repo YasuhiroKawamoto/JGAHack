@@ -25,12 +25,8 @@ namespace Play.Enemy
                 //Circleコライダー（弾）に当たった場合。
                 if (col.gameObject.tag == "Player" && gameObject.GetComponent<CircleCollider2D>().isTrigger)
                 {
-                    //プレイヤー死亡処理
-                    InGameManager.Instance.StageOver();
-                    //カメラシェイク
-                    CamMan.GetComponent<CameraManager>().ShakeCamera();
-                    //カメラの切り替え
-                    CamMan.GetComponent<CameraManager>().MainCameraChange();
+                    //プレイヤー死亡演出
+                    col.gameObject.GetComponent<Player>().PlayerDead();
                 }
             }
         }
@@ -41,12 +37,8 @@ namespace Play.Enemy
             //ボックスコライダー（敵本体）に当たった時の判定
             if (col.gameObject.tag == "Player"&&!gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
-                //プレイヤー死亡処理
-                InGameManager.Instance.StageOver();
-                //カメラシェイク
-                CamMan.GetComponent<CameraManager>().ShakeCamera();
-                //カメラの切り替え
-                CamMan.GetComponent<CameraManager>().MainCameraChange();
+                //プレイヤー死亡演出
+                col.gameObject.GetComponent<Player>().PlayerDead();
 
             }
         }

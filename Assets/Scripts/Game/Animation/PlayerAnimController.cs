@@ -9,96 +9,90 @@ public class PlayerAnimController : MonoBehaviour
 
 
     [SerializeField, ReadOnly]
-    Animator _anim;
+    SimpleAnimation _anim;
 
     void Awake()
     {
-
-        _anim = gameObject.GetComponent<Animator>();
-
+        //アニメ切り替えスクリプト切り替え
+        _anim = gameObject.GetComponent<SimpleAnimation>();
     }
 
     public void ChangeAnim(Vector3 vec)
     {
+       
         Vector3 direction = vec;
-
-
-        _anim.SetBool("Side", false);
-        _anim.SetBool("Front", false);
-        _anim.SetBool("Back", false);
-        _anim.SetBool("SideFront", false);
-        _anim.SetBool("SideBack", false);
 
         if (0.4f >= Mathf.Abs(direction.y))
         {
-
             //左
             if (-0.4f >= direction.x)
             {
                 transform.localScale = new Vector3(1, 1, 1);
-                _anim.SetBool("Side", true);
+                _anim.CrossFade("Side", 0);
             }
             else if (0.4f <= direction.x)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
-                _anim.SetBool("Side", true);
+                _anim.CrossFade("Side", 0);
             }
-
-
         }
         else if (0.4f <= direction.y)
         {
-
-
             //上
             if (0.4f >= Mathf.Abs(direction.x))
             {
                 transform.localScale = new Vector3(1, 1, 1);
-                _anim.SetBool("Front", true);
+                _anim.CrossFade("Front", 0);
             }
             else if (-0.4f >= direction.x)
             {
                 transform.localScale = new Vector3(1, 1, 1);
-                _anim.SetBool("SideFront", true);
+                _anim.CrossFade("SideFront", 0);
 
             }
             else if (0.4f <= direction.x)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
-                _anim.SetBool("SideFront", true);
+                _anim.CrossFade("SideFront", 0);
             }
-
-
         }
         else if (-0.4f >= direction.y)
         {
-
-
 
             //下
             if (0.4f >= Mathf.Abs(direction.x))
             {
                 transform.localScale = new Vector3(1, 1, 1);
-                _anim.SetBool("Back", true);
+                _anim.CrossFade("Back", 0);
             }
             else if (-0.4f >= direction.x)
             {
                 transform.localScale = new Vector3(1, 1, 1);
-                _anim.SetBool("SideBack", true);
+                _anim.CrossFade("SideBack", 0);
             }
             else if (0.4f <= direction.x)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
-                _anim.SetBool("SideBack", true);
+                _anim.CrossFade("SideBack", 0);
             }
-
         }
-
-
-
-
-
     }
 
-
+    //アニメーション終了を判定するコルーチン
+    public IEnumerator WaitAnimationEnd(string animatorName)
+    {
+        bool finish = false;
+        while (!finish)
+        {
+            AnimatorStateInfo nowState = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+            if (nowState.IsName(animatorName))
+            {
+                finish = true;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
 }

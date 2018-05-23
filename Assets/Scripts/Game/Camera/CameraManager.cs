@@ -6,7 +6,7 @@ using Extensions;
 namespace Play
 {
     //カメラマネージャ
-    public class CameraManager : MonoBehaviour
+    public class CameraManager : Util.SingletonMonoBehaviour<CameraManager>
     {
         private const int MUST = 30;
         private const int HI = 15;

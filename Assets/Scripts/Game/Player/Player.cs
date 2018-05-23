@@ -12,6 +12,10 @@ namespace Play
 
         private Rigidbody2D _rigidbody;
 
+        private Vector3 _tmpMove = Vector3.zero;
+
+
+
         public enum State
         {
             Alive,
@@ -48,6 +52,13 @@ namespace Play
                     // ポーズ切り替え
                     ChangePause();
                 }
+
+                if (tryMove != _tmpMove)
+                {
+                    //アニメーション切り替え
+                    gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
+                    _tmpMove = tryMove;
+                }
             }
             else
             {
@@ -57,9 +68,17 @@ namespace Play
                     // ポーズ切り替え
                     ChangePause();
                 }
+
+                if (tryMove != _tmpMove)
+                {              
+                    //アニメーション切り替え
+                    gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
+                    _tmpMove = tryMove;
+                    
+                }
+
             }
 
-            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
             _rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
         }
 
@@ -79,7 +98,7 @@ namespace Play
             if (Input.GetKey(KeyCode.DownArrow))
                 tryMove += Vector3Int.down;
 
-            return tryMove;
+             return tryMove;
         }
 
         /// <summary>
@@ -88,7 +107,7 @@ namespace Play
         private Vector3 ControllerControl(GameController con)
         {
             Vector3 tryMove = Vector3.zero;
-
+            
             if (con.Move(Direction.Left))
                 tryMove += Vector3Int.left;
             if (con.Move(Direction.Right))
@@ -117,5 +136,27 @@ namespace Play
                 instance.GamePause(true);
             }
         }
+
+
+        //プレイヤー死亡確定時の演出（カメラ込み）
+        public void PlayerDead()
+        {
+
+            //プレイヤー死亡演出（アニメーション）開始
+            
+
+            //アニメーション終わったら以下演出
+           
+
+            //プレイヤー死亡処理
+            InGameManager.Instance.StageOver();
+            //カメラ振動
+            CameraManager.Instance.ShakeCamera();
+            //メインカメラ切り替え
+            CameraManager.Instance.MainCameraChange();     
+        }
+
+
+       
     }
 }
