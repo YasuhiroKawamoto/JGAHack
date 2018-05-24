@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114586777116393486}
   - component: {fileID: 114029647856062580}
   m_Layer: 8
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 0}
+  _currentAnim: 0
 --- !u!114 &114570137972728778
 MonoBehaviour:
   m_ObjectHideFlags: 1
