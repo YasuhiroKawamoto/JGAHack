@@ -43,6 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4248256105846518}
   - component: {fileID: 114570137972728778}
+  - component: {fileID: 114167950593510746}
   m_Layer: 8
   m_Name: ElementSelector
   m_TagString: Untagged
@@ -174,6 +175,17 @@ MonoBehaviour:
   - clip: {fileID: 7400000, guid: 047eb925e35b028469df56fc5358a0f3, type: 2}
     name: Back
     defaultState: 0
+--- !u!114 &114167950593510746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750985610458994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62dc8f6ef3a0264408443b922b744d41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114255042361555806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,7 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f1792261026704e8ec3c39f87ce4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
   _currentAnim: 0
 --- !u!114 &114570137972728778
 MonoBehaviour:
@@ -199,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetObject: {fileID: 0}
-  _selectObject: {fileID: 0}
+  _container: {fileID: 0}
   _elementText: {fileID: 114226643485333420, guid: 546392ba5ab9045488d4cf8c5c867df5,
     type: 2}
   _textList: []
@@ -227,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  playerState: 0
+  _playerState: 0
 --- !u!212 &212417713896010622
 SpriteRenderer:
   m_ObjectHideFlags: 1
