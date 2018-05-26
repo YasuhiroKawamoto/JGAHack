@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4635397426804702}
   - component: {fileID: 212239280130106342}
   - component: {fileID: 95958314439322262}
+  - component: {fileID: 114602781134360694}
   m_Layer: 0
   m_Name: EnemyDistinction
   m_TagString: Untagged
@@ -58,6 +59,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114602781134360694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1809185561143892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a65d8dd7eeb6b7242bab8732b9daf921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActivTime: 0
 --- !u!212 &212239280130106342
 SpriteRenderer:
   m_ObjectHideFlags: 1

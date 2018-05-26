@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4911584442053536}
   - component: {fileID: 198546279524029598}
   - component: {fileID: 199153140852344430}
+  - component: {fileID: 114449957279835582}
   m_Layer: 0
   m_Name: GoalPoint
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114449957279835582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955098440521924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a65d8dd7eeb6b7242bab8732b9daf921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActivTime: 0
 --- !u!198 &198546279524029598
 ParticleSystem:
   m_ObjectHideFlags: 1
