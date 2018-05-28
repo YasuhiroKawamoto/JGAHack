@@ -26,6 +26,9 @@ public class ConsoleCon : MonoBehaviour {
     [SerializeField]
     private PATTERN _state = PATTERN.Left;
 
+    [SerializeField]
+    private Vector3 pos;
+
 
 
 
@@ -53,9 +56,6 @@ public class ConsoleCon : MonoBehaviour {
             default:
                 break;
         }
-
-        //Debug.Log(rect.anchoredPosition);
-
     }
 	
 	// Update is called once per frame

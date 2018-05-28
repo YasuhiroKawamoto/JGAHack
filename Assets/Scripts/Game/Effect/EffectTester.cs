@@ -29,12 +29,9 @@ namespace Play
         void Update()
         {
 
-
-            GoalTest();
-
-          
-
-
+            //GoalTest();
+            ConsorlTest();
+            //WaveTest();
 
         }
 
@@ -47,9 +44,13 @@ namespace Play
                 player = GameObject.Find("Player");
 
                 GameObject effect;
-                effect = EffectManager.Instance.CreateEffect(EffectID.Console);
-                effect.GetComponent<RectTransform>().localPosition = Vector3.zero;
-                
+                effect = EffectManager.Instance.CreateEffect(EffectID.Console,player);
+                //effect.GetComponent<RectTransform>().localPosition = Vector3.zero;
+
+                effect.GetComponent<UISet>().SetTransform(player.transform);
+
+
+
             }
 
         }
