@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114714810820456134}
   - component: {fileID: 114265801584785030}
   - component: {fileID: 114810380527017096}
+  - component: {fileID: 114173032581560676}
   m_Layer: 5
   m_Name: Console
   m_TagString: Untagged
@@ -30,6 +31,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114173032581560676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551287665802382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb40650b188757649941b49afc66b613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetTransform: {fileID: 0}
+  offset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &114265801584785030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -44,6 +58,7 @@ MonoBehaviour:
   _alfa: 0
   _speed: 0.02
   _state: 0
+  pos: {x: 10, y: 10, z: 0}
 --- !u!114 &114714810820456134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65d8dd7eeb6b7242bab8732b9daf921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ActivTime: 1
+  _ActivTime: 0
 --- !u!222 &222890481885727172
 CanvasRenderer:
   m_ObjectHideFlags: 1

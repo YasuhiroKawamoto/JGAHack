@@ -26,6 +26,8 @@ namespace Play.Element
 			//TODO 接触物判定
 			if (collision.gameObject)
 			{
+
+                EffectManager.Instance.CreateEffect(EffectID.DestoryEnemy, gameObject.transform.position);
 				//復活可能なら
 				if (_canRebirth)
 				{
