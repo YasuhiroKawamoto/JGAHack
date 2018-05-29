@@ -19,7 +19,7 @@ namespace Play.Element
         [SerializeField]
         private float _requiredTime = 3;
         //反転フラグ
-        [SerializeField, ReadOnly]
+        [SerializeField]
         private bool _reversFlag = false;
         //移動開始座標
         [SerializeField, ReadOnly]
