@@ -13,9 +13,12 @@ public class UISet : MonoBehaviour
     //オフセットの値
     [SerializeField]
     private Vector3 _offset;
+   //可変式か？
+    [SerializeField]
+    private bool _isVariable = false;
 
     void Start()
-    {
+    {    
         //自身のRectTransform取得
         _rectTransform = GetComponent<RectTransform>();
     }
@@ -25,8 +28,27 @@ public class UISet : MonoBehaviour
         //ターゲットの座標に合わせる
         if (_targetTransform)
         {
-            //ワールド座標に変換（オフセット込み）
-            _rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetTransform.position + _offset);
+            if (!_isVariable)
+            {
+                //ワールド座標に変換（オフセット込み）
+                _rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetTransform.position + _offset);
+            }
+            else
+            {
+                //カメラの中心座標をもとにUIオフセットｙ反転
+                if (_targetTransform.position.y > Camera.main.transform.position.y)
+                {
+                    _offset.y = -Mathf.Abs(_offset.y);
+                }
+                else
+                {
+                    _offset.y = Mathf.Abs(_offset.y);
+                }
+
+                //ワールド座標に変換（オフセット込み）
+                _rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetTransform.position + _offset);
+
+            }        
         }
     }
 
