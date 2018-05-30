@@ -155,7 +155,8 @@ namespace Play
         public void Dead(bool retry = true)
         {
             _playerState = State.Dead;
-
+            //復帰時のアニメーション変更（デフォルト下向き）
+            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.Back);
             //プレイヤー死亡処理
             if (retry)
             {
@@ -169,6 +170,7 @@ namespace Play
         public void Reborn()
         {
             _playerState = State.Alive;
+            
         }
     }
 }
