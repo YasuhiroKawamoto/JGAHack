@@ -9,7 +9,8 @@ public class ConsoleCon : MonoBehaviour {
     {
         Left,       //左
         Middle,     //真ん中
-        Right       //右
+        Right,      //右
+        MiddleDown  //下
     }
 
     private RectTransform rect;
@@ -25,6 +26,9 @@ public class ConsoleCon : MonoBehaviour {
     //trueなら真ん中からfalseなら左下
     [SerializeField]
     private PATTERN _state = PATTERN.Left;
+    //falseなら閉じる
+    [SerializeField]
+    private bool _flag = true;
 
     [SerializeField]
     private Vector3 pos;
@@ -53,6 +57,9 @@ public class ConsoleCon : MonoBehaviour {
             case PATTERN.Right:
                 rect.pivot = new Vector2(1, 0);
                 break;
+            case PATTERN.MiddleDown:
+                rect.pivot = new Vector2(0.5f, 1);
+                break;
             default:
                 break;
         }
@@ -63,12 +70,31 @@ public class ConsoleCon : MonoBehaviour {
 
         image.color = new Color(255, 255, 255, _alfa);
 
-        //拡大
-        if (rect.localScale.x <= 1)
+        //flagがtrueなら
+        if (_flag)
         {
-            rect.localScale += new Vector3(_speed, _speed, 1);
+            //拡大
+            if (rect.localScale.x <= 1)
+            {
+                rect.localScale += new Vector3(_speed, _speed, 1);
+                _alfa += 0.02f;
+            }
         }
-
-        _alfa += 0.02f;
+        else
+        {
+            //0より大きければ小さくする
+            if (rect.localScale.x >= 0)
+            {
+                rect.localScale += new Vector3(-_speed, -_speed, 1);
+                _alfa -= 0.02f;
+            }
+        }
     }
+
+    //フラグのセット
+    void setFlag(bool flag)
+    {
+        _flag = flag;
+    }
+
 }
