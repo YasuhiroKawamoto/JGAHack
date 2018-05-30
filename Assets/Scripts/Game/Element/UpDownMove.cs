@@ -21,6 +21,9 @@ namespace Play.Element
         //反転フラグ
         [SerializeField]
         private bool _reversFlag = false;
+        //初期反転状態
+        [SerializeField, ReadOnly]
+        private bool _isSetRevers
         //移動開始座標
         [SerializeField, ReadOnly]
         private Vector3 _basePos;
@@ -35,10 +38,14 @@ namespace Play.Element
         private float _moveCount = 0.0f;
         //リジットボディ
         private Rigidbody2D _rigitBody2d;
+       ;
 
         void Awake()
         {
             _type = ElementType.Move;
+
+            //初期反転判定のセット
+            _isSetRevers = _reversFlag;
         }
 
         /// <summary>
@@ -58,6 +65,8 @@ namespace Play.Element
             _UpEndPos = _basePos + new Vector3(0, _moveAmount, 0);
             //下終点座標の設定
             _DownEndPos = _basePos - new Vector3(0, _moveAmount, 0);
+            //反転判定を再設定
+            _reversFlag = _isSetRevers;
         }
 
         /// <summary>
