@@ -28,5 +28,15 @@ namespace Util.Display
         {
             this.gameObject.SetActive(false);
         }
+
+        /// <summary>
+        /// 入力関連
+        /// </summary>
+        public abstract void KeyInput();
+
+        protected void Update()
+        {
+            KeyInput();
+        }
     }
 }

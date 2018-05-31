@@ -29,13 +29,20 @@ namespace Util.Display
             base.Exit();
         }
 
-        private void Update()
+        protected void Update()
         {
+            base.Update();
+
             if (Input.GetMouseButtonDown(_button))
             {
                 // 呼び出しはこれ
                 DisplayManager.Instance.ChangeDisplay(_changeDisplay);
             }
+        }
+
+        public override void KeyInput()
+        {
+
         }
     }
 }
