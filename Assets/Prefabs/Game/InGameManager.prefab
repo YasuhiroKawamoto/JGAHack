@@ -252,14 +252,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015b4a764b8260440a25767680437afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _messageText: {fileID: 0}
+  _messageText: {fileID: 114513820084738564}
   _maxTextLength: 90
   _maxLine: 3
   _textSpeed: 0.05
-  _clickIcon: {fileID: 0}
-  _faceIcon: {fileID: 0}
+  _clickIcon: {fileID: 114386898595374690}
+  _faceIcon: {fileID: 114789976856463450}
   _clickFlashTime: 0.2
-  _ui: {fileID: 0}
+  _ui: {fileID: 1778904471791862}
 --- !u!114 &114386898595374690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38d90113ef5fe84eb8b40821976cf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initStageName: Tutrial
+  _initStageName: Tutorial
   _state: 0
   _uiRoot: {fileID: 1702075069288618}
   _elementObjRoot: {fileID: 1031779106701318}
@@ -536,7 +536,7 @@ MonoBehaviour:
   _cameraManager: {fileID: 0}
   _pausePlane: {fileID: 1868515674335686}
   _rebornManager: {fileID: 0}
-  _messenger: {fileID: 0}
+  _messenger: {fileID: 114058730408255996}
 --- !u!114 &114994496152672434
 MonoBehaviour:
   m_ObjectHideFlags: 1
