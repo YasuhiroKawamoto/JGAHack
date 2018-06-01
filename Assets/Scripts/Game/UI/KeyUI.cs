@@ -7,7 +7,7 @@ using Extensions;
 
 public class KeyUI : MonoBehaviour {
 
-
+    //案内の種類
     public enum GUID_ID
     {
         LockON,
@@ -17,15 +17,15 @@ public class KeyUI : MonoBehaviour {
         ChangeLock
     }
 
-
+    //表示文字
     [SerializeField, ReadOnly]
     Text _text;
+    //表示アイコン
     [SerializeField, ReadOnly]
     Image _icon;
-
-    [SerializeField]
+    //アイコン集
+    [SerializeField,ReadOnly]
     Sprite[] _images;
-
 
 
     // Use this for initialization
@@ -40,56 +40,52 @@ public class KeyUI : MonoBehaviour {
 	
 	
     //メッセージの変更
-    void SetMessage(string text)
+    void SetGuidText(string text)
     {
         _text.text = text;
     }
 
     //顔アイコンの変更
-    void SetFaceImage(Sprite sprite)
+    void SetIcon(Sprite sprite)
     {
         _icon.sprite = sprite;
     }
 
-
-
-    public void ControllUISet(GUID_ID id)
+   
+    //ガイド内容のセット
+    public void GuidUISet(GUID_ID id)
     {
+        this.gameObject.SetActive(true);   
         switch (id)
         {
             case GUID_ID.Move:
 
-                SetMessage("移動");
-
-                SetFaceImage(_images[(int)GUID_ID.Move]);
+                SetGuidText("移動");
+                SetIcon(_images[(int)GUID_ID.Move]);
                 break;
 
             case GUID_ID.LockON:
 
-                SetMessage("ロックオン");
-
-                SetFaceImage(_images[(int)GUID_ID.LockON]);
+                SetGuidText("ロックオン");
+                SetIcon(_images[(int)GUID_ID.LockON]);
                 break;
 
             case GUID_ID.ChangeLock:
 
-                SetMessage("ロックオン切り替え");
-
-                SetFaceImage(_images[(int)GUID_ID.ChangeLock]);
+                SetGuidText("ロックオン切り替え");
+                SetIcon(_images[(int)GUID_ID.ChangeLock]);
                 break;
 
             case GUID_ID.Copy:
 
-                SetMessage("コピー");
-
-                SetFaceImage(_images[(int)GUID_ID.Copy]);
+                SetGuidText("コピー");
+                SetIcon(_images[(int)GUID_ID.Copy]);
                 break;
 
             case GUID_ID.Paste:
 
-                SetMessage("ペースト");
-
-                SetFaceImage(_images[(int)GUID_ID.Paste]);
+                SetGuidText("ペースト");
+                SetIcon(_images[(int)GUID_ID.Paste]);
                 break;
         }     
     }  
