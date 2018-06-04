@@ -7,7 +7,7 @@ using Extensions;
 
 public class KeyUI : MonoBehaviour {
 
-    //案内の種類
+    //ガイドID
     public enum GUID_ID
     {
         LockON,
@@ -17,7 +17,7 @@ public class KeyUI : MonoBehaviour {
         ChangeLock
     }
 
-
+    //アイコンID
     public enum ICON_ID
     {
         
@@ -61,7 +61,7 @@ public class KeyUI : MonoBehaviour {
         _text.text = text;
     }
 
-    //顔アイコンの変更
+    //アイコンの変更
     public virtual void SetIcon(Sprite sprite)
     {
         _icon.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(205, 0, 0);
@@ -69,6 +69,7 @@ public class KeyUI : MonoBehaviour {
         _icon2.gameObject.SetActive(false);
     }
 
+    //アイコンの変更(二枚左右出し)
     public virtual void SetIcon(Sprite sprite,Sprite sprite2)
     {
         _icon.sprite = sprite;
@@ -87,32 +88,37 @@ public class KeyUI : MonoBehaviour {
         switch (id)
         {
             case GUID_ID.Move:
-
+                //テキスト変更
                 SetGuidText("移動");
+                //アイコン変更
                 SetIcon(_images[(int)ICON_ID.Copy]);
                 break;
 
             case GUID_ID.LockON:
-
+                //テキスト変更
                 SetGuidText("ロックオン");
+                //アイコン変更
                 SetIcon(_images[(int)ICON_ID.LockOnR]);
                 break;
 
             case GUID_ID.ChangeLock:
-
+                //テキスト変更
                 SetGuidText("ロックオン切り替え");
+                //アイコン変更
                 SetIcon(_images[(int)ICON_ID.LockOnL],_images[(int)ICON_ID.LockOnR]);
                 break;
 
             case GUID_ID.Copy:
-
+                //テキスト変更
                 SetGuidText("コピー");
+                //アイコン変更
                 SetIcon(_images[(int)ICON_ID.Copy]);
                 break;
 
             case GUID_ID.Paste:
-
+                //テキスト変更
                 SetGuidText("ペースト");
+                //アイコン変更
                 SetIcon(_images[(int)ICON_ID.Paste]);
                 break;
         }     
