@@ -547,7 +547,7 @@ MonoBehaviour:
   _stagePanel: {fileID: 114161745951593086, guid: e0e653bf97b65c84b9829896256aa5f6,
     type: 2}
   _initPos: {x: 15, y: 150, z: 0}
-  _popOffSet: {x: 0, y: 15, z: 0}
+  _popOffSet: {x: 15, y: 15}
   _panelList: []
 --- !u!1 &525899249
 GameObject:

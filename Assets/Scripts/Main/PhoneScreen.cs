@@ -7,7 +7,6 @@ namespace Main
 {
     public class PhoneScreen : MonoBehaviour
     {
-
         [SerializeField]
         private Image _stagePanel = null;
 
@@ -15,7 +14,7 @@ namespace Main
         private Vector3 _initPos = Vector3.zero;
 
         [SerializeField]
-        private Vector3 _popOffSet = Vector3.zero;
+        private Vector2 _popOffSet = Vector2.zero;
 
         // 作成するパネルの数
         public static readonly int PANEL_NUM = 7;
@@ -25,8 +24,15 @@ namespace Main
 
         private RectTransform _rectTransform = null;
 
+        private Vector2 _panelRect = Vector2.zero;
+
+        private int _selectIndex = 0;
+
         public void SetUp()
         {
+            _selectIndex = Mathf.CeilToInt(PANEL_NUM / 2.0f) - 1;
+            _panelRect = _stagePanel.rectTransform.sizeDelta;
+
             _rectTransform = GetComponent<RectTransform>();
 
             PanelSetup();
@@ -49,16 +55,52 @@ namespace Main
             return obj;
         }
 
+        private Image MovePanel(Vector3 pos, int index)
+        {
+            var obj = _panelList[index];
+
+            obj.rectTransform.localScale = Vector3.one;
+            obj.rectTransform.localPosition = pos;
+
+            return obj;
+        }
+
         private void PanelSetup()
         {
+            bool create = false;
+            if (_panelList.Count == 0)
+            {
+                create = true;
+            }
+
             for (int i = 0; i < PANEL_NUM; i++)
             {
-                var rectT = _stagePanel.rectTransform.sizeDelta;
                 var offSet = _popOffSet;
-                var posY = i * (rectT.y + offSet.y);
-                var pos = new Vector3(_initPos.x, _initPos.y - posY, _initPos.z);
-                var obj = CreatePanel(pos);
+                var posX = 0.0f;
+
+                if (i == _selectIndex)
+                {
+                    posX += offSet.x;
+                }
+
+                var posY = i * (_panelRect.y + offSet.y);
+                var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
+
+                if (create) CreatePanel(pos);
+                else MovePanel(pos, i);
             }
+        }
+
+        public void PanelNext()
+        {
+            _selectIndex++;
+            PanelSetup();
+        }
+
+        public void PanelBefore()
+        {
+            _selectIndex--;
+            PanelSetup();
         }
 
     }

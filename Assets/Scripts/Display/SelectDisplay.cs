@@ -52,6 +52,17 @@ namespace Main
             {
                 DisplayManager.Instance.ChangeDisplay(_titleDisplay);
             }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                _phoneScreen.PanelBefore();
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                _phoneScreen.PanelNext();
+            }
+
         }
     }
 }
