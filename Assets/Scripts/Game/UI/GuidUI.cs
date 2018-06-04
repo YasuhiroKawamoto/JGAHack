@@ -23,6 +23,24 @@ public class GuidUI : MonoBehaviour {
         _uiSet = transform.GetAllChild();
         //表示
         ShowAll();
+
+       
+    }
+
+
+    private void Update()
+    {
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ChangeGuid(GUID_STEP.Normal);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            ChangeGuid(GUID_STEP.Lockon);
+        }
+
     }
 
 
