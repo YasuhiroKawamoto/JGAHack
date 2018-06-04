@@ -2,106 +2,164 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Main
 {
-    public class PhoneScreen : MonoBehaviour
-    {
-        [SerializeField]
-        private Image _stagePanel = null;
+	public class PhoneScreen : MonoBehaviour
+	{
+		[SerializeField]
+		private Image _stagePanel = null;
 
-        [SerializeField]
-        private Vector3 _initPos = Vector3.zero;
+		[SerializeField]
+		private Vector3 _initPos = Vector3.zero;
 
-        [SerializeField]
-        private Vector2 _popOffSet = Vector2.zero;
+		[SerializeField]
+		private Vector2 _popOffSet = Vector2.zero;
 
-        // 作成するパネルの数
-        public static readonly int PANEL_NUM = 7;
+		// 作成するパネルの数
+		public int STAGE_NUM = 7;
 
-        [SerializeField]
-        private List<Image> _panelList = new List<Image>();
+		[SerializeField]
+		private List<Image> _panelList = new List<Image>();
 
-        private RectTransform _rectTransform = null;
+		private RectTransform _rectTransform = null;
 
-        private Vector2 _panelRect = Vector2.zero;
+		private Vector2 _panelRect = Vector2.zero;
 
-        private int _selectIndex = 0;
+		private int _selectIndex = 0;
+		public int SelectIndex
+		{
+			get { return _selectIndex; }
+		}
 
-        public void SetUp()
-        {
-            _selectIndex = Mathf.CeilToInt(PANEL_NUM / 2.0f) - 1;
-            _panelRect = _stagePanel.rectTransform.sizeDelta;
+		private Tween _moveTween = null;
 
-            _rectTransform = GetComponent<RectTransform>();
+		[SerializeField]
+		private Image _arrow = null;
+		private Tween _arrowTween = null;
 
-            PanelSetup();
-        }
+		public void SetUp()
+		{
+			_selectIndex = 0;
+			_panelRect = _stagePanel.rectTransform.sizeDelta;
 
-        /// <summary>
-        /// パネルの作成
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        private Image CreatePanel(Vector3 pos)
-        {
-            var obj = Instantiate(_stagePanel, pos, Quaternion.identity);
-            obj.rectTransform.SetParent(_rectTransform);
-            _panelList.Add(obj);
+			_rectTransform = GetComponent<RectTransform>();
 
-            obj.rectTransform.localScale = Vector3.one;
-            obj.rectTransform.localPosition = pos;
+			PanelSlide(0);
+			if (_arrowTween == null)
+			{
+				var pos = _arrow.rectTransform.localPosition;
+				pos.x -= 10.0f;
+				_arrowTween = _arrow.rectTransform.DOLocalMove(pos, 0.2f).SetLoops(-1, LoopType.Yoyo);
+			}
+		}
 
-            return obj;
-        }
+		/// <summary>
+		/// パネルの作成
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		private Image CreatePanel(Vector3 pos, int index)
+		{
+			var obj = Instantiate(_stagePanel, pos, Quaternion.identity);
+			obj.rectTransform.SetParent(_rectTransform);
+			_panelList.Add(obj);
 
-        private Image MovePanel(Vector3 pos, int index)
-        {
-            var obj = _panelList[index];
+			obj.rectTransform.localScale = Vector3.one;
+			obj.rectTransform.localPosition = pos;
 
-            obj.rectTransform.localScale = Vector3.one;
-            obj.rectTransform.localPosition = pos;
+			var text = obj.GetComponentInChildren<Text>();
+			text.text = "STAGE " + (index + 1);
 
-            return obj;
-        }
+			return obj;
+		}
 
-        private void PanelSetup()
-        {
-            bool create = false;
-            if (_panelList.Count == 0)
-            {
-                create = true;
-            }
+		private Image MovePanel(Vector3 pos, int index)
+		{
+			var obj = _panelList[index];
 
-            for (int i = 0; i < PANEL_NUM; i++)
-            {
-                var offSet = _popOffSet;
-                var posX = 0.0f;
+			obj.rectTransform.localScale = Vector3.one;
+			_moveTween = obj.rectTransform.DOLocalMove(pos, 0.15f)
+								.OnComplete(() => _moveTween = null);
 
-                if (i == _selectIndex)
-                {
-                    posX += offSet.x;
-                }
+			return obj;
+		}
 
-                var posY = i * (_panelRect.y + offSet.y);
-                var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
+		/// <summary>
+		/// パネルのセットアップ
+		/// </summary>
+		private void PanelSetup()
+		{
+			bool create = false;
+			if (_panelList.Count == 0)
+			{
+				create = true;
+			}
 
-                if (create) CreatePanel(pos);
-                else MovePanel(pos, i);
-            }
-        }
+			for (int i = 0; i < STAGE_NUM; i++)
+			{
+				var offSet = _popOffSet;
+				var posX = 0.0f;
 
-        public void PanelNext()
-        {
-            _selectIndex++;
-            PanelSetup();
-        }
+				if (i == _selectIndex)
+				{
+					posX += offSet.x;
+				}
 
-        public void PanelBefore()
-        {
-            _selectIndex--;
-            PanelSetup();
-        }
+				var posY = i * (_panelRect.y + offSet.y);
+				var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
 
-    }
+				if (create) CreatePanel(pos, i);
+				else MovePanel(pos, i);
+			}
+		}
+
+		/// <summary>
+		/// パネルを次に移動
+		/// </summary>
+		public int PanelNext()
+		{
+			return PanelSlide(1);
+		}
+
+		/// <summary>
+		/// パネルを前に移動
+		/// </summary>
+		public int PanelBefore()
+		{
+			return PanelSlide(-1);
+		}
+
+		/// <summary>
+		/// パネルのスライド移動
+		/// </summary>
+		/// <param name="c"></param>
+		private int PanelSlide(int c)
+		{
+			if ((_moveTween != null) ||
+				(!IndexIsContained(_selectIndex + c)))
+			{
+				return -1;
+			}
+
+			var margin = _panelRect.y + _popOffSet.y;
+			_initPos.y += (margin * c);
+			_selectIndex += c;
+			PanelSetup();
+
+			return _selectIndex;
+		}
+
+		private bool IndexIsContained(int index)
+		{
+			var count = STAGE_NUM;
+			if ((index < 0) || (count <= index))
+			{
+				return false;
+			}
+			return true;
+		}
+
+	}
 }

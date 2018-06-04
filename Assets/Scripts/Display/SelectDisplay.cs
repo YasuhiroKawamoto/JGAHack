@@ -8,61 +8,74 @@ using Util.Display;
 
 namespace Main
 {
-    public sealed class SelectDisplay : DisplayBase
-    {
-        // タイトルディスプレイ
-        [SerializeField]
-        private TitleDisplay _titleDisplay = null;
+	public sealed class SelectDisplay : DisplayBase
+	{
+		// タイトルディスプレイ
+		[SerializeField]
+		private TitleDisplay _titleDisplay = null;
 
-        // 携帯UI
-        [SerializeField]
-        private Image _phoneImage = null;
+		// 携帯UI
+		[SerializeField]
+		private Image _phoneImage = null;
 
-        [SerializeField]
-        private float _transTime = 1.0f;
+		[SerializeField]
+		private float _transTime = 1.0f;
 
-        [SerializeField]
-        private Main.PhoneScreen _phoneScreen = null;
+		[SerializeField]
+		private Main.PhoneScreen _phoneScreen = null;
 
-        public override IEnumerator Enter()
-        {
-            _phoneImage.transform.DOLocalMove(new Vector3(100.0f, 0.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
-            _phoneImage.transform.DOScale(new Vector3(3.0f, 1.8f, 1.0f), _transTime).SetEase(Ease.OutElastic);
-            _phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, -90.0f), _transTime).SetEase(Ease.OutElastic);
+		private Text _stageName = null;
 
-            yield return new WaitForSeconds(_transTime);
+		public override IEnumerator Enter()
+		{
+			_phoneImage.transform.DOLocalMove(new Vector3(100.0f, 0.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
+			_phoneImage.transform.DOScale(new Vector3(3.0f, 1.8f, 1.0f), _transTime).SetEase(Ease.OutElastic);
+			_phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, -90.0f), _transTime).SetEase(Ease.OutElastic);
 
-            // 携帯画面にステージパネルを出す
-            _phoneScreen.SetUp();
-        }
+			yield return new WaitForSeconds(_transTime);
 
-        public override void EnterComplete()
-        {
-            base.EnterComplete();
-        }
+			// 携帯画面にステージパネルを出す
+			_phoneScreen.SetUp();
 
-        public override void Exit()
-        {
-            base.Exit();
-        }
+			// ステージ名テキストを取得
+			_stageName = this.transform.transform.Find("StageName").GetComponentInChildren<Text>();
+		}
 
-        public override void KeyInput()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                DisplayManager.Instance.ChangeDisplay(_titleDisplay);
-            }
+		public override void EnterComplete()
+		{
+			base.EnterComplete();
+		}
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                _phoneScreen.PanelBefore();
-            }
+		public override void Exit()
+		{
+			base.Exit();
+		}
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                _phoneScreen.PanelNext();
-            }
+		public override void KeyInput()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				DisplayManager.Instance.ChangeDisplay(_titleDisplay);
+			}
 
-        }
-    }
+			if (Input.GetKey(KeyCode.UpArrow))
+			{
+				var index = _phoneScreen.PanelBefore();
+				if (0 < index)
+				{
+					_stageName.text = "STAGE " + index;
+				}
+			}
+
+			if (Input.GetKey(KeyCode.DownArrow))
+			{
+				var index = _phoneScreen.PanelNext();
+				if (0 < index)
+				{
+					_stageName.text = "STAGE " + index;
+				}
+			}
+
+		}
+	}
 }
