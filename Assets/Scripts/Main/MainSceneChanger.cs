@@ -29,6 +29,7 @@ namespace Main
         {
             if (Input.GetMouseButtonDown(_button))
             {
+                Play.InGameManager.Destroy();
                 TakeOverData.Instance.StageNum = 1;
                 // 呼び出しはこれ
                 Util.Scene.SceneManager.Instance.ChangeSceneFadeInOut(_sceneName);

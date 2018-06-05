@@ -101,6 +101,11 @@ namespace Play
             StartCoroutine(StartSetUp());
         }
 
+        private void Update()
+        {
+            KeyInput();
+        }
+
         private IEnumerator StartSetUp()
         {
             // 復活マネージャーの取得
@@ -201,6 +206,32 @@ namespace Play
             if (_rebornManager)
             {
                 _rebornManager.RebornSet(bObj);
+            }
+        }
+
+        public void KeyInput()
+        {
+            var controller = GameController.Instance;
+            if ((controller.ButtonDown(Button.START)) ||
+                (Input.GetKeyDown(KeyCode.P)))
+            {
+                // ポーズ切り替え
+                ChangePause();
+            }
+        }
+
+        /// <summary>
+        /// ゲームポーズの切り替え
+        /// </summary>
+        private void ChangePause()
+        {
+            if (_state == InGameManager.State.Pause)
+            {
+                GamePause(false);
+            }
+            else if (_state == InGameManager.State.Play)
+            {
+                GamePause(true);
             }
         }
     }

@@ -39,7 +39,8 @@ namespace Main
 
             // ステージ名テキストを取得
             _stageName = this.transform.transform.Find("StageName").GetComponentInChildren<Text>();
-            ChangeStageName(0);
+
+            ChangeStageName(_phoneScreen.SelectIndex);
         }
 
         public override void EnterComplete()

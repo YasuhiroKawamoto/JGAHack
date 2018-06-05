@@ -69,7 +69,7 @@ Material:
     - _Parallax: 0.02
     - _RGBNoise: 0
     - _ScanLineSpeed: 2
-    - _ScanLineTail: 1.74
+    - _ScanLineTail: 1.5
     - _SinNoiseOffset: 0
     - _SinNoiseScale: 0
     - _SinNoiseWidth: 0

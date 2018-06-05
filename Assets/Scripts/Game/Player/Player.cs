@@ -42,6 +42,11 @@ namespace Play
 
         void Update()
         {
+            if (!InGameManager.IsInstance())
+            {
+                return;
+            }
+
             if (InGameManager.Instance.GameState != InGameManager.State.Play)
             {
                 // ゲームが開始していないときは移動しない
@@ -62,11 +67,6 @@ namespace Play
             if (controller.GetConnectFlag())
             {
                 tryMove = ControllerControl(controller);
-                if (controller.ButtonDown(Button.START))
-                {
-                    // ポーズ切り替え
-                    ChangePause();
-                }
 
                 if (tryMove != _tmpMove)
                 {
@@ -78,22 +78,14 @@ namespace Play
             else
             {
                 tryMove = KeyboardControl();
-                if (Input.GetKeyDown(KeyCode.P))
-                {
-                    // ポーズ切り替え
-                    ChangePause();
-                }
 
                 if (tryMove != _tmpMove)
                 {
                     //アニメーション切り替え
                     gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
                     _tmpMove = tryMove;
-
                 }
-
             }
-
             _rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
         }
 
@@ -157,23 +149,6 @@ namespace Play
             }
 
             return tryMove;
-        }
-
-        /// <summary>
-        /// ゲームポーズの切り替え
-        /// </summary>
-        private void ChangePause()
-        {
-            var instance = InGameManager.Instance;
-            var stats = instance.GameState;
-            if (stats == InGameManager.State.Pause)
-            {
-                instance.GamePause(false);
-            }
-            else
-            {
-                instance.GamePause(true);
-            }
         }
 
         /// <summary>
