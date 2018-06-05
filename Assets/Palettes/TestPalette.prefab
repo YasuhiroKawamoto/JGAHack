@@ -521,7 +521,7 @@ Tilemap:
       m_ColliderType: 1
   - first: {x: 0, y: -1, z: 0}
     second:
-      m_TileIndex: 1
+      m_TileIndex: 0
       m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
@@ -557,10 +557,10 @@ Tilemap:
       m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 8ac56700189907c4dad5653c1bf857d9, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 983822d1bf027ca47aa8a94033329c2f, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: af965c28302a0ff46bff6d08db9ec178, type: 2}
   - m_RefCount: 1
