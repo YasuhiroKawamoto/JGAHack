@@ -69,5 +69,25 @@ namespace Extensions
             transform.localRotation = Quaternion.identity;
             transform.localScale = Vector3.one;
         }
+
+        /// <summary>
+        /// ローカル座標を維持して親オブジェクトを設定
+        /// </summary>
+        public static void SafeSetParent(this Transform self, GameObject parent)
+        {
+            self.parent = parent.transform;
+            self.localPosition = Vector3.zero;
+            self.localRotation = Quaternion.identity;
+            self.localScale = Vector3.one;
+            self.gameObject.layer = parent.layer;
+        }
+
+        /// <summary>
+        /// ローカル座標を維持して親オブジェクトを設定
+        /// </summary>
+        public static void SafeSetParent(this Transform self, Component parent)
+        {
+            SafeSetParent(self, parent.gameObject);
+        }
     }
 }

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Element
+  - Terrain
+  - Hole
+  - Ride
   layers:
   - Default
   - TransparentFX
@@ -20,8 +23,8 @@ TagManager:
   - Immortal
   - CanBreak
   - Event
-  - 
-  - 
+  - Ride
+  - Terrain
   - 
   - 
   - 
