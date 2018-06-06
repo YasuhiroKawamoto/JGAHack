@@ -552,7 +552,6 @@ MonoBehaviour:
   _popOffSet: {x: 15, y: 15}
   STAGE_NUM: 30
   _panelList: []
-  _arrow: {fileID: 998553289}
 --- !u!1 &525899249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1085,7 @@ GameObject:
   - component: {fileID: 998553288}
   - component: {fileID: 998553290}
   - component: {fileID: 998553289}
+  - component: {fileID: 998553291}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -1144,6 +1144,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 998553287}
+--- !u!114 &998553291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998553287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40fa71c34ca240240a2f53a95df43f3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1095816683
 GameObject:
   m_ObjectHideFlags: 0
