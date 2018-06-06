@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimerTest : MonoBehaviour {
 
     [SerializeField]
-    private Play.Timer.Timer timer;
+    private Play.Timer timer;
 
     [SerializeField]
     private Text minuteText;
