@@ -52,9 +52,21 @@ namespace Main
         /// </summary>
         public override void KeyInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            var controller = GameController.Instance;
+
+            if (controller.GetConnectFlag())
             {
-                StartCoroutine(Change());
+                if (controller.ButtonDown(Button.START))
+                {
+                    StartCoroutine(Change());
+                }
+            }
+            else
+            {
+                if (Input.anyKeyDown)
+                {
+                    StartCoroutine(Change());
+                }
             }
         }
 

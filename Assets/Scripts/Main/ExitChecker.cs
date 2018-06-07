@@ -10,9 +10,21 @@ public class ExitChecker : MonoBehaviour
 {
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        var controller = GameController.Instance;
+
+        if (controller.GetConnectFlag())
         {
-            StartCoroutine(Exit());
+            if (controller.ButtonDown(Button.BACK))
+            {
+                StartCoroutine(Exit());
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                StartCoroutine(Exit());
+            }
         }
     }
 
