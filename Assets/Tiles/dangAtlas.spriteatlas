@@ -75,6 +75,12 @@ SpriteAtlas:
   - {fileID: 21300020, guid: d37c2859d63e4da42806281348d3f7da, type: 3}
   - {fileID: 21300026, guid: d37c2859d63e4da42806281348d3f7da, type: 3}
   - {fileID: 21300024, guid: d37c2859d63e4da42806281348d3f7da, type: 3}
+  - {fileID: 21300000, guid: c997b17df47636e4181c949fff0f6c42, type: 3}
+  - {fileID: 21300000, guid: badac3d99f03f7f48937115760e6676a, type: 3}
+  - {fileID: 21300000, guid: a35276d5b385dde4294c99ed96cfbfd7, type: 3}
+  - {fileID: 21300004, guid: 8de9235fb3740894b88b6551e0f26ba1, type: 3}
+  - {fileID: 21300002, guid: 8de9235fb3740894b88b6551e0f26ba1, type: 3}
+  - {fileID: 21300000, guid: 8de9235fb3740894b88b6551e0f26ba1, type: 3}
   - {fileID: 21300000, guid: e225201b468358242aa3543827e64aa8, type: 3}
   - {fileID: 21300000, guid: 0403861513740f4459a3c9f084d2153b, type: 3}
   - {fileID: 21300040, guid: 569e3b3677af92449a791b3ee43ef36b, type: 3}
@@ -154,6 +160,12 @@ SpriteAtlas:
   - Floor_1_10
   - Floor_1_13
   - Floor_1_12
+  - Last
+  - Last3
+  - Last2
+  - AditionalRoof_2
+  - AditionalRoof_1
+  - AditionalRoof_0
   - Under
   - Hole
   - Wall_2_20
