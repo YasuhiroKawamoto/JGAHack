@@ -118,6 +118,7 @@ namespace Play
             // カメラ遷移終了待ち
             yield return new WaitUntil(() => _cameraManager.GetEndProduction());
 
+            GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Normal);
             _state = State.Play;
         }
 
