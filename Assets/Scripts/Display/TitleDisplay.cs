@@ -28,8 +28,11 @@ namespace Main
         public override IEnumerator Enter()
         {
             _phoneImage.transform.DOLocalMove(new Vector3(0.0f, 0.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
-            _phoneImage.transform.DOScale(new Vector3(5.0f, 2.0f, 1.0f), _transTime).SetEase(Ease.OutElastic);
-            _phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, -5.0f), _transTime).SetEase(Ease.OutElastic);
+            _phoneImage.transform.DOScale(new Vector3(1.0f, 1.2f, 1.0f), _transTime).SetEase(Ease.OutElastic);
+            _phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 85.0f), _transTime).SetEase(Ease.OutElastic);
+
+            var button = _phoneImage.transform.FindChild("Button");
+            button.transform.DOScale(new Vector3(1.2f, 1.0f, 1.0f), _transTime);
 
             yield return new WaitForSeconds(_transTime);
 
