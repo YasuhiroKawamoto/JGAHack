@@ -27,8 +27,8 @@ public class WaveContoller : MonoBehaviour {
 
         Sequence seq = DOTween.Sequence();
         // バウンド
-        seq.Append(myTrans.DOLocalMoveY(-0.1f, 1f).SetEase(Ease.OutBounce).OnComplete(callback).SetRelative());
-        seq.Join(myTrans.DOLocalMoveX(0.3f, 1f).SetRelative());
+        seq.Append(myTrans.DOLocalMoveY(0.1f, 1f).SetEase(Ease.OutBounce).OnComplete(callback).SetRelative());
+        seq.Join(myTrans.DOLocalMoveX(0, 1f).SetRelative());
     }
 
     // 更新
