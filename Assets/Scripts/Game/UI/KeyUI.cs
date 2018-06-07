@@ -63,7 +63,7 @@ namespace Play
 
 
         // Use this for initialization
-        void Start()
+        void Awake()
         {
             //テキスト取得
             _text = transform.Find("Text").GetComponent<Text>();

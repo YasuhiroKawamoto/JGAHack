@@ -14,7 +14,7 @@ public class EnemyRecovery : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        gage = transform.FindChild("gage").GetComponent<Image>();
+        gage = transform.Find("gage").GetComponent<Image>();
 	}
 	
 	// Update is called once per frame

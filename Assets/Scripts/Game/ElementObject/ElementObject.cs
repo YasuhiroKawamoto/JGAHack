@@ -36,6 +36,16 @@ namespace Play.Element
             set { _elementList = value; }
         }
 
+        // 付与されている要素たち
+        [SerializeField, Extensions.ReadOnly]
+        private List<ElementBase> _actionList = null;
+
+        public List<ElementBase> ActionList
+        {
+            get { return _actionList; }
+            set { _actionList = value; }
+        }
+
         // 忘れない要素
         private ElementBase[] _rememberList = null;
 
@@ -73,10 +83,12 @@ namespace Play.Element
         /// </summary>
         public void ElementUpdate()
         {
-            int index = (int)ElementType.length;
+            int index = (int)ElementType.length-1;
             _elementList = new ElementBase[index];
 
             var array = this.GetComponents<ElementBase>();
+
+            _actionList = new List<ElementBase>();
 
             foreach (var element in array)
             {
@@ -93,6 +105,14 @@ namespace Play.Element
                 {
                     continue;
                 }
+                //アクションタイプを別リストに保存
+                if (element.Type == ElementType.Action)
+                {
+                    _actionList.Add(element);
+                    element.Initialize();
+                    continue;
+                }
+
 
                 if (_elementList[typeIndex])
                 {
@@ -140,7 +160,6 @@ namespace Play.Element
                     // 要素の更新
                     this.ElementUpdate();
                 }
-
             }
 
             // 状態の変更
@@ -184,7 +203,7 @@ namespace Play.Element
         {
             // 状態の変更
             _stats = ElementStates.Remember;
-
+            
             // 今の要素を忘れる
             ForgetAllElement();
 

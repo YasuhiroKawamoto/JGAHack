@@ -31,7 +31,7 @@ namespace Main
             _phoneImage.transform.DOScale(new Vector3(1.0f, 1.2f, 1.0f), _transTime).SetEase(Ease.OutElastic);
             _phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 85.0f), _transTime).SetEase(Ease.OutElastic);
 
-            var button = _phoneImage.transform.FindChild("Button");
+            var button = _phoneImage.transform.Find("Button");
             button.transform.DOScale(new Vector3(1.2f, 1.0f, 1.0f), _transTime);
 
             yield return new WaitForSeconds(_transTime);

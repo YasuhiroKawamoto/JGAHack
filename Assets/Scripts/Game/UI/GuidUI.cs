@@ -5,7 +5,7 @@ using Extensions;
 
 namespace Play
 {
-    public class GuidUI : MonoBehaviour
+    public class GuidUI : Util.SingletonMonoBehaviour<GuidUI>
     {
 
         //案内状況
@@ -18,37 +18,21 @@ namespace Play
         [SerializeField, ReadOnly]
         private GameObject[] _uiSet;
 
-
-
         void Start()
         {
             //全行取得
             _uiSet = transform.GetAllChild();
-            //表示
-            ShowAll();
+            //非表示
+            HideAll();
         }
 
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                ChangeGuid(GUID_STEP.Normal);
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                ChangeGuid(GUID_STEP.Lockon);
-            }
-        }
-
-
+   
         //非表示
         public void HideAll()
         {
             for (int i = 0; i < _uiSet.Length; i++)
             {
                 _uiSet[i].SetActive(false);
-
             }
         }
 
@@ -65,6 +49,10 @@ namespace Play
         //案内状況に応じて表示変化
         public void ChangeGuid(GUID_STEP step)
         {
+
+            //表示
+            ShowAll();
+
             var controller = GameController.Instance;
             bool isController = controller.GetConnectFlag();
             if (isController)

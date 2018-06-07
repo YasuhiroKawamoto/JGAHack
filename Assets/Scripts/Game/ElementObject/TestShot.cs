@@ -4,11 +4,11 @@ using UnityEngine;
 
 
 
-namespace Play.Enemy
+namespace Play.Element
 {
 
     //簡易射撃テストスクリプト
-    public class TestShot : MonoBehaviour
+    public class TestShot : ElementBase
     {
         //生成オブジェクト（弾）
         [SerializeField]
@@ -33,9 +33,16 @@ namespace Play.Enemy
         // レンダラー
         SpriteRenderer _renderer = null;
 
-        // Use this for initialization
-        void Start()
+        void Awake()
         {
+            _type = ElementType.Action;
+        }
+
+
+        // Use this for initialization
+        public override void Initialize()
+        {
+            
             //弾置き場探し
             _bulletPlace = GameObject.Find("BulletPlace");
             //発射カウントのリセット

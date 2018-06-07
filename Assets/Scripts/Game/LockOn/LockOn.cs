@@ -55,6 +55,11 @@ namespace Play.LockOn
         {
             foreach (var obj in _lockOnList)
             {
+                if (obj == null)
+                {
+                    continue;
+                }
+
                 if (CheckOnScreen(obj.transform.position))
                 {
                     if (obj.Stats == ElementObject.ElementStates.Remember)
