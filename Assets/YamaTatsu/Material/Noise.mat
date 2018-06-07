@@ -68,7 +68,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RGBNoise: 0
-    - _ScanLineSpeed: 10
+    - _ScanLineSpeed: 2
     - _ScanLineTail: 1.5
     - _SinNoiseOffset: 0
     - _SinNoiseScale: 0

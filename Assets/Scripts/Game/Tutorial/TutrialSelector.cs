@@ -46,6 +46,9 @@ namespace Play.Tutrial
                         base.TargetObject(_step10Object);
                         tutrial.NextStep();
                         break;
+                    default:
+                        base.TargetObject(obj);
+                        break;
                 }
             }
         }
