@@ -52,7 +52,7 @@ namespace Play
             _container = GetComponent<ElementContainer>();
 
             // TODO: テキストリスト作成
-            int num = (int)ElementType.length;
+            int num = (int)ElementType.length - 1;
             _textList = new Text[num];
 
             // ロックオン関連の初期化
@@ -341,33 +341,6 @@ namespace Play
                 }
             }
             _container.AllDelete();
-        }
-
-        /// <summary>
-        /// 次の選択できる要素を取得
-        /// </summary>
-        /// <param name="elObj"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        private int SearchSelectElement(ElementObject elObj, int index)
-        {
-            int select = index;
-            int listLength = elObj.ElementList.Length;
-            if (0 < listLength)
-            {
-                select++;
-                if (listLength <= select)
-                {
-                    select = 0;
-                }
-
-                if (elObj.ElementList[select] == null)
-                {
-                    // 再起して取得する
-                    select = SearchSelectElement(elObj, select);
-                }
-            }
-            return select;
         }
 
         /// <summary>

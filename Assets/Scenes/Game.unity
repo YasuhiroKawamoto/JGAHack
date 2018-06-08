@@ -973,6 +973,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1424261660}
   - {fileID: 1354425691}
   m_Father: {fileID: 1426991997}
   m_RootOrder: 2
@@ -1343,7 +1344,8 @@ MonoBehaviour:
   _text: {fileID: 0}
   _icon: {fileID: 0}
   _icon2: {fileID: 0}
-  _images: []
+  _controllerImages: []
+  _keybordImages: []
 --- !u!1 &1207840897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,7 +1401,8 @@ MonoBehaviour:
   _text: {fileID: 0}
   _icon: {fileID: 0}
   _icon2: {fileID: 0}
-  _images: []
+  _controllerImages: []
+  _keybordImages: []
 --- !u!1001 &1314025256
 Prefab:
   m_ObjectHideFlags: 0
@@ -1515,7 +1518,7 @@ RectTransform:
   m_Children:
   - {fileID: 1644330903}
   m_Father: {fileID: 636205535}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1642,7 +1645,8 @@ MonoBehaviour:
   _text: {fileID: 0}
   _icon: {fileID: 0}
   _icon2: {fileID: 0}
-  _images: []
+  _controllerImages: []
+  _keybordImages: []
 --- !u!1 &1406459967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,8 +1756,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
-  m_Father: {fileID: 1426991997}
-  m_RootOrder: 3
+  m_Father: {fileID: 636205535}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1828,7 +1832,6 @@ RectTransform:
   - {fileID: 10317812}
   - {fileID: 39073730}
   - {fileID: 636205535}
-  - {fileID: 1424261660}
   m_Father: {fileID: 1582135143}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -51,6 +51,8 @@ namespace Play.Tutrial
         /// </summary>
         public void NextStep()
         {
+            if (_stepData.Count - 1 <= _step) return;
+
             _step++;
             var manager = InGameManager.Instance;
             var messenger = manager.Messenger;

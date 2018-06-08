@@ -83,7 +83,7 @@ namespace Play.Element
         /// </summary>
         public void ElementUpdate()
         {
-            int index = (int)ElementType.length-1;
+            int index = (int)ElementType.length - 1;
             _elementList = new ElementBase[index];
 
             var array = this.GetComponents<ElementBase>();
@@ -137,7 +137,7 @@ namespace Play.Element
                 return false;
             }
 
-            int index = (int)ElementType.length;
+            int index = (int)ElementType.length - 1;
             _rememberList = new ElementBase[index];
 
             // 現在の要素を止める
@@ -203,7 +203,7 @@ namespace Play.Element
         {
             // 状態の変更
             _stats = ElementStates.Remember;
-            
+
             // 今の要素を忘れる
             ForgetAllElement();
 
