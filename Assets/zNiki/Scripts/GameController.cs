@@ -20,6 +20,9 @@ public enum Button
 public class GameController : Util.SingletonMonoBehaviour<GameController>
 {
     private bool _connected = false;
+    private bool _isUseAxis = false;
+
+    private Direction _prevDir;
 
     // Use this for initialization
     void Start()
@@ -30,6 +33,7 @@ public class GameController : Util.SingletonMonoBehaviour<GameController>
     public bool GetConnectFlag()
     {
         CheckConnect();
+        CheckUseAxis();
 
         return _connected;
     }
@@ -53,6 +57,14 @@ public class GameController : Util.SingletonMonoBehaviour<GameController>
         else
         {
             _connected = false;
+        }
+    }
+
+    private void CheckUseAxis()
+    {
+        if (!Move(_prevDir))
+        {
+            _isUseAxis = false;
         }
     }
 
@@ -81,32 +93,31 @@ public class GameController : Util.SingletonMonoBehaviour<GameController>
 
     public bool Move(Direction d)
     {
-
         switch (d)
         {
             case Direction.Front:
-                if (Input.GetAxis("StickVertical") >= 0.1f || Input.GetAxis("CrossButtonVertical") >= 0.1f)
+                if (Input.GetAxis("StickVertical") >= 0.25f || Input.GetAxis("CrossButtonVertical") >= 0.25f)
                 {
                     return true;
                 }
                 break;
 
             case Direction.Back:
-                if (Input.GetAxis("StickVertical") <= -0.1f || Input.GetAxis("CrossButtonVertical") <= -0.1f)
+                if (Input.GetAxis("StickVertical") <= -0.25f || Input.GetAxis("CrossButtonVertical") <= -0.25f)
                 {
                     return true;
                 }
                 break;
 
             case Direction.Left:
-                if (Input.GetAxis("StickHorizontal") <= -0.1f || Input.GetAxis("CrossButtonHorizontal") <= -0.1f)
+                if (Input.GetAxis("StickHorizontal") <= -0.25f || Input.GetAxis("CrossButtonHorizontal") <= -0.25f)
                 {
                     return true;
                 }
                 break;
 
             case Direction.Right:
-                if (Input.GetAxis("StickHorizontal") >= 0.1f || Input.GetAxis("CrossButtonHorizontal") >= 0.1f)
+                if (Input.GetAxis("StickHorizontal") >= 0.25f || Input.GetAxis("CrossButtonHorizontal") >= 0.25f)
                 {
                     return true;
                 }
@@ -120,6 +131,13 @@ public class GameController : Util.SingletonMonoBehaviour<GameController>
 
     public bool MoveDown(Direction d)
     {
+        if (!_isUseAxis && Move(d))
+        {
+            _isUseAxis = true;
+            _prevDir = d;
+            return true;
+        }
+
         return false;
     }
 }

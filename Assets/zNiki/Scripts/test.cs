@@ -65,21 +65,38 @@ public class test : MonoBehaviour
                 Debug.Log("R3");
             }
 
-            if (con.Move(Direction.Front))
+            //if (con.Move(Direction.Front))
+            //{
+            //    Debug.Log("UP");
+            //}
+            //if (con.Move(Direction.Back))
+            //{
+            //    Debug.Log("DOWN");
+            //}
+            //if (con.Move(Direction.Left))
+            //{
+            //    Debug.Log("LEFT");
+            //}
+            //if (con.Move(Direction.Right))
+            //{
+            //    Debug.Log("RIGHT");
+            //}
+
+            if (con.MoveDown(Direction.Front))
             {
-                Debug.Log("UP");
+                Debug.Log("前");
             }
-            if (con.Move(Direction.Back))
+            if (con.MoveDown(Direction.Back))
             {
-                Debug.Log("DOWN");
+                Debug.Log("下");
             }
-            if (con.Move(Direction.Left))
+            if (con.MoveDown(Direction.Left))
             {
-                Debug.Log("LEFT");
+                Debug.Log("左");
             }
-            if (con.Move(Direction.Right))
+            if (con.MoveDown(Direction.Right))
             {
-                Debug.Log("RIGHT");
+                Debug.Log("右");
             }
         }
         else
