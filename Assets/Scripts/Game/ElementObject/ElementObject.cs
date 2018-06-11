@@ -64,6 +64,10 @@ namespace Play.Element
         //リジットボディ
         private Rigidbody2D _rigidBody2d;
 
+        //現在保有しているエフェクト
+        [SerializeField,ReadOnly]
+        private GameObject _myEffect;
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -301,6 +305,17 @@ namespace Play.Element
             transform.parent.gameObject.SetActive(true);
         }
 
+
+        //エフェクト更新（旧エフェクト破棄）
+        public void EffectUpDate(GameObject newEffect)
+        {
+            //エフェクトがある場合
+            if (_myEffect)
+            {
+                Destroy(_myEffect);         
+            }
+            _myEffect = newEffect;
+        }
 
         public float GetReturnTime()
         {

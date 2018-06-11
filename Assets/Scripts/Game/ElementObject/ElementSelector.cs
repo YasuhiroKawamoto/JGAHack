@@ -418,11 +418,12 @@ namespace Play
 
         //復帰演出セット
         void RecoverSet()
-        {
+        { 
             //復帰演出セット＆開始
             GameObject recover = EffectManager.Instance.CreateEffect(EffectID.EnemyRecovery, _targetObject.transform.position);
             recover.GetComponent<UISet>().SetTransform(_targetObject.transform);
             recover.GetComponent<EnemyRecovery>().SetTime(_targetObject.GetComponent<ElementObject>().GetReturnTime());
+            _targetObject.GetComponent<ElementObject>().EffectUpDate(recover);
         }
 
 

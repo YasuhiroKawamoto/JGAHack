@@ -26,16 +26,7 @@ public class EnemyRecovery : MonoBehaviour
     //スケール
     private Vector3 _scale = new Vector3(0.1f, 0.1f, 0.1f);
 
-    //赤色→緑
-    IEnumerator ChangeGageColor()
-    {
-        while (true)
-        {
-            //yield return StartCoroutine(ChangeColor(Color.red, 2.5f));
-            //yield return StartCoroutine(ChangeColor(Color.green, 2.5f));
-        }
-        yield break;
-    }
+  
 
     IEnumerator ChangeColor(Color toColor, float duration)
     {
@@ -84,7 +75,6 @@ public class EnemyRecovery : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         gage.fillAmount += Time.deltaTime / _timeMax;
         //Debug.Log(gage.fillAmount);
 
