@@ -71,43 +71,42 @@ namespace Play
         [SerializeField, ReadOnly]
         private bool _isEndProduction = false;
 
+
+
+        [SerializeField, ReadOnly]
+        private Transform _lastCheckPoint;
+
         // Update is called once per frame
         void Update()
         {
             //カメラの状態チェック
             CamCheck();
-
         }
 
-        //メインカメラの切り替え
-        public void MainCameraChange()
+
+        //チェックポイントによるカメラ更新
+        public void CheckPointUpDate(Transform checkPiont)
         {
-            //カメラの切り替わり所要時間の変更
-            _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 2;
-
-            //現カメラのフォロー解除
-            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = null;
-            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = null;
-
-            if (_currentCam == _camA)
+            //未登録チェックポイントだった場合
+            if (_lastCheckPoint != checkPiont)
             {
-                //カメラの優先度切り替え
-                _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOW;
-                _camB.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
-                //現状のカメラ切り替え
-                _currentCam = _camB;
-                //切り替えフラグON
-                _isChanging = true;
-            }
-            else if (_currentCam == _camB)
-            {
-                //カメラの優先度切り替え
-                _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
-                _camB.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOW;
-                //現状のカメラ切り替え
-                _currentCam = _camA;
-                //切り替えフラグON
-                _isChanging = true;
+                //プレイヤー復活地点を取得
+                Vector3 resetPos = InGameManager.Instance.GetStartPos();
+                resetPos.z = -10.0f;
+
+                if (_currentCam == _camA)
+                {
+                    //カメラの位置を開始地点に移動
+                    _camB.transform.position = resetPos;
+                }
+                else
+                {
+                    //カメラの位置を開始地点に移動
+                    _camA.transform.position = resetPos;
+                }
+
+                //最終チェックポイントを更新
+                _lastCheckPoint = checkPiont;
             }
         }
 
@@ -249,6 +248,39 @@ namespace Play
         public bool GetChangeCam()
         {
             return IsChanging;
+        }
+
+
+        //メインカメラの切り替え
+        public void MainCameraChange()
+        {
+            //カメラの切り替わり所要時間の変更
+            _mainCam.GetComponent<Cinemachine.CinemachineBrain>().m_DefaultBlend.m_Time = 2;
+
+            //現カメラのフォロー解除
+            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Follow = null;
+            _currentCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_LookAt = null;
+
+            if (_currentCam == _camA)
+            {
+                //カメラの優先度切り替え
+                _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOW;
+                _camB.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
+                //現状のカメラ切り替え
+                _currentCam = _camB;
+                //切り替えフラグON
+                _isChanging = true;
+            }
+            else if (_currentCam == _camB)
+            {
+                //カメラの優先度切り替え
+                _camA.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = HI;
+                _camB.GetComponent<Cinemachine.CinemachineVirtualCamera>().Priority = LOW;
+                //現状のカメラ切り替え
+                _currentCam = _camA;
+                //切り替えフラグON
+                _isChanging = true;
+            }
         }
     }
 }

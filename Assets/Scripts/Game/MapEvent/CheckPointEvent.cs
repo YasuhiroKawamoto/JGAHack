@@ -14,6 +14,8 @@ namespace Play
 				{
 					// チェックポイントの更新
 					InGameManager.Instance.StageManager.UpdateCheckPoint(this);
+                    //カメラマネージャに現在のチェックポイントを記憶＆カメラ移動
+                    CameraManager.Instance.CheckPointUpDate(gameObject.transform);
 				}
 			};
 		}
