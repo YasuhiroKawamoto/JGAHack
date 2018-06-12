@@ -1,14 +1,17 @@
 fileFormatVersion: 2
-guid: d63499043fdd10c4a883efc630c74ccb
-timeCreated: 1527235596
+guid: 135bcf4b32f9461408bf0cea4a5d5b2a
+timeCreated: 1528771979
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: door_0
-    21300002: door_1
-    21300004: door_2
-    21300006: door_3
-    21300008: door_4
+    21300000: Door _0
+    21300002: Door _1
+    21300004: Door _2
+    21300006: Door _3
+    21300008: Door _4
+    21300010: Door _5
+    21300012: Door _6
+    21300014: Door _7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -50,7 +53,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -82,16 +85,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   - buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -106,71 +99,113 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: door_0
+      name: Door _0
       rect:
         serializedVersion: 2
-        x: 98
-        y: 45
-        width: 30
-        height: 16
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: door_1
+      name: Door _1
       rect:
         serializedVersion: 2
-        x: 139
-        y: 3
-        width: 41
-        height: 48
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: door_2
+      name: Door _2
       rect:
         serializedVersion: 2
-        x: 158
-        y: 34
-        width: 35
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: door_3
+      name: Door _3
       rect:
         serializedVersion: 2
-        x: 200
-        y: 3
-        width: 56
-        height: 57
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: door_4
+      name: Door _4
       rect:
         serializedVersion: 2
-        x: 71
+        x: 0
         y: 0
-        width: 34
-        height: 44
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Door _5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Door _6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Door _7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
