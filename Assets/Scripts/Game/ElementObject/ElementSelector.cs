@@ -155,8 +155,9 @@ namespace Play
             // 要素をターゲット
             TargetElementObject(obj);
 
-            //Console更新
+            ////Console更新
             ConsoleUpDate(obj);
+            //操作ガイドの変更
             GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Lockon);
         }
 

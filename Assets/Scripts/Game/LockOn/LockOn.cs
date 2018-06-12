@@ -143,7 +143,7 @@ namespace Play.LockOn
         public int GetNearObjOnList()
         {
             //TODO　Playerセット（テスト）
-            GameObject nowObj = GameObject.Find("Player");
+            GameObject nowObj = GameObject.FindGameObjectWithTag("Player");
             //距離用一時変数
             float tmpDis = 0;
             //最も近いオブジェクトの距離      

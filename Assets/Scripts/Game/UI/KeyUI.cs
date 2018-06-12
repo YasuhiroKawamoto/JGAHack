@@ -72,9 +72,9 @@ namespace Play
             //アイコン取得
             _icon2 = transform.Find("Icon2").GetComponent<Image>();
             //リソースからアイコンゲット
-            _controllerImages = Resources.LoadAll<Sprite>("Icons/ControllerIcon");
+            _controllerImages = EffectManager.Instance.GetControllerIcons();
             //リソースからアイコンゲット
-            _keybordImages = Resources.LoadAll<Sprite>("Icons/KeyboardIcon");
+            _keybordImages = EffectManager.Instance.GetKeyboardIcons();
         }
 
 

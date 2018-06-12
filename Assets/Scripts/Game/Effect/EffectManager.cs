@@ -11,7 +11,15 @@ namespace Play
         //エフェクト
         [SerializeField, ReadOnly]
         private GameObject[] _effects;
-        
+        //Consoleアイコン
+        [SerializeField, ReadOnly]
+        private Sprite[] _iconImages;
+        //操作アイコン集（コントローラー）
+        [SerializeField, ReadOnly]
+        Sprite[] _controllerImages;
+        //操作アイコン集（キーボード）
+        [SerializeField, ReadOnly]
+        Sprite[] _keybordImages;
         //エフェクト置き場（親設定していない場合の置き場）
         [SerializeField]
         private GameObject _effectPlace;
@@ -20,18 +28,15 @@ namespace Play
         {
             //リソースからエフェクト群を取得
             _effects = Resources.LoadAll<GameObject>("Effects");
+            //リソースからアイコンゲット
+            _iconImages = Resources.LoadAll<Sprite>("Icons/ConsoleIcon");
+            //リソースから操作アイコン（コントローラー）ゲット
+            _controllerImages = Resources.LoadAll<Sprite>("Icons/ControllerIcon");
+            //リソースから操作アイコン（キーボード）ゲット
+            _keybordImages = Resources.LoadAll<Sprite>("Icons/KeyboardIcon");
         }
 
-        private void Start()
-        {
-            //エフェクトの名前
-            // List<string> _effectNames = new List<string>();
-            //for (int i = 0; i < _effects.Length; i++)
-            //{
-            //    _effectNames.Add(_effects[i].gameObject.name);
-            //}
-            //ShowListContentsInTheDebugLog(_effectNames);
-        }
+        
 
         //エフェクト生成（作るだけ）
         public virtual GameObject CreateEffect(EffectID name)
@@ -246,19 +251,22 @@ namespace Play
             Destroy(effectObj);
         }
 
-        //テスト用リスト表示
-        public void ShowListContentsInTheDebugLog<T>(List<T> list)
+        //Console関連画像取得
+        public Sprite[] GetConsoleIcons()
         {
-            string log = "";
+            return _iconImages;
+        }
 
-            foreach (var content in list.Select((val, idx) => new { val, idx }))
-            {
-                if (content.idx == list.Count - 1)
-                    log += content.val.ToString();
-                else
-                    log += content.val.ToString() + ", ";
-            }
-            Debug.Log(log + "要素数" + list.Count);
+        //Console関連画像取得
+        public Sprite[] GetControllerIcons()
+        {
+            return _controllerImages;
+        }
+
+        //Console関連画像取得
+        public Sprite[] GetKeyboardIcons()
+        {
+            return _keybordImages;
         }
     }
 }
