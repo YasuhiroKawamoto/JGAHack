@@ -15,10 +15,7 @@ namespace Play
             Left,
             Right,
             Back,
-            FrontWait,
-            LeftWait,
-            RightWait,
-            BackWait
+            Wait
         }
         //アニメーションセット
         private SimpleAnimation _anim;
@@ -26,12 +23,12 @@ namespace Play
         [SerializeField, ReadOnly]
         private ANIMATION_ID _currentAnim;
 
+        private float _waitTime = 1.0f;
+
         void Awake()
         {
             //アニメ切り替えスクリプト切り替え
             _anim = gameObject.GetComponent<SimpleAnimation>();
-
-
         }
 
         //アニメーション変更（移動方向で変更）
@@ -43,15 +40,13 @@ namespace Play
                 //左
                 if (-0.4f >= direction.x)
                 {
-                    _currentAnim = ANIMATION_ID.Left;
-                    transform.localScale = new Vector3(1, 1, 1);
-                    _anim.CrossFade("Side", 0);
+                    _currentAnim = ANIMATION_ID.Left;                
+                    _anim.CrossFade("Left", 0);
                 }
                 else if (0.4f <= direction.x)
                 {
-                    _currentAnim = ANIMATION_ID.Right;
-                    transform.localScale = new Vector3(-1, 1, 1);
-                    _anim.CrossFade("Side", 0);
+                    _currentAnim = ANIMATION_ID.Right;                
+                    _anim.CrossFade("Right", 0);
                 }
             }
             else if (0.4f <= direction.y)
@@ -59,8 +54,7 @@ namespace Play
                 //上
                 if (0.4f >= Mathf.Abs(direction.x))
                 {
-                    _currentAnim = ANIMATION_ID.Front;
-                    transform.localScale = new Vector3(1, 1, 1);
+                    _currentAnim = ANIMATION_ID.Front;                  
                     _anim.CrossFade("Front", 0);
                 }
             }
@@ -69,8 +63,7 @@ namespace Play
                 //下
                 if (0.4f >= Mathf.Abs(direction.x))
                 {
-                    _currentAnim = ANIMATION_ID.Back;
-                    transform.localScale = new Vector3(1, 1, 1);
+                    _currentAnim = ANIMATION_ID.Back;                 
                     _anim.CrossFade("Back", 0);
                 }
             }
@@ -78,29 +71,17 @@ namespace Play
             //移動量0
             if (direction.x == 0 && direction.y == 0)
             {
-                switch (_currentAnim)
+                _waitTime = _waitTime -Time.deltaTime;
+                if (_waitTime <= 0)
                 {
-                    case ANIMATION_ID.Front:
-
-                        _currentAnim = ANIMATION_ID.FrontWait;
-                        break;
-                    case ANIMATION_ID.Left:
-
-                        _currentAnim = ANIMATION_ID.LeftWait;
-                        break;
-                    case ANIMATION_ID.Right:
-
-                        _currentAnim = ANIMATION_ID.RightWait;
-                        break;
-                    case ANIMATION_ID.Back:
-
-                        _currentAnim = ANIMATION_ID.BackWait;
-                        break;
-
-                    default:
-                        _currentAnim = ANIMATION_ID.BackWait;
-                        break;
+                    _currentAnim = ANIMATION_ID.Wait;
+                    _anim.CrossFade("Wait", 0);
+                    _waitTime = 1.0f;
                 }
+            }
+            else {
+
+                _waitTime = 1.0f;
             }
         }
 
@@ -108,35 +89,8 @@ namespace Play
         {
             //現在アニメーションを変更
             _currentAnim = id;
-
-            switch (id)
-            {
-                case ANIMATION_ID.Right:
-                    Debug.Log("未実装、デザイン校を待て");
-                    break;
-
-                case ANIMATION_ID.RightWait:
-                    Debug.Log("未実装、デザイン校を待て");
-                    break;
-
-                case ANIMATION_ID.LeftWait:
-                    Debug.Log("未実装、デザイン校を待て");
-                    break;
-
-                case ANIMATION_ID.FrontWait:
-                    Debug.Log("未実装、デザイン校を待て");
-                    break;
-
-                case ANIMATION_ID.BackWait:
-                    Debug.Log("未実装、デザイン校を待て");
-                    break;
-
-                default:
-                    _currentAnim = id;
-                    //アニメ切り替え
-                    _anim.CrossFade(id.ToString(), 0);
-                    break;
-            }
+            //アニメ切り替え
+            _anim.CrossFade(id.ToString(), 0);
         }
     }
 }
