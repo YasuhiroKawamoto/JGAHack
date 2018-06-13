@@ -3,63 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using Extensions;
 
-public class EnemyAnimController : MonoBehaviour
+
+
+namespace Play
 {
-    //向き
-    Direction _dir;
-    [SerializeField, ReadOnly]
-    Animator _anim;
-
-    //初期化（非アクティブから復帰時も呼ばれる）
-    void OnEnable()
+    public class EnemyAnimController : MonoBehaviour
     {
-        //向き取得
-        _dir = gameObject.GetComponentInChildren<Play.Element.DiectionTest>().GetDir();
-        //アニメーターセット
-        _anim = gameObject.GetComponent<Animator>();
-        //アニメーション変更
-        ChangeAnim(_dir);
+        //アニメーションID
+        public enum ANIMATION_ID
+        {
+            Front,
+            Left,
+            Right,
+            Back,
+        }
+        //アニメーションセット
+        private SimpleAnimation _anim;
+        //現在のアニメーション
+        [SerializeField, ReadOnly]
+        private ANIMATION_ID _currentAnim;
+ 
+
+        void Awake()
+        {
+            //アニメ切り替えスクリプト切り替え
+            _anim = gameObject.GetComponent<SimpleAnimation>();
+        }
+
+        //アニメーション変更（移動方向で変更）
+        public virtual void ChangeAnim(Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Front:
+                    _currentAnim = ANIMATION_ID.Front;
+                    _anim.CrossFade("Front", 0);
+                    break;
+
+                case Direction.Left:
+                    _currentAnim = ANIMATION_ID.Left;
+                    _anim.CrossFade("Left", 0);
+                    break;
+
+                case Direction.Right:
+                    _currentAnim = ANIMATION_ID.Right;
+                    _anim.CrossFade("Right", 0);
+                    break;
+
+                case Direction.Back:
+                    _currentAnim = ANIMATION_ID.Back;
+                    _anim.CrossFade("Back", 0);
+                    break;
+            }
+            
+        }
+
+        public virtual void ChangeAnim(ANIMATION_ID id)
+        {
+            //現在アニメーションを変更
+            _currentAnim = id;
+            //アニメ切り替え
+            _anim.CrossFade(id.ToString(), 0);
+        }
     }
-
-    //アニメーション変更
-    public void ChangeAnim(Direction dir)
-    {
-        if (dir == Direction.Front)
-        {
-            _anim.SetBool("Front", true);
-        }
-        else
-        {
-            _anim.SetBool("Front", false);
-        }
-
-        if (dir == Direction.Back)
-        {
-            _anim.SetBool("Back", true);
-        }
-        else
-        {
-            _anim.SetBool("Back", false);
-        }
-
-        if (dir == Direction.Left)
-        {
-            _anim.SetBool("Left", true);
-        }
-        else
-        {
-            _anim.SetBool("Left", false);
-        }
-
-        if (dir == Direction.Right)
-        {
-            _anim.SetBool("Right", true);
-        }
-        else
-        {
-            _anim.SetBool("Right", false);
-        }
-
-    }
-
 }

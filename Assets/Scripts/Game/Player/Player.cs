@@ -11,7 +11,6 @@ namespace Play
 
         private Rigidbody2D _rigidbody;
 
-        private Vector3 _tmpMove = Vector3.zero;
 
         public enum State
         {
@@ -67,23 +66,18 @@ namespace Play
             {
                 tryMove = ControllerControl(controller);
 
-                if (tryMove != _tmpMove)
-                {
+               
                     //アニメーション切り替え
                     gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
-                    _tmpMove = tryMove;
-                }
+                  
             }
             else
             {
                 tryMove = KeyboardControl();
-
-                if (tryMove != _tmpMove)
-                {
+        
                     //アニメーション切り替え
                     gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
-                    _tmpMove = tryMove;
-                }
+                  
             }
             _rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
         }
