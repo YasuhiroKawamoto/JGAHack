@@ -13,5 +13,12 @@ namespace Play.Enemy
             Destroy(gameObject);
 
         }
+
+        void OnTriggerStay2D(Collider2D col)
+        {
+            //何かに当たれば弾消滅
+            Destroy(gameObject);
+
+        }
     }
 }

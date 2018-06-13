@@ -297,6 +297,7 @@ namespace Play
         public void TargetRelease()
         {
             _targetObject = null;
+            ConsoleOut();
         }
         public void TargetUIRelease()
         {
