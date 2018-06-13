@@ -30,6 +30,7 @@ namespace Play
             _anim = gameObject.GetComponent<SimpleAnimation>();
         }
 
+       
         //アニメーション変更（移動方向で変更）
         public virtual void ChangeAnim(Direction dir)
         {

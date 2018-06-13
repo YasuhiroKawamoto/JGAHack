@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114555236357642212}
   - component: {fileID: 114553552451491426}
   - component: {fileID: 114567221111307396}
+  - component: {fileID: 114661777489601890}
   m_Layer: 9
   m_Name: ShotEnemy
   m_TagString: Untagged
@@ -273,6 +274,18 @@ MonoBehaviour:
   - clip: {fileID: 7400000, guid: 7b2541ae4932d864cb4ba5a3220e81ce, type: 2}
     name: Back
     defaultState: 0
+--- !u!114 &114661777489601890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1143551075047956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cda3dd3a9608d74980d055835eb6f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canRebirth: 1
 --- !u!114 &114683007035977308
 MonoBehaviour:
   m_ObjectHideFlags: 1

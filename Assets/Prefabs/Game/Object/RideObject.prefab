@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 61941907583599436}
   - component: {fileID: 114838216481684130}
   - component: {fileID: 114762356494463296}
+  - component: {fileID: 114814793013255648}
   m_Layer: 11
   m_Name: ObjectElement
   m_TagString: Element
@@ -245,6 +246,7 @@ MonoBehaviour:
   _overwritePos: []
   _returnTime: 5
   _myEffect: {fileID: 0}
+  _tmpDirection: 0
 --- !u!114 &114762356494463296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,6 +259,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stayPos: {x: 0, y: 0, z: 0}
+--- !u!114 &114814793013255648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1506038104492138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9453b5115129ed843a09c1719c1945bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _direction: 0
 --- !u!114 &114838216481684130
 MonoBehaviour:
   m_ObjectHideFlags: 1

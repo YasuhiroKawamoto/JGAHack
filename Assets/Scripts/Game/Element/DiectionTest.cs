@@ -65,5 +65,10 @@ namespace Play.Element
         {
             return _direction;
         }
+
+        public Direction GetTmpDir()
+        {
+            return _tmpDirection;
+        }
     }
 }

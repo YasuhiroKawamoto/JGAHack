@@ -68,6 +68,10 @@ namespace Play.Element
 		[SerializeField, ReadOnly]
 		private GameObject _myEffect;
 
+        //もともとの向き
+        [SerializeField, ReadOnly]
+        private Direction _tmpDirection;
+
 		/// <summary>
 		/// 初期化
 		/// </summary>
@@ -76,6 +80,7 @@ namespace Play.Element
 			//リジットボディ取得
 			_rigidBody2d = gameObject.transform.parent.GetComponent<Rigidbody2D>();
 			_initPos = _rigidBody2d.transform.position;
+            _tmpDirection = gameObject.GetComponent<DiectionTest>().GetDir();
 		}
 		private void Start()
 		{
@@ -191,7 +196,19 @@ namespace Play.Element
 			{
 				// 正気になる
 				ReturnToSanity();
-			}
+                //TODO アニメ切り替え
+                //親オブジェのレイヤーが「Enemy」なら
+                if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Enemy")
+                {
+                    //アニメーションを向きに合わせて変更
+                    transform.parent.GetComponent<EnemyAnimController>().ChangeAnim(GetComponent<Play.Element.DiectionTest>().GetDir());
+                }
+                else　if(LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Immortal")
+                { 
+                    //画像を向きに合わせて変更
+                    transform.parent.GetComponent<ChangeSprite>().ChangeImage(GetComponent<Play.Element.DiectionTest>().GetDir());
+                }
+            }
 		}
 
 		/// <summary>
@@ -213,8 +230,8 @@ namespace Play.Element
 			yield return ReturnToInitPos();
 
 			// 要素を思い出す
-			ReCallElement();
-		}
+			ReCallElement();        
+        }
 
 		/// <summary>
 		/// 初期位置に戻る
@@ -264,9 +281,9 @@ namespace Play.Element
 
 			// 更新
 			ElementUpdate();
-
-			// 状態の変更
-			_stats = ElementStates.Default;
+           
+            // 状態の変更
+            _stats = ElementStates.Default;
 		}
 
 		/// <summary>
@@ -298,9 +315,20 @@ namespace Play.Element
 
 			// 動きリセット
 			ElementUpdate();
-
 			// 復活
 			transform.parent.gameObject.SetActive(true);
+
+            //親オブジェのレイヤーが「Enemy」なら
+            if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Enemy")
+            {
+                //アニメーションを向きに合わせて変更
+                transform.parent.GetComponent<EnemyAnimController>().ChangeAnim(GetComponent<Play.Element.DiectionTest>().GetDir());
+            }
+            else if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Immortal")
+            {
+                //画像を向きに合わせて変更
+                transform.parent.GetComponent<ChangeSprite>().ChangeImage(GetComponent<Play.Element.DiectionTest>().GetDir());
+            }      
 		}
 
 
@@ -320,5 +348,11 @@ namespace Play.Element
 			return _returnTime;
 
 		}
-	}
+
+        public Direction GetTmpDirection()
+        {
+            return _tmpDirection;
+
+        }
+    }
 }

@@ -43,6 +43,12 @@ namespace Play.Element
         public override void Initialize()
         {
             
+            
+        }
+
+
+        public void OnEnable()
+        {
             //弾置き場探し
             _bulletPlace = GameObject.Find("BulletPlace");
             //発射カウントのリセット
@@ -55,6 +61,7 @@ namespace Play.Element
         {
             //発射カウントダウン
             _shotCount -= Time.deltaTime;
+
             //発射カウント0時
             if (_shotCount <= 0)
             {
@@ -134,7 +141,7 @@ namespace Play.Element
             if (dir == null)
             {
                 // 設定されていない場合正面
-                return Direction.Front;
+                return gameObject.GetComponent<ElementObject>().GetTmpDirection();
             }
 
             // 向きを返す
