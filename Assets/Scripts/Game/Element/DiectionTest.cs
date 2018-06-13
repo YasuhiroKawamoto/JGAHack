@@ -28,9 +28,9 @@ namespace Play.Element
             anim = GetComponentInParent<EnemyAnimController>();
             if (anim)
             {
-                anim.ChangeAnim(_direction);
-                _tmpDirection = _direction;
+                anim.ChangeAnim(_direction);             
             }
+            _tmpDirection = _direction;
         }
 
 
@@ -38,9 +38,16 @@ namespace Play.Element
         {
             if (_direction != _tmpDirection)
             {
-                anim.ChangeAnim(_direction);
+                if(anim)
+                {
+                    anim.ChangeAnim(_direction);
+                }       
                 _tmpDirection = _direction;
-                GetComponent<Tackle>().ChangeDirection(_direction);
+                if(GetComponent<Tackle>())
+                {
+                    GetComponent<Tackle>().ChangeDirection(_direction);
+                }
+                
             }
         }
 
