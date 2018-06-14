@@ -8,6 +8,7 @@ namespace Play.Element
     [System.Serializable]
     public class ElementContainer : MonoBehaviourEx
     {
+
         private List<ElementBase> _list = null;
 
         public List<ElementBase> List
@@ -19,7 +20,8 @@ namespace Play.Element
         /// 要素をすべて受け取る
         /// </summary>
         public bool ReceiveAllElement(ElementBase[] receiveList)
-        {
+        { 
+
             // 新規作成
             _list = new List<ElementBase>();
 
@@ -33,6 +35,11 @@ namespace Play.Element
                     _list.Add(copy);
                 }
             }
+
+            PlayerDataPanel.Instance.SetIcon(0, _list[0].GetType().Name,GetComponent<DiectionTest>().GetDir());
+            PlayerDataPanel.Instance.SetIcon(1, _list[1].GetType().Name, GetComponent<DiectionTest>().GetDir());
+     
+
             return true;
         }
 
@@ -48,6 +55,8 @@ namespace Play.Element
                 Destroy(element);
             }
             _list = null;
+
+            PlayerDataPanel.Instance.IconReset() ;
         }
     }
 }

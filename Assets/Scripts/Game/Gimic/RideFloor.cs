@@ -2,10 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Play
+namespace Play.Element
 {
-    public class RideFloor : MonoBehaviour
+    public class RideFloor : ElementBase
+
     {
+
+        void Awake()
+        {
+            _type = ElementType.Action;
+        }
+
+        public override void Initialize()
+        {
+        }
+
         private BoxCollider2D _collider = null;
 
         public Collider2D Collider

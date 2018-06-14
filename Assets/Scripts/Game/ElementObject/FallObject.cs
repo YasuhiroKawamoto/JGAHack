@@ -18,7 +18,7 @@ namespace Play
         private Transform _parent = null;
 
         private bool _fall = false;
-        private RideFloor _ride = null;
+        private Element.RideFloor _ride = null;
 
         // 親の前フレームの位置
         private Vector3 _old;
@@ -83,7 +83,7 @@ namespace Play
                     _fall = true;
                 }
 
-                var ride = other.GetComponent<RideFloor>();
+                var ride = other.GetComponent<Element.RideFloor>();
                 if (ride)
                 {
                     _ride = ride;
@@ -100,7 +100,7 @@ namespace Play
         void OnTriggerExit2D(Collider2D other)
         {
             // 離れたとき親子関係解除
-            var ride = other.GetComponent<RideFloor>();
+            var ride = other.GetComponent<Element.RideFloor>();
             if (!ride) return;
 
             if (ride.transform.parent == transform.parent)

@@ -26,7 +26,7 @@ namespace Play.Element
 			if (InGameManager.IsInstance() == false) return;
 
 			//TODO 接触物判定
-			if (collision.gameObject)
+			if (LayerMask.LayerToName(collision.gameObject.layer) == "Bullet")
 			{
 
 				EffectManager.Instance.CreateEffect(EffectID.DestoryEnemy, gameObject.transform.position);

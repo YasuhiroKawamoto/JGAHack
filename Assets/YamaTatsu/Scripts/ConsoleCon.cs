@@ -24,9 +24,12 @@ namespace Play
             Direction_Left,
             Direction_Right,
             Direction_Up,
+            Nodata,
+            RideOn,
             Shot,
             Side,
             Stop,
+            Tackle,
             Updown
         }
 
@@ -163,6 +166,14 @@ namespace Play
                     _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Direction_Up];
                     break;
 
+                case CONSOLE_ICON.Nodata:
+                    _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Nodata];
+                    break;
+
+                case CONSOLE_ICON.RideOn:
+                    _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.RideOn];
+                    break;
+
                 case CONSOLE_ICON.Shot:
                     _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Shot];
                     break;
@@ -175,12 +186,16 @@ namespace Play
                     _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Stop];
                     break;
 
+                case CONSOLE_ICON.Tackle:
+                    _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Tackle];
+                    break;
+
                 case CONSOLE_ICON.Updown:
                     _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Updown];
                     break;
 
                 default:
-
+                    _icons[slotNum].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Nodata];
                     break;
             }
         }

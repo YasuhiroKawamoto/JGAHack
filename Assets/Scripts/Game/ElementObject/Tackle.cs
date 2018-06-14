@@ -162,16 +162,12 @@ namespace Play.Element
 
              
             }
-
-
             Show();
-
         }
 
 
         public void Show()
         {
-
             if (Range)
             {
                 Destroy(Range);
@@ -247,7 +243,6 @@ namespace Play.Element
 
                 //真上or真下に固定
                 _endPos.x = gameObject.transform.position.x;
-
             }
           
             yield return new WaitForSeconds(_waitTime);
@@ -299,6 +294,5 @@ namespace Play.Element
             // 向きを返す
             return dir.GetDir();
         }
-     
     }
 }
