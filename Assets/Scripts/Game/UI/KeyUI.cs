@@ -124,7 +124,7 @@ namespace Play
                         //テキスト変更
                         SetGuidText("ロックオン");
                         //アイコン変更
-                        SetIcon(_controllerImages[(int)CONTROLLER_ICON_ID.LockOnR]);
+                        SetIcon(_controllerImages[(int)CONTROLLER_ICON_ID.LockOnL],_controllerImages[(int)CONTROLLER_ICON_ID.LockOnR]);
                         break;
 
                     case GUID_ID.ChangeLock:
