@@ -92,7 +92,7 @@ namespace Main
                     _timePanel.UpdateView(_phoneScreen.SelectIndex);
                 }
 
-                if (Input.GetKeyDown(KeyCode.A))
+                if (controller.ButtonDown(Button.A))
                 {
                     Play.InGameManager.Destroy();
                     var index = _phoneScreen.SelectIndex;
