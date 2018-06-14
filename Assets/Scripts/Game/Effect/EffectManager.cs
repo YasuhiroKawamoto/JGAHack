@@ -81,12 +81,15 @@ namespace Play
             int effectNum = (int)name;
             //エフェクトをリストから複製
             effectObj = Instantiate(_effects[effectNum]);
+            effectObj.SetActive(false);
             //親の設定
             SetParent(effectObj, name);
             //エフェクトの位置設定
             effectObj.transform.position = pos;
             //自己破壊セット
             SetDestroy(effectObj);
+
+            effectObj.SetActive(true);
 
             return effectObj;
         }
