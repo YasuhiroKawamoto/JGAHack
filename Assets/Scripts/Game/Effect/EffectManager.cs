@@ -204,12 +204,16 @@ namespace Play
                 if (_effectPlace)
                 {
                     obj.transform.SetParent(_effectPlace.transform);
+                    //ヒエラルキーの一番上に置く
+                    obj.transform.SetAsFirstSibling();
                 }
             }
             else
             {
                 //UIRootに置く
                 obj.transform.SetParent(InGameManager.Instance.UIRoot.gameObject.transform);
+                //ヒエラルキーの一番上に置く（最背面描画）
+                obj.transform.SetAsFirstSibling();
             }
         }
 
@@ -221,11 +225,15 @@ namespace Play
             {
                 //指定した親の子供にする
                 obj.transform.SetParent(parent.transform);
+                //ヒエラルキーの一番上に置く
+                obj.transform.SetAsFirstSibling();
             }
             else
             {
                 //UIRootに置く
                 obj.transform.SetParent(InGameManager.Instance.UIRoot.gameObject.transform);
+                //ヒエラルキーの一番上に置く（最背面描画）
+                obj.transform.SetAsFirstSibling();
             }
         }
 
