@@ -426,7 +426,7 @@ namespace Play
         void CopyEffect()
         {
             //コピー時エフェクト
-            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, _targetObject.transform.position, 2);
+            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, _targetObject.transform.position);
             effect.GetComponent<WaveContoller>().setVelocity(gameObject.transform.parent.transform);
         }
 
@@ -434,7 +434,7 @@ namespace Play
         void PasteEffect()
         {
             //送信エフェクト
-            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, gameObject.transform.parent.position, 2);
+            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, gameObject.transform.parent.position);
             effect.GetComponent<WaveContoller>().setVelocity(_targetObject.transform);
         }
 

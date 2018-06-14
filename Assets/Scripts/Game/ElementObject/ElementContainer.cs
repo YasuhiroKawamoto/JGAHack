@@ -11,6 +11,8 @@ namespace Play.Element
 
         private List<ElementBase> _list = null;
 
+        private GameObject _dataPanel;
+
         public List<ElementBase> List
         {
             get { return _list; }
@@ -25,6 +27,12 @@ namespace Play.Element
             // 新規作成
             _list = new List<ElementBase>();
 
+            if (!_dataPanel)
+            {
+                _dataPanel = GameObject.Find("DataPanel");
+            }
+               
+
             // 要素のコピー移動
             foreach (var element in receiveList)
             {
@@ -36,8 +44,8 @@ namespace Play.Element
                 }
             }
 
-            PlayerDataPanel.Instance.SetIcon(0, _list[0].GetType().Name,GetComponent<DiectionTest>().GetDir());
-            PlayerDataPanel.Instance.SetIcon(1, _list[1].GetType().Name, GetComponent<DiectionTest>().GetDir());
+            _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(0, _list[0].GetType().Name,GetComponent<DiectionTest>().GetDir());
+            _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(1, _list[1].GetType().Name, GetComponent<DiectionTest>().GetDir());
      
 
             return true;
@@ -55,8 +63,7 @@ namespace Play.Element
                 Destroy(element);
             }
             _list = null;
-
-            PlayerDataPanel.Instance.IconReset() ;
+            _dataPanel.GetComponent<PlayerDataPanel>().IconReset() ;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Play
 {
-    public class PlayerDataPanel : Util.SingletonMonoBehaviour<PlayerDataPanel>
+    public class PlayerDataPanel :MonoBehaviour
     {
 
         public enum CONSOLE_ICON
@@ -116,8 +116,7 @@ namespace Play
 
         public void IconReset()
         {
-           
-
+          
             for (int i = 0; i < _icons.Length; i++)
             {
                 _icons[i].GetComponent<Image>().sprite = _iconImages[(int)CONSOLE_ICON.Nodata];

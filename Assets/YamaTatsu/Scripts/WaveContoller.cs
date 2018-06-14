@@ -17,8 +17,7 @@ public class WaveContoller : MonoBehaviour {
     private float _speed = 0.5f;
 
     //ターゲットの範囲
-    [SerializeField]
-    private float _range = 1.0f;
+    private float _range = 0.1f;
    
     // 起動時
     void Start()
@@ -31,8 +30,8 @@ public class WaveContoller : MonoBehaviour {
     {
         Move();
 
-        if(Mathf.Abs(transform.position.x + _target.transform.position.x) < Mathf.Abs(_target.transform.position.x + _range) &&
-           Mathf.Abs(transform.position.y + _target.transform.position.y) < Mathf.Abs(_target.transform.position.y + _range))
+        if(Mathf.Abs(_target.transform.position.x - transform.position.x) <= _range &&
+           Mathf.Abs(_target.transform.position.y - transform.position.y) <= _range)
         {
             Destroy(gameObject);
         }

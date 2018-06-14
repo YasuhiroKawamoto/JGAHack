@@ -9,7 +9,7 @@ namespace Play.Enemy
     {
         void OnTriggerEnter2D(Collider2D col)
         {
-            Debug.Log("イリ");
+           // Debug.Log("イリ");
             //何かに当たれば弾消滅
             Destroy(gameObject);
 
@@ -17,7 +17,7 @@ namespace Play.Enemy
 
         void OnTriggerStay2D(Collider2D col)
         {
-            Debug.Log("待機");
+            //Debug.Log("待機");
             //何かに当たれば弾消滅
             Destroy(gameObject);
 
@@ -25,7 +25,7 @@ namespace Play.Enemy
 
         void OnTriggerExit2D(Collider2D col)
         {
-            Debug.Log("ヌケ");
+            //Debug.Log("ヌケ");
             //何かに当たれば弾消滅
             Destroy(gameObject);
 
