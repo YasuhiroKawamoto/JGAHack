@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Extensions;
+using UnityEngine.SceneManagement;
 
 namespace Play
 {
@@ -52,12 +53,22 @@ namespace Play
 			//閉じようとしている
 			if (_isCloseing)
 			{
-				//プレイヤーが上に載ってなければ（ｙ軸判定）
-				if (Mathf.Abs(_player.transform.position.y - gameObject.transform.position.y) > 0.8f)
-				{
-					//閉じる
-					StartCoroutine(DoorClose());
-				}
+                if (_player != null)
+                {
+                    //プレイヤーが上に載ってなければ（ｙ軸判定）
+                    if (Mathf.Abs(_player.transform.position.y - gameObject.transform.position.y) > 0.8f)
+                    {
+                        //閉じる
+                        StartCoroutine(DoorClose());
+                    }
+                }
+                else
+                {
+                    //閉じる
+                    StartCoroutine(DoorClose());
+                }
+
+				
 			}
 		}
 
@@ -70,16 +81,22 @@ namespace Play
 		//開きコルーチン
 		private IEnumerator DoorOpen()
 		{
-			//閉じようとしていない
-			_isCloseing = false;
+            if (_inAction) yield break;
+            //動作中ではない
+            _inAction = true;
+            //閉じようとしていない
+            _isCloseing = false;
 			//スイッチ画像差し替え
 			_key.GetComponent<Doorkey>().ChangeImage(STATE.DOWN);
 			//開きアニメーション
 			gameObject.GetComponent<SimpleAnimation>().CrossFade("Open", 0);
-			// SE
-			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_open);
-			//開閉時間分待機
-			yield return new WaitForSeconds(_rugTime);
+            // SE
+            if (SceneManager.GetActiveScene().name != "Main")
+            {
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_open);
+            }
+            //開閉時間分待機
+            yield return new WaitForSeconds(_rugTime);
 			if (_inAction)
 			{
 				yield break;
@@ -96,6 +113,8 @@ namespace Play
 		//閉じるコルーチン
 		private IEnumerator DoorClose()
 		{
+            if (!_isCloseing) yield break;
+
 			//閉じようとしていない
 			_isCloseing = false;
 			//スイッチ画像差し替え
@@ -106,8 +125,11 @@ namespace Play
 			gameObject.GetComponent<SimpleAnimation>().CrossFade("Close", 0);
 			//当たり判定復活
 			_collider.enabled = true;
-			// SE
-			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_close);
+            // SE
+            if (SceneManager.GetActiveScene().name != "Main")
+            {
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_close);
+            }
 			//開閉時間分待機
 			yield return new WaitForSeconds(_rugTime);
 			//動作中ではない
