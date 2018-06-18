@@ -106,11 +106,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: 2.3055267}
+      - - {x: -16, y: 7.3732224}
         - {x: -16, y: 16}
         - {x: 16, y: 16}
         - {x: 16, y: -16}
-        - {x: 4.8837814, y: -16}
+        - {x: 6.5185184, y: -16}
       tessellationDetail: 0
     - serializedVersion: 2
       name: AditionalRoof_1
@@ -125,11 +125,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: 4.1890182}
+      - - {x: -16, y: 6.6411247}
         - {x: -16, y: 16}
         - {x: 16, y: 16}
         - {x: 16, y: -16}
-        - {x: 5.2107277, y: -16}
+        - {x: 6.3550415, y: -16}
       tessellationDetail: 0
     - serializedVersion: 2
       name: AditionalRoof_2
