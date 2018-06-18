@@ -694,7 +694,7 @@ Transform:
   m_GameObject: {fileID: 1994962210183938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.05, y: -0.05, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 4419568350541238}
   m_RootOrder: 0
@@ -2137,9 +2137,9 @@ MonoBehaviour:
   _targetKey: {fileID: 21300000, guid: 78895ca446f379e489cdeff39cb391a9, type: 3}
   _copyKey: {fileID: 21300000, guid: 370890282c115ea48912483611449c08, type: 3}
   _pasteKey: {fileID: 21300000, guid: 13b2f9a15e4002c4d825131abb2034a0, type: 3}
-  _targetButton: {fileID: 21300000, guid: 017283fd83c628c458e0c3de636dbb8c, type: 3}
-  _copyButton: {fileID: 21300000, guid: 479e7bad5c3b8c24ab0fb404ed8cdcb3, type: 3}
-  _pasteButton: {fileID: 21300000, guid: b108a1f39d5657e4493ddee7db3cfdcc, type: 3}
+  _targetButton: {fileID: 21300000, guid: 8bf65ddca1ebdff4cb9ce128c48d7f4c, type: 3}
+  _copyButton: {fileID: 21300000, guid: eb64703e1a33ea547bf431b576358394, type: 3}
+  _pasteButton: {fileID: 21300000, guid: 19266806a8ada7a47ad3607404debd2b, type: 3}
 --- !u!114 &114163687087661468
 MonoBehaviour:
   m_ObjectHideFlags: 1
