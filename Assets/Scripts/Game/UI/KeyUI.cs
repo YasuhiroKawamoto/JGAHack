@@ -61,6 +61,19 @@ namespace Play
         [SerializeField, ReadOnly]
         Sprite[] _keybordImages;
 
+        //元の位置と大きさ
+        [SerializeField,ReadOnly]
+        Vector3 _originaPosition1;
+        [SerializeField,ReadOnly]
+        Vector2 _originalSize1;
+
+        [SerializeField, ReadOnly]
+        Vector3 _originaPosition2;
+        [SerializeField, ReadOnly]
+        Vector2 _originalSize2;
+
+
+
 
         // Use this for initialization
         void Awake()
@@ -75,6 +88,7 @@ namespace Play
             _controllerImages = EffectManager.Instance.GetControllerIcons();
             //リソースからアイコンゲット
             _keybordImages = EffectManager.Instance.GetKeyboardIcons();
+         
         }
 
 
@@ -87,7 +101,18 @@ namespace Play
         //アイコンの変更
         public virtual void SetIcon(Sprite sprite)
         {
-            _icon.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(205, 0, 0);
+            if (sprite == _keybordImages[(int)KEYBOARD_ICON_ID.LockOn])
+            {
+                _icon.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(194, 0, 0);
+                _icon.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 100);
+            }
+            else
+            {
+                _icon.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(205, 0, 0);
+                _icon.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+            }
+
+           
             _icon.sprite = sprite;
             _icon2.gameObject.SetActive(false);
         }
@@ -96,18 +121,20 @@ namespace Play
         public virtual void SetIcon(Sprite sprite, Sprite sprite2)
         {
             _icon.sprite = sprite;
-            _icon.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(145, 0, 0);
+            _icon.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(145, 0, 0);
+            _icon.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
 
             _icon2.gameObject.SetActive(true);
             _icon2.sprite = sprite2;
-            _icon2.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(245, 0, 0);
+            _icon2.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(245, 0, 0);
         }
 
 
         //ガイド内容のセット
         public void GuidUISet(GUID_ID id,bool isContoroller)
         {
-           
+            
+
             if (isContoroller)
             {
                 //controller
@@ -175,6 +202,7 @@ namespace Play
                         break;
 
                     case GUID_ID.ChangeLock:
+                        
                         //テキスト変更
                         SetGuidText("ロックオン切り替え");
                         //アイコン変更
