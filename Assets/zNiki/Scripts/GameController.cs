@@ -93,31 +93,32 @@ public class GameController : Util.SingletonMonoBehaviour<GameController>
 
     public bool Move(Direction d)
     {
+        var limit = 0.01f;
         switch (d)
         {
             case Direction.Front:
-                if (Input.GetAxis("StickVertical") >= 0.25f || Input.GetAxis("CrossButtonVertical") >= 0.25f)
+                if (Input.GetAxis("StickVertical") >= limit || Input.GetAxis("CrossButtonVertical") >= limit)
                 {
                     return true;
                 }
                 break;
 
             case Direction.Back:
-                if (Input.GetAxis("StickVertical") <= -0.25f || Input.GetAxis("CrossButtonVertical") <= -0.25f)
+                if (Input.GetAxis("StickVertical") <= -limit || Input.GetAxis("CrossButtonVertical") <= -limit)
                 {
                     return true;
                 }
                 break;
 
             case Direction.Left:
-                if (Input.GetAxis("StickHorizontal") <= -0.25f || Input.GetAxis("CrossButtonHorizontal") <= -0.25f)
+                if (Input.GetAxis("StickHorizontal") <= -limit || Input.GetAxis("CrossButtonHorizontal") <= -limit)
                 {
                     return true;
                 }
                 break;
 
             case Direction.Right:
-                if (Input.GetAxis("StickHorizontal") >= 0.25f || Input.GetAxis("CrossButtonHorizontal") >= 0.25f)
+                if (Input.GetAxis("StickHorizontal") >= limit || Input.GetAxis("CrossButtonHorizontal") >= limit)
                 {
                     return true;
                 }
