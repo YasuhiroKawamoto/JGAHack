@@ -85,6 +85,40 @@ namespace Play
             }
         }
 
+        public virtual void ChangeAnim(Direction dir,float time)
+        {
+            switch (dir)
+            {
+                case Direction.Front:
+                    _currentAnim = ANIMATION_ID.Front;
+                    _anim.CrossFade("Front", 0);
+                    break;
+
+                case Direction.Left:
+                    _currentAnim = ANIMATION_ID.Left;
+                    _anim.CrossFade("Left", 0);
+                    break;
+
+                case Direction.Right:
+                    _currentAnim = ANIMATION_ID.Right;
+                    _anim.CrossFade("Right", 0);
+                    break;
+
+                case Direction.Back:
+                    _currentAnim = ANIMATION_ID.Back;
+                    _anim.CrossFade("Back", 0);
+                    break;
+            }
+
+
+            if (time >= 1)
+            {
+                _currentAnim = ANIMATION_ID.Wait;
+                _anim.CrossFade("Wait", 0);
+            }
+
+        }
+
         public virtual void ChangeAnim(ANIMATION_ID id)
         {
             //現在アニメーションを変更

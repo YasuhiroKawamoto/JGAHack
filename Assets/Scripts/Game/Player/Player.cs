@@ -12,6 +12,8 @@ namespace Play
 
 		private Rigidbody2D _rigidbody;
 
+        private float _waitCount = 0;
+
 
 		public enum State
 		{
@@ -66,20 +68,28 @@ namespace Play
 			if (controller.GetConnectFlag())
 			{
 				tryMove = ControllerControl(controller);
-
-
 				//アニメーション切り替え
-				gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
-
+				gameObject.GetComponent<PlayerAnimController>().ChangeAnim(_direction, _waitCount);
 			}
 			else
 			{
 				tryMove = KeyboardControl();
-
 				//アニメーション切り替え
-				gameObject.GetComponent<PlayerAnimController>().ChangeAnim(tryMove);
+				gameObject.GetComponent<PlayerAnimController>().ChangeAnim(_direction, _waitCount);
 
 			}
+
+            //待機時間経過
+            if (tryMove == Vector3.zero)
+            {
+                _waitCount += Time.deltaTime;
+            }
+            else
+            {
+                _waitCount = 0;
+            }
+
+            //移動
 			_rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
 		}
 
@@ -103,12 +113,12 @@ namespace Play
 			if (Input.GetKey(KeyCode.UpArrow))
 			{
 				tryMove += Vector3Int.up;
-				_direction = Direction.Back;
+				_direction = Direction.Front;
 			}
 			if (Input.GetKey(KeyCode.DownArrow))
 			{
 				tryMove += Vector3Int.down;
-				_direction = Direction.Front;
+				_direction = Direction.Back;
 			}
 
 			return tryMove;
