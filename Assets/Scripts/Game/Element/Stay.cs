@@ -25,7 +25,7 @@ namespace Play.Element
         public override void Initialize()
         {
             //リジットボディ取得
-            _rigitBody2d = GetComponentInChildren<Rigidbody2D>();
+            _rigitBody2d = transform.parent.GetComponent<Rigidbody2D>();
             //滞在位置取得
             _stayPos = transform.position;
 
@@ -34,7 +34,7 @@ namespace Play.Element
 
         // Update is called once per frame
         void Update()
-        {        
+        {
             //位置修正
             _rigitBody2d.MovePosition(_stayPos);
         }

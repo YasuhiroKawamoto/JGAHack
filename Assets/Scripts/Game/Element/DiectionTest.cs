@@ -9,6 +9,11 @@ namespace Play.Element
         [SerializeField]
         private Direction _direction = Direction.Front;
 
+        private Direction _tmpDirection;
+
+
+        private EnemyAnimController anim;
+
         private void Awake()
         {
             // 初期化でタイプを設定する
@@ -20,10 +25,29 @@ namespace Play.Element
         /// </summary>
         public override void Initialize()
         {
-            var anim = GetComponentInParent<EnemyAnimController>();
+            anim = GetComponentInParent<EnemyAnimController>();
             if (anim)
             {
-                anim.ChangeAnim(_direction);
+                anim.ChangeAnim(_direction);             
+            }
+            _tmpDirection = _direction;
+        }
+
+
+        private void Update()
+        {
+            if (_direction != _tmpDirection)
+            {
+                if(anim)
+                {
+                    anim.ChangeAnim(_direction);
+                }       
+                _tmpDirection = _direction;
+                if(GetComponent<Tackle>())
+                {
+                    GetComponent<Tackle>().ChangeDirection(_direction);
+                }
+                
             }
         }
 
@@ -40,6 +64,11 @@ namespace Play.Element
         public Direction GetDir()
         {
             return _direction;
+        }
+
+        public Direction GetTmpDir()
+        {
+            return _tmpDirection;
         }
     }
 }

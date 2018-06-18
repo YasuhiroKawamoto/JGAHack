@@ -4,17 +4,18 @@ using UnityEngine;
 
 namespace Play.MapEvent
 {
-    public class GoalEvent : EventBase
-    {
-        protected override void ColliderSetting()
-        {
-            _onEnter += (Collider2D other) =>
-            {
-                if (other.GetComponent<Player>())
-                {
-                    InGameManager.Instance.StageClear();
-                }
-            };
-        }
-    }
+	public class GoalEvent : EventBase
+	{
+		protected override void ColliderSetting()
+		{
+			_onEnter += (Collider2D other) =>
+			{
+				if (other.GetComponent<Player>())
+				{
+					if (InGameManager.IsInstance())
+						InGameManager.Instance.StageClear();
+				}
+			};
+		}
+	}
 }

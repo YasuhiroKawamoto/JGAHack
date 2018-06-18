@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Play.Element;
 using Extensions;
+using Play.LockOn;
+using Util.Sound;
 
 using System.Reflection;
 
@@ -21,37 +23,49 @@ namespace Play
 
         // ターゲットしているオブジェクト
         [SerializeField, ReadOnly]
-        private ElementObject _targetObject = null;
+        protected ElementObject _targetObject = null;
 
-        // 選択しているオブジェクト
+        // ターゲットしているオブジェクト
         [SerializeField, ReadOnly]
-        private ElementObject _selectObject = null;
+        private GameObject _console = null;
 
-        // TODO:選択したオブジェクトの要素テキスト
-        [SerializeField]
-        private Text _elementText;
+        // 選択している要素コンテナ
         [SerializeField, ReadOnly]
-        private Text[] _textList = null;
+        private ElementContainer _container = null;
 
-        // 選択している要素のインデックス
-        private int _selectElement = -1;
+        // ロックオン
+        private LockOn.LockOn _lockOn = null;
 
-        private List<GameObject> _targetList = null;
-        private int _targetNum = 0;
+
+        private GameObject _dataPanel;
+
+        public LockOn.LockOn LockOnObj
+        {
+            get { return _lockOn; }
+        }
 
         void Start()
         {
-            // TODO: テキストリスト作成
-            int num = (int)ElementType.length;
-            _textList = new Text[num];
+            // コンテナ取得
+            _container = GetComponent<ElementContainer>();
+
+            // ロックオン関連の初期化
+            _lockOn = this.gameObject.AddComponent<LockOn.LockOn>();
+
+
+            if (!_dataPanel)
+            {
+                _dataPanel = GameObject.Find("DataPanel");
+            }
         }
 
         void Update()
         {
+            if (!InGameManager.IsInstance()) return;
+
+            if (InGameManager.Instance.GameState != InGameManager.State.Play) return;
+
             // 選択
-            // 選択したオブジェクトを取得
-            var selectObj = GetClickObject();
-            TargetObject(selectObj);
             var con = GameController.Instance;
 
             var isTarget = TargetChoice.None;
@@ -64,33 +78,30 @@ namespace Play
                             con.ButtonDown(Button.L1) ? TargetChoice.Next : TargetChoice.None;
 
                 isSelect = con.ButtonDown(Button.A);
-                isChange = con.ButtonDown(Button.X);
+                isChange = con.ButtonDown(Button.B);
             }
             else
             {
                 isTarget = Input.GetKeyDown(KeyCode.Space) ? TargetChoice.Next : TargetChoice.None;
-                isSelect = Input.GetKeyDown(KeyCode.Z);
-                isChange = Input.GetKeyDown(KeyCode.C);
+                isSelect = Input.GetKeyDown(KeyCode.C);
+                isChange = Input.GetKeyDown(KeyCode.V);
             }
 
             if (isTarget != TargetChoice.None)
             {
-                if (_targetList == null)
+                // カメラにエレメントオブジェクトが移っているとき探す
+                if (LockOnObj.CheckOnScreenAll())
                 {
-                    var lockOn = new LockOn.LockOn();
-                    _targetList = lockOn.GetLockOnList();
-                    _targetNum = lockOn.GetNearObjOnList();
-                }
-
-                // 次のターゲットオブジェクトを取得
-                if (isTarget != TargetChoice.Next)
-                {
-                    // 選択
-                    TargetObject(GetNextTarget());
-                }
-                else if (isTarget != TargetChoice.Front)
-                {
-                    TargetObject(GetOldTarget());
+                    // 次のターゲットオブジェクトを取得
+                    if (isTarget != TargetChoice.Next)
+                    {
+                        // 選択
+                        TargetObject(LockOnObj.GetTarget(1));
+                    }
+                    else if (isTarget != TargetChoice.Front)
+                    {
+                        TargetObject(LockOnObj.GetTarget(-1));
+                    }
                 }
             }
 
@@ -99,85 +110,283 @@ namespace Play
             {
                 if (_targetObject)
                 {
+                    //コピー時エフェクト
+                    CopyEffect();
+                    //Dataパネル更新
+                    DataPanelUpDate(_targetObject);
                     SelectObject();
-                }
-            }
-
-            // 選択要素切り替え
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                if (_selectObject)
-                {
-                    // 次の要素を取得
-                    ChangeNextElement();
                 }
             }
 
             // 要素を移す
             if (isChange)
             {
-                MoveElement(_targetObject);
+                if (_targetObject)
+                {
+
+                    MoveElement(_targetObject);
+
+                }
             }
-        }
 
-        /// <summary>
-        /// 次のターゲットを取得
-        /// </summary>
-        /// <param name="num"></param>
-        /// <returns></returns>
-        private GameObject GetNextTarget()
-        {
-            _targetNum++;
-
-            if (_targetList.Count <= _targetNum)
+            if (_targetObject)
             {
-                _targetNum = 0;
+                //正気に戻ったらConsole破棄
+                if (_targetObject.Stats == ElementObject.ElementStates.Remember)
+                {
+                    TargetUIRelease();
+                }
             }
-            var obj = _targetList[_targetNum];
-
-            if (obj == null)
-            {
-                obj = GetNextTarget();
-            }
-
-            return obj;
-        }
-
-        /// <summary>
-        /// 一個前のターゲット
-        /// </summary>
-        /// <returns></returns>
-        private GameObject GetOldTarget()
-        {
-            _targetNum--;
-
-            if (_targetNum < 0)
-            {
-                _targetNum = _targetList.Count - 1;
-            }
-            var obj = _targetList[_targetNum];
-
-            if (obj == null)
-            {
-                obj = GetOldTarget();
-            }
-
-            return obj;
         }
 
         /// <summary>
         /// オブジェクトをターゲット
         /// </summary>
-        private void TargetObject(GameObject obj)
+        virtual protected void TargetObject(ElementObject obj)
         {
-            if (obj)
+            if (obj == null)
             {
-                var elementObj = obj.GetComponent<ElementObject>();
-                if (elementObj)
+                return;
+            }
+
+            // 要素をターゲット
+            TargetElementObject(obj);
+
+            // Console更新
+            ConsoleUpDate(obj);
+            //操作ガイドの変更
+            GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Lockon);
+
+            // SE
+            SoundManager.Instance.PlayOneShot(AudioKey.in_play_lock_on);
+        }
+
+        //Console更新
+        private void ConsoleUpDate(ElementObject obj)
+        {
+
+            if (obj.GetComponent<ElementObject>().ElementList == null) return;
+
+            //古いConsoleを破棄
+            if (_console)
+            {
+                _console.GetComponent<ConsoleCon>().SetIsOpen(false);
+            }
+
+            //新しいConsole設定
+            _console = EffectManager.Instance.CreateEffect(EffectID.Console);
+            //Consoleをオブジェクトにセット
+            _console.GetComponent<UISet>().SetTransform(obj.transform);
+
+
+            if (obj.GetComponent<ElementObject>().ElementList.Length != 0)
+            {
+                //ムーブ,ディレクション画像
+                for (int i = 0; i < obj.ElementList.Length; i++)
                 {
-                    // 要素をターゲット
-                    TargetElementObject(elementObj);
+                    if (obj.ElementList[i])
+                    {
+
+                        if (obj.ElementList[i].Type == ElementType.Action)
+                        {
+                            var element = obj.ElementList[i].GetType().Name;
+                            ChangeConsoleIcon(0, element, obj);
+                        }
+
+                        if (obj.ElementList[i].Type == ElementType.Move)
+                        {
+                            var element = obj.ElementList[i].GetType().Name;
+                            ChangeConsoleIcon(1, element, obj);
+                        }
+
+                        if (obj.ElementList[i].Type == ElementType.Direction)
+                        {
+                            var element = obj.ElementList[i].GetType().Name;
+                            ChangeConsoleIcon(2, element, obj);
+                        }
+                    }
                 }
+            }
+        }
+
+        //Consoleのアイコン変更
+        private void ChangeConsoleIcon(int iconNum, string typeName, ElementObject obj)
+        {
+
+
+            if (typeName == "DiectionTest")
+            {
+                switch (obj.GetCurrentDirection())
+                {
+                    case Direction.Back:
+                        _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Down);
+                        break;
+
+                    case Direction.Left:
+                        _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Left);
+                        break;
+
+                    case Direction.Right:
+                        _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Right);
+                        break;
+
+                    case Direction.Front:
+                        _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Up);
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
+            if (typeName == "TestShot")
+            {
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.ShotRock);
+            }
+
+            if (typeName == "Tackle")
+            {
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.TackleRock);
+            }
+
+            if (typeName == "RideFloor")
+            {
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.RideOnRock);
+            }
+
+            if (typeName == "SideMove")
+            {
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Side);
+            }
+
+            if (typeName == "Stay")
+            {
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Stop);
+            }
+
+            if (typeName == "UpDownMove")
+            {
+
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Updown);
+            }
+
+            if (typeName == "NoData")
+            {
+
+                _console.GetComponent<ConsoleCon>().SetIcon(iconNum, CONSOLE_ICON_ID.Nodata);
+            }
+        }
+
+
+        private void DataPanelUpDate(ElementObject obj)
+        {
+
+            if (obj.GetComponent<ElementObject>().ElementList == null) return;
+
+            if (obj.GetComponent<ElementObject>().ElementList.Length != 0)
+            {
+                //ムーブ,ディレクション画像
+                for (int i = 0; i < obj.GetComponent<ElementObject>().ElementList.Length; i++)
+                {
+                    if (obj.ElementList[i])
+                    {
+
+                        if (obj.ElementList[i].Type == ElementType.Action)
+                        {
+
+                            var element = obj.ElementList[i].GetType().Name;
+                            DataIconSet(0, element, obj);
+
+                        }
+                        else if (obj.ElementList[i].Type == ElementType.Move)
+                        {
+                            var element = obj.ElementList[i].GetType().Name;
+                            DataIconSet(1, element, obj);
+                        }
+                        else if (obj.ElementList[i].Type == ElementType.Direction)
+                        {
+                            var element = obj.ElementList[i].GetType().Name;
+                            DataIconSet(2, element, obj);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void DataIconSet(int iconNum, string typeName, ElementObject obj)
+        {
+            if (typeName == "DiectionTest")
+            {
+                switch (obj.GetCurrentDirection())
+                {
+                    case Direction.Back:
+                        _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Down);
+                        break;
+
+                    case Direction.Left:
+                        _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Left);
+                        break;
+
+                    case Direction.Right:
+                        _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Right);
+                        break;
+
+                    case Direction.Front:
+                        _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Direction_Up);
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
+
+
+            if (typeName == "TestShot")
+            {
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Shot);
+            }
+
+            if (typeName == "Tackle")
+            {
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Tackle);
+            }
+
+            if (typeName == "RideFloor")
+            {
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.RideOn);
+            }
+
+            if (typeName == "SideMove")
+            {
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Side);
+            }
+
+            if (typeName == "Stay")
+            {
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Stop);
+            }
+
+            if (typeName == "UpDownMove")
+            {
+
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Updown);
+            }
+
+            if (typeName == "NoData")
+            {
+                _dataPanel.GetComponent<PlayerDataPanel>().SetIcon(iconNum, CONSOLE_ICON_ID.Nodata);
+            }
+        }
+
+        private void ConsoleOut()
+        {
+            if (_console)
+            {
+                _console.GetComponent<ConsoleCon>().SetIsOpen(false);
             }
         }
 
@@ -188,73 +397,58 @@ namespace Play
         private void TargetElementObject(ElementObject elementObj)
         {
             // ターゲット解除
-            TargetRelease();
+            TargetUIRelease();
 
             // ターゲット
             _targetObject = elementObj;
 
-            // TODO: 仮で選択したオブジェクトにテキストを付与
-            // ======================================================
-            // 子に要素追加
-            var text = GameObject.Instantiate(_elementText);
-            _targetObject.transform.SetChild(text.gameObject);
-            text.transform.localPosition = Vector3.zero;
-            text.gameObject.AddComponent<Canvas>();
-            var scaler = text.gameObject.AddComponent<CanvasScaler>();
-            scaler.dynamicPixelsPerUnit = 20;
-            text.transform.localScale = new Vector3(0.1f, 0.1f, 1.0f);
-            text.fontSize = 1;
-            text.alignment = TextAnchor.MiddleLeft;
-            // テキスト変更
+            var target = _targetObject.gameObject.AddComponent<TargetObject>();
+            target.SetSelector(this);
 
-            text.text = string.Empty;
-            foreach (var element in _targetObject.ElementList)
-            {
-                if (element)
-                {
-                    text.text += element.Type.ToString() + "\n";
-                }
-            }
-            if (text.text == string.Empty)
-            {
-                text.text = "NoneElement";
-            }
-            // ======================================================
+            GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Lockon);
+
         }
 
         /// <summary>
         /// オブジェクトへのターゲットを解除
         /// </summary>
-        private void TargetRelease()
+        public void TargetRelease()
         {
-            // TODO: 追加したテキスト削除
-            if (_targetObject)
-            {
-                var childs = _targetObject.transform.GetAllChild();
-                foreach (var c in childs)
-                {
-                    if (c.name == "ElementText(Clone)")
-                    {
-                        Destroy(c.gameObject);
-                    }
-                }
-            }
             _targetObject = null;
+            ConsoleOut();
+        }
+        public void TargetUIRelease()
+        {
+            if (_targetObject == null)
+            {
+                return;
+            }
+
+            // タゲUIなど解除
+            var target = _targetObject.GetComponent<TargetObject>();
+
+            if (target)
+            {
+                target.Release();
+                //Console削除
+                ConsoleOut();
+                GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Normal);
+            }
         }
 
         /// <summary>
         /// オブジェクトを選択
         /// </summary>
-        private void SelectObject()
+        virtual protected void SelectObject()
         {
             SelectRelease();
-            _selectObject = _targetObject;
+            _container.ReceiveAllElement(_targetObject.ElementList);
+
+            // SE
+            SoundManager.Instance.PlayOneShot(AudioKey.in_play_copy);
+
             // ターゲット解除
-            TargetRelease();
-            // TODO:要素UI更新
-            ElementUIUpdate();
-            // TODO: テキスト追加
-            AddText(_selectObject.ElementList);
+            TargetUIRelease();
         }
 
         /// <summary>
@@ -262,168 +456,57 @@ namespace Play
         /// </summary>
         private void SelectRelease()
         {
-            foreach (var text in _textList)
-            {
-                if (text)
-                {
-                    GameObject.Destroy(text.gameObject);
-                }
-            }
-            _selectObject = null;
-            _selectElement = -1;
-        }
-
-        /// <summary>
-        /// 選択要素を次に移動
-        /// </summary>
-        private void ChangeNextElement()
-        {
-            // 次の要素を取得
-            _selectElement = SearchSelectElement(_selectObject, _selectElement);
-            ElementUIUpdate();
-        }
-
-        /// <summary>
-        /// 次の選択できる要素を取得
-        /// </summary>
-        /// <param name="elObj"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        private int SearchSelectElement(ElementObject elObj, int index)
-        {
-            int select = index;
-            int listLength = elObj.ElementList.Length;
-            if (0 < listLength)
-            {
-                select++;
-                if (listLength <= select)
-                {
-                    select = 0;
-                }
-
-                if (elObj.ElementList[select] == null)
-                {
-                    // 再起して取得する
-                    select = SearchSelectElement(elObj, select);
-                }
-            }
-            return select;
+            _container.AllDelete();
         }
 
         /// <summary>
         /// 要素の移動
         /// </summary>
         /// <param name="selectObj"></param>
-        private void MoveElement(ElementObject selectObj)
+        virtual protected void MoveElement(ElementObject selectObj)
         {
-            // TODO : 送る要素が一つの時
-            // var element = _selectObject.ElementList[_selectElement];
+            // リストを記憶していない場合は移動しない
+            if (_container.List == null) return;
+            // すべての要素を移動
+            selectObj.ReceiveAllElement(_container.List.ToArray());
+            //Console更新
+            ConsoleUpDate(selectObj);
 
-            // // 要素のコピー移動
-            // selectObj.CopyComponent(element);
+            // SE
+            SoundManager.Instance.PlayOneShot(AudioKey.in_play_paste);
 
-            // // 要素の更新
-            // selectObj.ElementUpdate();
-
-            if (_selectObject)
-            {
-                // すべての要素を移動
-                selectObj.ReceiveAllElement(_selectObject.ElementList);
-
-                // ターゲット解除
-                TargetRelease();
-
-                // 選択解除
-                SelectRelease();
-            }
-        }
-        // TODO: 要素テキスト追加
-        private void AddText(ElementBase[] elements)
-        {
-            // TODO:初期要素を選択状態に
-            foreach (var element in elements)
-            {
-                if (element == null)
-                {
-                    continue;
-                }
-                _selectElement = (int)element.Type;
-            }
-
-            // テキスト削除
-            float y = 0.0f;
-            foreach (var element in elements)
-            {
-                if (element == null)
-                {
-                    continue;
-                }
-
-                var type = element.Type;
-
-                // 子に要素追加
-                var pos = new Vector3(-430.0f, -50.0f + y, 0.0f);
-                var text = GameObject.Instantiate(_elementText);
-
-                // UIルート取得
-                var root = InGameManager.Instance.UIRoot;
-                root.gameObject.transform.SetChild(text.gameObject);
-
-                text.transform.localPosition = pos;
-
-                // テキスト変更
-                text.text = type.ToString();
-
-                _textList[(int)type] = text;
-
-                y -= 30.0f;
-            }
-
-            // 選択更新時処理
-            ElementUIUpdate();
+            //ペースト時エフェクト
+            PasteEffect();
+            //復帰演出セット
+            RecoverSet();
+            // ターゲット解除
+            TargetUIRelease();
         }
 
-        // TODO: 選択要素の表示更新
-        private void ElementUIUpdate()
+        //コピー時エフェクト
+        void CopyEffect()
         {
-            if (_selectElement == -1)
-            {
-                // 選択されている要素がない場合はなにもしない
-                return;
-            }
-
-            foreach (var text in _textList)
-            {
-                if (text == null)
-                {
-                    continue;
-                }
-                text.fontSize = 25;
-            }
-
-            // TODO: 仮ででかくする
-            _textList[_selectElement].fontSize = 30;
+            //コピー時エフェクト
+            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, _targetObject.transform.position);
+            effect.GetComponent<WaveContoller>().setVelocity(gameObject.transform.parent.transform);
         }
 
-        /// <summary>
-        /// TODO:左クリックしたオブジェクトを取得 
-        /// </summary>
-        /// <returns></returns>
-        private GameObject GetClickObject()
+        //ペースト時エフェクト
+        void PasteEffect()
         {
-            GameObject result = null;
+            //送信エフェクト
+            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, gameObject.transform.parent.position);
+            effect.GetComponent<WaveContoller>().setVelocity(_targetObject.transform);
+        }
 
-            // 左クリックされた場所のオブジェクトを取得
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
-                if (collition2d)
-                {
-                    result = collition2d.transform.gameObject;
-                }
-            }
-            return result;
+        //復帰演出セット
+        void RecoverSet()
+        {
+            //復帰演出セット＆開始
+            GameObject recover = EffectManager.Instance.CreateEffect(EffectID.EnemyRecovery, _targetObject.transform.position);
+            recover.GetComponent<UISet>().SetTransform(_targetObject.transform);
+            recover.GetComponent<EnemyRecovery>().SetTime(_targetObject.GetComponent<ElementObject>().GetReturnTime());
+            _targetObject.GetComponent<ElementObject>().EffectUpDate(recover);
         }
     }
 }

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95e7d4e17082974396bc9db27373671, type: 3}
+  m_Name: LockOnSetting
+  m_EditorClassIdentifier: 
+  _target: {fileID: 1928845370931122, guid: b9f75b0b906d0b54182d9bc7e8c8d965, type: 2}
+  _elementText: {fileID: 114226643485333420, guid: 546392ba5ab9045488d4cf8c5c867df5,
+    type: 2}

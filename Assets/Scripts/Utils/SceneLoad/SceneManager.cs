@@ -7,6 +7,13 @@ namespace Util.Scene
     // シーン遷移用クラス
     public class SceneManager : SingletonMonoBehaviour<SceneManager>
     {
+        // 現在読み込み中か？
+        private bool _isLoading = false;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+        }
+
         /// <summary>
         /// シーンの変更
         /// </summary>
@@ -46,16 +53,21 @@ namespace Util.Scene
             var load = gameObject.AddComponent<SceneLoader>();
 
             // 読み込み開始
+            _isLoading = true;
             load.LoadStart(sceneName);
 
             // フェード
             yield return StartCoroutine(FadeManager.Instance.FadeIn(inInterval));
+
+            // 音停止
+            Util.Sound.SoundManager.Instance.AllStop();
 
             // 読み込み待ち
             yield return new WaitUntil(() => load.IsLoading == false);
 
             // シーンの変更
             load.ChangeScene();
+            _isLoading = false;
 
             // フェードアウト
             StartCoroutine(FadeManager.Instance.FadeOut(outInterval));

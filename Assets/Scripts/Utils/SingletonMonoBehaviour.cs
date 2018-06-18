@@ -63,9 +63,18 @@ namespace Util
             }
         }
 
+        public static bool IsInstance()
+        {
+            return _instance;
+        }
+
         /// <summary>
         /// インスタンスの破棄
         /// </summary>
+        public static void Destroy()
+        {
+            Destroy(Instance);
+        }
         void OnDestroy()
         {
             Instance = null;

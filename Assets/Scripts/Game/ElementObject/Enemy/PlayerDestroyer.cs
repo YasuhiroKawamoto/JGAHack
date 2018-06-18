@@ -7,46 +7,31 @@ namespace Play.Enemy
 
     public class PlayerDestroyer : MonoBehaviour
     {
-        [SerializeField]
-        GameObject CamMan;
-
-
-        private void Awake()
-        {
-            CamMan = GameObject.Find("CameraManager");
-        }
-
-
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.tag == "Player")
+            //持っているコライダーで処理変更
+            if (gameObject.GetComponent<CircleCollider2D>())
             {
-                //プレイヤー死亡処理
-                InGameManager.Instance.StageOver();
-                //カメラシェイク
-                CamMan.GetComponent<CameraManager>().ShakeCamera();
-                //カメラの切り替え
-                CamMan.GetComponent<CameraManager>().MainCameraChange();
-
+                //Circleコライダー（弾）に当たった場合。
+                var player = col.GetComponent<Player>();
+                if (player && gameObject.GetComponent<CircleCollider2D>().isTrigger)
+                {
+                    // プレイヤー死亡
+                    player.Dead();
+                }
             }
-
         }
-
 
         void OnCollisionEnter2D(Collision2D col)
         {
-            if (col.gameObject.tag == "Player")
+            var player = col.transform.GetComponent<Player>();
+
+            //ボックスコライダー（敵本体）に当たった時の判定
+            if (player && !gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
-                //プレイヤー死亡処理
-                InGameManager.Instance.StageOver();
-                //カメラシェイク
-                CamMan.GetComponent<CameraManager>().ShakeCamera();
-                //カメラの切り替え
-                CamMan.GetComponent<CameraManager>().MainCameraChange();
-
+                player.Dead();
             }
-
         }
     }
-    
+
 }

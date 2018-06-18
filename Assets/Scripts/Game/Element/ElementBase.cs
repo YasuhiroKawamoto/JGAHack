@@ -11,6 +11,7 @@ namespace Play.Element
         Move = 0,
         Action,
         Direction,
+        
         length
     }
 

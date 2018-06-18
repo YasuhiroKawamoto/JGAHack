@@ -32,7 +32,7 @@ namespace Util
             if (Input.GetMouseButtonDown(_button))
             {
                 // 呼び出しはこれ
-                Scene.SceneManager.Instance.ChangeScene(_sceneName);
+                Scene.SceneManager.Instance.ChangeSceneFadeInOut(_sceneName);
             }
         }
     }
