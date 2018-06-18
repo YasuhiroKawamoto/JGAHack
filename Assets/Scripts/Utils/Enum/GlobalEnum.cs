@@ -43,7 +43,7 @@ public static class EffectIDEx
         switch (ID)
         {
             case EffectID.CheckPoint:
-                isRect = true;
+                isRect = false;
                 break;
             case EffectID.Console:
                 isRect = true;
