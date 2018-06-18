@@ -11,13 +11,10 @@ namespace Play
 	{
 		[SerializeField]
 		private GameObject _player;
-
 		// 対応しているキー
 		public Doorkey _key;
-
 		//コライダー
 		private Collider2D _collider;
-
 		//アニメーションラグ
 		[SerializeField]
 		private float _rugTime = 0.8f;
@@ -81,6 +78,7 @@ namespace Play
 		//開きコルーチン
 		private IEnumerator DoorOpen()
 		{
+            //動作中ならリターン
             if (_inAction) yield break;
             //動作中ではない
             _inAction = true;
@@ -96,12 +94,8 @@ namespace Play
                 Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_open);
             }
             //開閉時間分待機
-            yield return new WaitForSeconds(_rugTime);
-			if (_inAction)
-			{
-				yield break;
-			}
-			//当たり判定復活解除
+            yield return new WaitForSeconds(_rugTime);		
+			//当たり判定解除
 			_collider.enabled = false;
 			//動作中ではない
 			_inAction = false;
@@ -113,8 +107,7 @@ namespace Play
 		//閉じるコルーチン
 		private IEnumerator DoorClose()
 		{
-            if (!_isCloseing) yield break;
-
+            if (_inAction) yield break;
 			//閉じようとしていない
 			_isCloseing = false;
 			//スイッチ画像差し替え
