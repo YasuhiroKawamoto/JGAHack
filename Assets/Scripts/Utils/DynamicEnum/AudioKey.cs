@@ -24,5 +24,6 @@ public enum AudioKey
 	sy_pop_show,
 	in_pause_show,
 	in_pause_hide,
+	in_reborn,
 
 }

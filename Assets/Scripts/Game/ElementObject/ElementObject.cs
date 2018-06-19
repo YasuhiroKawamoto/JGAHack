@@ -36,7 +36,7 @@ namespace Play.Element
 			set { _elementList = value; }
 		}
 
-		
+
 
 		// 忘れない要素
 		private ElementBase[] _rememberList = null;
@@ -60,12 +60,12 @@ namespace Play.Element
 		[SerializeField, ReadOnly]
 		private GameObject _myEffect;
 
-        //今のの向き
-        [SerializeField, ReadOnly]
-        private Direction _currentDirection;
+		//今のの向き
+		[SerializeField, ReadOnly]
+		private Direction _currentDirection;
 
-        //もともとの向き
-        [SerializeField, ReadOnly]
+		//もともとの向き
+		[SerializeField, ReadOnly]
 		private Direction _tmpDirection;
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace Play.Element
 			_rigidBody2d = gameObject.transform.parent.GetComponent<Rigidbody2D>();
 			_initPos = _rigidBody2d.transform.position;
 			_tmpDirection = gameObject.GetComponent<DiectionTest>().GetDir();
-            _currentDirection = _tmpDirection;
+			_currentDirection = _tmpDirection;
 		}
 		private void Start()
 		{
@@ -94,7 +94,7 @@ namespace Play.Element
 
 			var array = this.GetComponents<ElementBase>();
 
-			
+
 
 			foreach (var element in array)
 			{
@@ -111,7 +111,7 @@ namespace Play.Element
 				{
 					continue;
 				}
-			
+
 
 				if (_elementList[typeIndex])
 				{
@@ -131,8 +131,8 @@ namespace Play.Element
 		public bool ReceiveAllElement(ElementBase[] receiveList)
 		{
 
-            // 忘れてはいけないものがない…
-            if (_rememberList == null)
+			// 忘れてはいけないものがない…
+			if (_rememberList == null)
 			{
 				int index = (int)ElementType.length;
 				_rememberList = new ElementBase[index];
@@ -140,37 +140,37 @@ namespace Play.Element
 				// 現在の要素を止める
 				for (int i = 0; i < _elementList.Length; i++)
 				{
-                    if (_elementList[i])
-                    {
-                        if (_elementList[i].Type != ElementType.Action)
-                        {
-                            _elementList[i].enabled = false;
-                        }             
+					if (_elementList[i])
+					{
+						if (_elementList[i].Type != ElementType.Action)
+						{
+							_elementList[i].enabled = false;
+						}
 						_rememberList[i] = _elementList[i];
 					}
 				}
 			}
 
-          
 
-            
+
+
 
 			// 要素のコピー移動
 			foreach (var element in receiveList)
 			{
 				if (element)
 				{
-                    if (element.Type != ElementType.Action)
-                    {
-                        this.CopyComponent(element);
-                        //現在の向きを取得
-                        if (element.Type != ElementType.Direction)
-                        {
-                            _currentDirection = element.GetComponent<DiectionTest>().GetDir();
-                        }
-                        // 要素の更新
-                        this.ElementUpdate();
-                    }         
+					if (element.Type != ElementType.Action)
+					{
+						this.CopyComponent(element);
+						//現在の向きを取得
+						if (element.Type != ElementType.Direction)
+						{
+							_currentDirection = element.GetComponent<DiectionTest>().GetDir();
+						}
+						// 要素の更新
+						this.ElementUpdate();
+					}
 				}
 			}
 
@@ -281,11 +281,11 @@ namespace Play.Element
 			{
 				if (element)
 				{
-                    //アクション以外は忘れる
-                    if (element.Type != ElementType.Action)
-                    {
-                        Destroy(element);
-                    }              
+					//アクション以外は忘れる
+					if (element.Type != ElementType.Action)
+					{
+						Destroy(element);
+					}
 				}
 			}
 			_elementList = null;
@@ -302,11 +302,11 @@ namespace Play.Element
 				{
 					element.enabled = true;
 
-                    if (element.Type != ElementType.Direction)
-                    {
-                        _currentDirection = element.GetComponent<DiectionTest>().GetDir();
-                    }
-                }
+					if (element.Type != ElementType.Direction)
+					{
+						_currentDirection = element.GetComponent<DiectionTest>().GetDir();
+					}
+				}
 			}
 
 			// 忘れてはいけないものを忘れる…
@@ -343,6 +343,9 @@ namespace Play.Element
 			// 初期位置
 			_rigidBody2d.gameObject.transform.position = _initPos;
 
+			// SE 
+			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_reborn);
+
 			//復活エフェクト
 			EffectManager.Instance.CreateEffect(EffectID.EnemyRespown, gameObject.transform.position, 2);
 
@@ -377,7 +380,7 @@ namespace Play.Element
 		}
 
 
-        //復帰までの時間取得
+		//復帰までの時間取得
 		public float GetReturnTime()
 		{
 			return _returnTime;
@@ -385,15 +388,15 @@ namespace Play.Element
 		}
 
 
-        //現在向き取得
-        public Direction GetCurrentDirection()
-        {
-            return _currentDirection;
+		//現在向き取得
+		public Direction GetCurrentDirection()
+		{
+			return _currentDirection;
 
-        }
+		}
 
-        //もともとの向き取得
-        public Direction GetTmpDirection()
+		//もともとの向き取得
+		public Direction GetTmpDirection()
 		{
 			return _tmpDirection;
 
