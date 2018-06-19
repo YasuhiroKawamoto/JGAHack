@@ -19,9 +19,7 @@ namespace Play
         }
         //アニメーションセット
         private SimpleAnimation _anim;
-        //現在のアニメーション
-        [SerializeField, ReadOnly]
-        private ANIMATION_ID _currentAnim;
+       
 
         private float _waitTime = 1.0f;
 
@@ -40,12 +38,12 @@ namespace Play
                 //左
                 if (-0.4f >= direction.x)
                 {
-                    _currentAnim = ANIMATION_ID.Left;                
+                           
                     _anim.CrossFade("Left", 0);
                 }
                 else if (0.4f <= direction.x)
                 {
-                    _currentAnim = ANIMATION_ID.Right;                
+                       
                     _anim.CrossFade("Right", 0);
                 }
             }
@@ -54,7 +52,7 @@ namespace Play
                 //上
                 if (0.4f >= Mathf.Abs(direction.x))
                 {
-                    _currentAnim = ANIMATION_ID.Front;                  
+                              
                     _anim.CrossFade("Front", 0);
                 }
             }
@@ -63,7 +61,7 @@ namespace Play
                 //下
                 if (0.4f >= Mathf.Abs(direction.x))
                 {
-                    _currentAnim = ANIMATION_ID.Back;                 
+                          
                     _anim.CrossFade("Back", 0);
                 }
             }
@@ -74,7 +72,7 @@ namespace Play
                 _waitTime = _waitTime -Time.deltaTime;
                 if (_waitTime <= 0)
                 {
-                    _currentAnim = ANIMATION_ID.Wait;
+                   
                     _anim.CrossFade("Wait", 0);
                     _waitTime = 1.0f;
                 }
@@ -90,22 +88,22 @@ namespace Play
             switch (dir)
             {
                 case Direction.Front:
-                    _currentAnim = ANIMATION_ID.Front;
+                   
                     _anim.CrossFade("Front", 0);
                     break;
 
                 case Direction.Left:
-                    _currentAnim = ANIMATION_ID.Left;
+                   
                     _anim.CrossFade("Left", 0);
                     break;
 
                 case Direction.Right:
-                    _currentAnim = ANIMATION_ID.Right;
+                  
                     _anim.CrossFade("Right", 0);
                     break;
 
                 case Direction.Back:
-                    _currentAnim = ANIMATION_ID.Back;
+                    
                     _anim.CrossFade("Back", 0);
                     break;
             }
@@ -113,7 +111,7 @@ namespace Play
 
             if (time >= 1)
             {
-                _currentAnim = ANIMATION_ID.Wait;
+               
                 _anim.CrossFade("Wait", 0);
             }
 
@@ -121,8 +119,7 @@ namespace Play
 
         public virtual void ChangeAnim(ANIMATION_ID id)
         {
-            //現在アニメーションを変更
-            _currentAnim = id;
+            
             //アニメ切り替え
             _anim.CrossFade(id.ToString(), 0);
         }
