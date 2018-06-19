@@ -21,5 +21,6 @@ public enum AudioKey
 	in_death,
 	in_fall,
 	in_play_death,
+	sy_pop_show,
 
 }

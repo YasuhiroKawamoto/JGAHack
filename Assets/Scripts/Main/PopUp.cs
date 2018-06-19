@@ -37,6 +37,9 @@ public class PopUp : MonoBehaviour
 
 	public IEnumerator ShowPopUp(string text, System.Action<bool> action, System.Func<bool> input = null)
 	{
+		// SE 
+		Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_pop_show);
+
 		_text.text = text;
 
 		_select[0] = _yes;
