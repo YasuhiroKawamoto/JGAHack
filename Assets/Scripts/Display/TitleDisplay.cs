@@ -59,7 +59,8 @@ namespace Main
 
 			if (controller.GetConnectFlag())
 			{
-				if (controller.ButtonDown(Button.START))
+				if (controller.ButtonDown(Button.START) ||
+					controller.ButtonDown(Button.A))
 				{
 					StartCoroutine(Change());
 				}
