@@ -25,5 +25,6 @@ public enum AudioKey
 	in_pause_show,
 	in_pause_hide,
 	in_reborn,
+	in_sanity,
 
 }

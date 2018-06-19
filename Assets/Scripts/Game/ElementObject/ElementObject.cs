@@ -225,6 +225,10 @@ namespace Play.Element
 		}
 		private IEnumerator ReturnToSanityCorutine()
 		{
+
+			// SE 
+			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_sanity);
+
 			// 状態の変更
 			_stats = ElementStates.Remember;
 
