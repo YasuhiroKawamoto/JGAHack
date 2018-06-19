@@ -35,6 +35,9 @@ public class PausePanel : MonoBehaviour
 		if (_move) return;
 		_move = true;
 
+		// SE追加
+		Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_pause_show);
+
 		_initPos = _testPhone.transform.localPosition;
 		_initRotate = _testPhone.transform.localEulerAngles;
 
@@ -64,6 +67,9 @@ public class PausePanel : MonoBehaviour
 	{
 		if (Move) return;
 		_move = true;
+
+		// SE追加
+		Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_pause_hide);
 
 		StartCoroutine(HideCorutine());
 	}
