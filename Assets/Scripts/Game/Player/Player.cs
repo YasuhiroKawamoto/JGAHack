@@ -175,6 +175,8 @@ namespace Play
 		public void Reborn()
 		{
 			_playerState = State.Alive;
+			var renderer = GetComponent<Renderer>();
+			renderer.sortingOrder = 0;
 			//復帰時のアニメーション変更（デフォルト下向き）
 			gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.Back);
 		}
