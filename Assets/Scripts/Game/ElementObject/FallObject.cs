@@ -164,22 +164,11 @@ namespace Play
 			this.transform.DOScale(Vector3.zero, 1.0f)
 				.OnComplete(() => end = true);
 
+			var renderer = player.GetComponent<Renderer>();
+			renderer.sortingOrder = -5;
+
 			var pos = player.transform.position;
-			switch (player.Dir)
-			{
-				case Direction.Left:
-					this.transform.DOMoveX(pos.x - 0.5f, 1.0f);
-					break;
-				case Direction.Right:
-					this.transform.DOMoveX(pos.x + 0.5f, 1.0f);
-					break;
-				case Direction.Back:
-					this.transform.DOMoveY(pos.y + 0.5f, 1.0f);
-					break;
-				case Direction.Front:
-					this.transform.DOMoveY(pos.y - 0.5f, 1.0f);
-					break;
-			}
+			this.transform.DOMoveY(pos.y - 0.5f, 1.0f);
 
 			// 終わるまで待つ
 			yield return new WaitUntil(() => end);
