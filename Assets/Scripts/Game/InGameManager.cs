@@ -83,6 +83,9 @@ namespace Play
 		[SerializeField]
 		private TimeCounter _counter = null;
 
+		[SerializeField]
+		private GameObject _dataPhone = null;
+
 		void Start()
 		{
 			// ゲームの設定
@@ -163,6 +166,7 @@ namespace Play
 			StageTimeData.Instance.SetTime(Main.TakeOverData.Instance.StageNum, time);
 			StageTimeData.Instance.Save();
 
+			_dataPhone.SetActive(false);
 			_clearPlane.gameObject.SetActive(true);
 			_clearPlane.Show(time);
 		}
