@@ -97,6 +97,9 @@ public class PopUp : MonoBehaviour
 			return false;
 		});
 
+		// TODO:デストロイが上手く起動せずにポップアップ残ってる可能性があるので仮に非表示にしてから消す
+		this.gameObject.SetActive(false);
+
 		Destroy(this.gameObject);
 	}
 
