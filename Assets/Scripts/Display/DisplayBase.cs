@@ -34,7 +34,7 @@ namespace Util.Display
 		/// </summary>
 		public abstract void KeyInput();
 
-		protected void FixedUpdate()
+		virtual protected void FixedUpdate()
 		{
 			KeyInput();
 		}

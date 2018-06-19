@@ -30,7 +30,7 @@ public class ScreenBase : MonoBehaviour
 	/// <summary>
 	/// 設定
 	/// </summary>
-	public void SetUp()
+	virtual public void SetUp()
 	{
 		_panelRect = _panel.rectTransform.sizeDelta;
 

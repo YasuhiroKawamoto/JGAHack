@@ -11,9 +11,6 @@ public class StageTimePanel : MonoBehaviour
 	private static readonly string _fixedSentence = "{0}位 {1}";
 
 	[SerializeField]
-	private string textHead = string.Empty;
-
-	[SerializeField]
 	private GameObject _textsParent = null;
 
 	private List<Text> _texts = null;

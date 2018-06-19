@@ -13,7 +13,7 @@ namespace Main
 
 		private Tween _moveTween = null;
 
-		public void SetUp()
+		override public void SetUp()
 		{
 			base.SetUp();
 
