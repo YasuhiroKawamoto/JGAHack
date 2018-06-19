@@ -14,7 +14,7 @@ namespace Play
 		{
 			Resume = 0,
 			Reset,
-			Title,
+			Select,
 			length,
 		}
 
@@ -52,7 +52,7 @@ namespace Play
 			}, true);
 
 
-			_itemData[(int)Item.Title] = new ItemData("タイトルに戻りますか？", () =>
+			_itemData[(int)Item.Select] = new ItemData("セレクトに戻りますか？", () =>
 			{
 				Time.timeScale = 1.0f;
 				InGameManager.Instance.BackMain("Select");
