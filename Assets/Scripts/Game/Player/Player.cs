@@ -12,7 +12,7 @@ namespace Play
 
 		private Rigidbody2D _rigidbody;
 
-        private float _waitCount = 0;
+		private float _waitCount = 0;
 
 
 		public enum State
@@ -28,8 +28,6 @@ namespace Play
 		{
 			get { return _playerState; }
 		}
-
-		private bool _terrain = true;
 
 		// 向き
 		[SerializeField, Extensions.ReadOnly]
@@ -79,17 +77,17 @@ namespace Play
 
 			}
 
-            //待機時間経過
-            if (tryMove == Vector3.zero)
-            {
-                _waitCount += Time.deltaTime;
-            }
-            else
-            {
-                _waitCount = 0;
-            }
+			//待機時間経過
+			if (tryMove == Vector3.zero)
+			{
+				_waitCount += Time.deltaTime;
+			}
+			else
+			{
+				_waitCount = 0;
+			}
 
-            //移動
+			//移動
 			_rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
 		}
 
@@ -179,6 +177,16 @@ namespace Play
 			_playerState = State.Alive;
 			//復帰時のアニメーション変更（デフォルト下向き）
 			gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.Back);
+		}
+
+		public void Goal()
+		{
+			var collider = GetComponent<BoxCollider2D>();
+			collider.enabled = false;
+
+			var renderer = GetComponent<SpriteRenderer>();
+			var layer = renderer.sortingOrder;
+			renderer.sortingOrder = layer - 2;
 		}
 	}
 }

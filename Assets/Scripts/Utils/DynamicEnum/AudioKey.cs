@@ -21,5 +21,11 @@ public enum AudioKey
 	in_death,
 	in_fall,
 	in_play_death,
+	sy_pop_show,
+	in_pause_show,
+	in_pause_hide,
+	in_reborn,
+	in_sanity,
+	sy_arrow_move,
 
 }
