@@ -178,5 +178,15 @@ namespace Play
 			//復帰時のアニメーション変更（デフォルト下向き）
 			gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.Back);
 		}
+
+		public void Goal()
+		{
+			var collider = GetComponent<BoxCollider2D>();
+			collider.enabled = false;
+
+			var renderer = GetComponent<SpriteRenderer>();
+			var layer = renderer.sortingOrder;
+			renderer.sortingOrder = layer - 2;
+		}
 	}
 }
