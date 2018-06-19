@@ -1555,6 +1555,10 @@ MonoBehaviour:
   _icon2: {fileID: 0}
   _controllerImages: []
   _keybordImages: []
+  _originaPosition1: {x: 0, y: 0, z: 0}
+  _originalSize1: {x: 0, y: 0}
+  _originaPosition2: {x: 0, y: 0, z: 0}
+  _originalSize2: {x: 0, y: 0}
 --- !u!1 &1036171347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,6 +1878,10 @@ MonoBehaviour:
   _icon2: {fileID: 0}
   _controllerImages: []
   _keybordImages: []
+  _originaPosition1: {x: 0, y: 0, z: 0}
+  _originalSize1: {x: 0, y: 0}
+  _originaPosition2: {x: 0, y: 0, z: 0}
+  _originalSize2: {x: 0, y: 0}
 --- !u!1001 &1314025256
 Prefab:
   m_ObjectHideFlags: 0
@@ -2013,6 +2021,10 @@ MonoBehaviour:
   _icon2: {fileID: 0}
   _controllerImages: []
   _keybordImages: []
+  _originaPosition1: {x: 0, y: 0, z: 0}
+  _originalSize1: {x: 0, y: 0}
+  _originaPosition2: {x: 0, y: 0, z: 0}
+  _originalSize2: {x: 0, y: 0}
 --- !u!1 &1406459967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,6 +2740,66 @@ Prefab:
     - target: {fileID: 4018674437203480, guid: 02afe7f5a98fb8749afadddd2819857c, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 82939535928175390, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82939535928175390, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82972611543350088, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82972611543350088, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82362665451872102, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82362665451872102, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82528242742411614, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82528242742411614, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82535233126412604, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82535233126412604, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82829666480832758, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82829666480832758, guid: 02afe7f5a98fb8749afadddd2819857c,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02afe7f5a98fb8749afadddd2819857c, type: 2}

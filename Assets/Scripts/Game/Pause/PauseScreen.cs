@@ -187,6 +187,9 @@ namespace Play
 
 		private void SelectChange(int num)
 		{
+			// SE 
+			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+
 			var max = _panelList.Count - 1;
 			_selectIndex += num;
 			if (_selectIndex < 0) _selectIndex = max;
