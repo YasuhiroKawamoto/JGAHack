@@ -16,6 +16,7 @@ namespace Play.MapEvent
 					{
 						InGameManager.Instance.StageClear();
 						InGameManager.Instance.Messenger.HideWindow();
+						Util.Sound.SoundManager.Instance.Stop(AudioKey.PlayBGM);
 					}
 				}
 			};
