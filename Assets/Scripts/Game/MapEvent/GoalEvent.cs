@@ -13,7 +13,10 @@ namespace Play.MapEvent
 				if (other.GetComponent<Player>())
 				{
 					if (InGameManager.IsInstance())
+					{
 						InGameManager.Instance.StageClear();
+						InGameManager.Instance.Messenger.HideWindow();
+					}
 				}
 			};
 		}
