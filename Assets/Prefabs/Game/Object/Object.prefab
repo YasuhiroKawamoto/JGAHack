@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61202704176345350}
   - component: {fileID: 50147323417957566}
   - component: {fileID: 114621252574792018}
-  m_Layer: 11
+  m_Layer: 18
   m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 212005865563161636}
   - component: {fileID: 95883630522136904}
   - component: {fileID: 114333090720049484}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: EnemyDistinction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 114146859408567188}
   - component: {fileID: 114476025426667804}
   - component: {fileID: 114250935258786532}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: ObjectElement
   m_TagString: Element
   m_Icon: {fileID: 0}
