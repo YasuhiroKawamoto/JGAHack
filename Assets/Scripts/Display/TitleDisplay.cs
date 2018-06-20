@@ -104,6 +104,9 @@ namespace Main
 
             yield return StartCoroutine(pop.ShowPopUp("チュートリアルをプレイしますか？", (flag) => result = flag));
 
+            // TODO:破棄を外部でトライ！！
+            Destroy(popObj);
+
             Time.timeScale = 1.0f;
 
             if (result)
