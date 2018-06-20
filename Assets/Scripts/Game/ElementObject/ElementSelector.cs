@@ -415,6 +415,8 @@ namespace Play
         public void TargetRelease()
         {
             _targetObject = null;
+            //操作ガイドの変更
+            GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Normal);
             ConsoleOut();
         }
         public void TargetUIRelease()
