@@ -54,13 +54,18 @@ namespace Play.Element
 
         public override void  Initialize()
         {
+              
+        }
+
+
+        private void OnEnable()
+        {
             //初期位置首都機
             _startPos = transform.position;
             //剛体取得
             _rigidBody2d = GetComponentInParent<Rigidbody2D>();
             //向き取得
             _dir = gameObject.GetComponentInChildren<Play.Element.DiectionTest>().GetDir();
-
             _tmpDir = _dir;
             //タックル用当たり判定生成
             SetCollider();
@@ -181,6 +186,7 @@ namespace Play.Element
             }
             //判定用オブジェクト生成
             Range = new GameObject("Renge");
+            Range.layer = LayerMask.NameToLayer("");
             //判定オブジェクトをゲームオブジェクトの子供に設定
             Range.transform.SetParent(gameObject.transform);
             //判定オブジェクトにSpriteRendererを取り付け
