@@ -45,13 +45,13 @@ namespace Play.Element
 
         private SpriteRenderer spr;
 
-        protected override void Awake()
+        void Awake()
         {
             _type = ElementType.Action;
         }
 
 
-        public override void Initialize()
+        public override void  Initialize()
         {
               
         }
@@ -108,7 +108,7 @@ namespace Play.Element
                 gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             }
 
-
+           
             //当たり判定のセット
             switch (_dir)
             {
@@ -145,7 +145,7 @@ namespace Play.Element
 
         public void ChangeDirection(Direction dir)
         {
-
+            
             //当たり判定のセット
             switch (_dir)
             {
@@ -174,7 +174,7 @@ namespace Play.Element
                     gameObject.GetComponent<BoxCollider2D>().size = new Vector3(_range, 1, 1);
                     break;
 
-
+             
             }
             Show();
         }
@@ -194,7 +194,7 @@ namespace Play.Element
             //判定オブジェクトにSpriteRendererを取り付け
             Range.gameObject.AddComponent<SpriteRenderer>();
             Range.gameObject.AddComponent<Flashing>();
-
+          
 
             //画像の設定
             var spr = Range.gameObject.GetComponent<SpriteRenderer>();
@@ -205,12 +205,12 @@ namespace Play.Element
             {
                 spr.sprite = _rangeSprite[0];
             }
-            else if (_dir == Direction.Left || _dir == Direction.Right)
+            else if(_dir == Direction.Left || _dir == Direction.Right)
             {
                 spr.sprite = _rangeSprite[1];
             }
 
-
+           
             //カラー設定
             spr.color = new Vector4(1, 0, 0, 0.2f);
 
@@ -267,13 +267,13 @@ namespace Play.Element
                 _endPos.y = gameObject.transform.position.y;
 
             }
-            else if (_dir == Direction.Front || _dir == Direction.Back)
+            else if(_dir == Direction.Front || _dir == Direction.Back)
             {
 
                 //真上or真下に固定
                 _endPos.x = gameObject.transform.position.x;
             }
-
+          
             yield return new WaitForSeconds(_waitTime);
 
             while (transform.position != _endPos)

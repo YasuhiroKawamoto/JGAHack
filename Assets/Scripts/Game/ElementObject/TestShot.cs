@@ -40,13 +40,13 @@ namespace Play.Element
         bool _canShot;
 
         [SerializeField]
-        LayerMask _layerMask;
+         LayerMask _layerMask;
         //射撃可能判定用レイ情報
         Vector2 _rayDirection;
         //TODO レイの距離(今は大体１マス分)
         float _rayDistance = 1.0f;
 
-        protected override void Awake()
+        void Awake()
         {
             _type = ElementType.Action;
         }
@@ -81,7 +81,7 @@ namespace Play.Element
             if (_shotCount <= 0)
             {
                 // 向きの取得
-                _dir = GetEnemyDirection();
+                 _dir = GetEnemyDirection();
 
                 switch (_dir)
                 {
@@ -123,11 +123,11 @@ namespace Play.Element
                 hitInfo = Physics2D.Raycast(gameObject.transform.position, _rayDirection, _rayDistance, _layerMask);
                 //レイの当たり判定
                 if (hitInfo.collider != null)
-                {
+                {                 
                     _canShot = false;
                 }
                 else
-                {
+                {                
                     _canShot = true;
                 }
 
@@ -141,7 +141,7 @@ namespace Play.Element
                     // 弾丸の位置を調整
                     bullets.transform.position = transform.position + _shotOffset;
 
-
+                   
                     if (_bulletPlace)
                     {
                         //弾丸を弾置き場の子供に設定

@@ -11,7 +11,7 @@ namespace Play.Element
         Move = 0,
         Action,
         Direction,
-
+        
         length
     }
 
@@ -23,17 +23,10 @@ namespace Play.Element
         // 要素のタイプ
         protected ElementType _type = ElementType.None;
 
-        protected virtual void Awake()
-        {
-
-        }
-
         public ElementType Type
         {
             get
             {
-                Awake();
-
                 if (_type == ElementType.None)
                 {
                     var typeS = this.GetType().ToString();

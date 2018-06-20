@@ -14,7 +14,7 @@ namespace Play.Element
 
         private EnemyAnimController anim;
 
-        protected override void Awake()
+        private void Awake()
         {
             // 初期化でタイプを設定する
             _type = ElementType.Direction;
@@ -28,7 +28,7 @@ namespace Play.Element
             anim = GetComponentInParent<EnemyAnimController>();
             if (anim)
             {
-                anim.ChangeAnim(_direction);
+                anim.ChangeAnim(_direction);             
             }
             _tmpDirection = _direction;
         }
@@ -38,16 +38,16 @@ namespace Play.Element
         {
             if (_direction != _tmpDirection)
             {
-                if (anim)
+                if(anim)
                 {
                     anim.ChangeAnim(_direction);
-                }
+                }       
                 _tmpDirection = _direction;
-                if (GetComponent<Tackle>())
+                if(GetComponent<Tackle>())
                 {
                     GetComponent<Tackle>().ChangeDirection(_direction);
                 }
-
+                
             }
         }
 

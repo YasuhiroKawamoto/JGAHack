@@ -8,7 +8,7 @@ namespace Play.Element
 
     {
 
-        protected override void Awake()
+        void Awake()
         {
             _type = ElementType.Action;
         }

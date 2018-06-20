@@ -145,7 +145,7 @@ namespace Extensions
             var com = this.gameObject.AddComponent(type);
 
             // Target
-            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly | BindingFlags.FlattenHierarchy;
+            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
 
             // プロパティ取得
             PropertyInfo[] propInfoList = type.GetProperties(flags);
