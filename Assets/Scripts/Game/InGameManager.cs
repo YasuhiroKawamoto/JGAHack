@@ -166,6 +166,9 @@ namespace Play
 			StageTimeData.Instance.SetTime(Main.TakeOverData.Instance.StageNum, time);
 			StageTimeData.Instance.Save();
 
+            //ガイドUIの非表示
+            GuidUI.Instance.HideAll();
+
 			_dataPhone.SetActive(false);
 			_clearPlane.gameObject.SetActive(true);
 			_clearPlane.Show(time);
