@@ -49,6 +49,7 @@ namespace Play.LockOn
             canvas.transform.SetChild(obj);
             canvas.transform.localPosition = Vector3.zero;
             canvas.gameObject.AddComponent<Canvas>();
+            canvas.GetComponent<Canvas>().sortingOrder = 2;
             var scaler = canvas.gameObject.AddComponent<CanvasScaler>();
             scaler.dynamicPixelsPerUnit = 20;
             canvas.transform.localPosition = new Vector3(0.0f, 0.5f, 0.0f);
