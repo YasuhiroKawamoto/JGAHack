@@ -279,6 +279,8 @@ namespace Play.Element
         // 現在の要素をすべて忘れる
         private void ForgetAllElement()
         {
+            if (_elementList == null) return;
+
             foreach (var element in _elementList)
             {
                 if (element)
@@ -303,6 +305,7 @@ namespace Play.Element
                 if (element)
                 {
                     var copy = this.CopyComponent(element);
+                    Debug.Log(copy.Type);
                     copy.enabled = true;
 
                     if (copy.Type != ElementType.Direction)
@@ -349,6 +352,12 @@ namespace Play.Element
             //復活エフェクト
             EffectManager.Instance.CreateEffect(EffectID.EnemyRespown, gameObject.transform.position, 2);
 
+            // 今の要素を忘れる
+            ForgetAllElement();
+
+            // 要素を思い出す
+            ReCallElement();
+
             // 動きリセット
             ElementUpdate();
             // 復活
@@ -384,7 +393,6 @@ namespace Play.Element
         public float GetReturnTime()
         {
             return _returnTime;
-
         }
 
 

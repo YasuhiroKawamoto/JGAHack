@@ -11,7 +11,7 @@ namespace Play.Element
     {
 
 
-        void Awake()
+        protected override void Awake()
         {
             _type = ElementType.Action;
         }
