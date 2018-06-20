@@ -17,7 +17,7 @@ namespace Play.Element
         //リジットボディ
         private Rigidbody2D _rigitBody2d;
 
-        void Awake()
+        protected override void Awake()
         {
             _type = ElementType.Move;
         }

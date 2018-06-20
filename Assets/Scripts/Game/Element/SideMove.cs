@@ -38,9 +38,9 @@ namespace Play.Element
         private float _moveCount = 0.0f;
         //リジットボディ
         private Rigidbody2D _rigitBody2d;
-        
 
-        void Awake()
+
+        protected override void Awake()
         {
             _type = ElementType.Move;
             //初期反転判定のセット
