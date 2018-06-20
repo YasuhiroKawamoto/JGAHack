@@ -7,29 +7,29 @@ using Extensions;
 namespace Play.Element
 {
 
-    public class NoData : ElementBase
-    {
+	public class NoData : ElementBase
+	{
 
 
-        protected override void Awake()
-        {
-            _type = ElementType.Action;
-        }
+		public override void TypeSet()
+		{
+			_type = ElementType.Action;
+		}
 
 
-        public override void Initialize()
-        {
+		public override void Initialize()
+		{
 
-        }
-
-
-        private void Update()
-        {
-            Act();
-        }
+		}
 
 
-        private void Act()
-        { }
-    }
+		private void Update()
+		{
+			Act();
+		}
+
+
+		private void Act()
+		{ }
+	}
 }

@@ -4,24 +4,24 @@ using UnityEngine;
 
 namespace Play.Element
 {
-    public class RideFloor : ElementBase
+	public class RideFloor : ElementBase
 
-    {
+	{
 
-        protected override void Awake()
-        {
-            _type = ElementType.Action;
-        }
+		public override void TypeSet()
+		{
+			_type = ElementType.Action;
+		}
 
-        public override void Initialize()
-        {
-        }
+		public override void Initialize()
+		{
+		}
 
-        private BoxCollider2D _collider = null;
+		private BoxCollider2D _collider = null;
 
-        public Collider2D Collider
-        {
-            get { return _collider ? _collider : _collider = GetComponent<BoxCollider2D>(); }
-        }
-    }
+		public Collider2D Collider
+		{
+			get { return _collider ? _collider : _collider = GetComponent<BoxCollider2D>(); }
+		}
+	}
 }
