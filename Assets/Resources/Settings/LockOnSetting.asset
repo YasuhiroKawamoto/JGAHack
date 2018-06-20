@@ -11,6 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95e7d4e17082974396bc9db27373671, type: 3}
   m_Name: LockOnSetting
   m_EditorClassIdentifier: 
-  _target: {fileID: 1928845370931122, guid: b9f75b0b906d0b54182d9bc7e8c8d965, type: 2}
-  _elementText: {fileID: 114226643485333420, guid: 546392ba5ab9045488d4cf8c5c867df5,
-    type: 2}
+  _target: {fileID: 1091113350531630, guid: 5fa30a843667571428da092e8135dd33, type: 2}
