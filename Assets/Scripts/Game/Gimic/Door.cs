@@ -47,13 +47,19 @@ namespace Play
 
 		private void Update()
 		{
-			//閉じようとしている
-			if (_isCloseing)
+
+           
+            //閉じようとしている
+            if (_isCloseing)
 			{
                 if (_player != null)
                 {
+
+
+                    var distance = Vector2.Distance(_player.transform.position, gameObject.transform.position);
+
                     //プレイヤーが上に載ってなければ（ｙ軸判定）
-                    if (Mathf.Abs(_player.transform.position.y - gameObject.transform.position.y) > 0.8f)
+                    if (distance > 0.8f)
                     {
                         //閉じる
                         StartCoroutine(DoorClose());

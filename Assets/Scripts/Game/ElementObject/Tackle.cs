@@ -190,6 +190,8 @@ namespace Play.Element
 
             //画像の設定
             var spr = Range.gameObject.GetComponent<SpriteRenderer>();
+
+            
             //スプライト設定
             if (_dir == Direction.Front || _dir == Direction.Back)
             {
@@ -205,7 +207,7 @@ namespace Play.Element
             spr.color = new Vector4(1, 0, 0, 0.2f);
 
             //表示優先度
-            spr.sortingOrder = 10;
+            spr.sortingOrder = -1;
             //当たり判定取得
             col = gameObject.GetComponent<BoxCollider2D>();
             //判定オブジェクトの位置調整
