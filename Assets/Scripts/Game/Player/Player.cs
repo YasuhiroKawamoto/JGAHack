@@ -142,13 +142,13 @@ namespace Play
 			if (con.Move(Direction.Front))
 			{
 				tryMove += Vector3Int.up;
-				_direction = Direction.Back;
+                _direction = Direction.Front;            
 			}
 			if (con.Move(Direction.Back))
 			{
 				tryMove += Vector3Int.down;
-				_direction = Direction.Front;
-			}
+                _direction = Direction.Back;
+            }
 
 			return tryMove;
 		}
