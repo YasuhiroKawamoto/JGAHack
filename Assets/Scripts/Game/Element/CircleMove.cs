@@ -21,7 +21,7 @@ namespace Play.Element
 		//リジットボディ
 		private Rigidbody2D _rigitBody2d;
 
-		void Awake()
+		public override void TypeSet()
 		{
 			// タイプ設定
 			_type = ElementType.Move;
