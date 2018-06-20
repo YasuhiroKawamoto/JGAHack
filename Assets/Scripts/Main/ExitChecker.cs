@@ -50,6 +50,10 @@ public class ExitChecker : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Escape)) return true;
             return false;
         }));
+
+        // TODO:破棄を外部でトライ！！
+        Destroy(popObj);
+
         Time.timeScale = 1.0f;
 
         if (result) Application.Quit();

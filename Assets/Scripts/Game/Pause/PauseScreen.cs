@@ -80,6 +80,9 @@ namespace Play
                 var pop = popObj.GetComponent<PopUp>();
 
                 yield return StartCoroutine(pop.ShowPopUp(data.text, (flag) => result = flag));
+
+                // TODO:破棄を外部でトライ！！
+                Destroy(popObj);
             }
 
             if (result)
