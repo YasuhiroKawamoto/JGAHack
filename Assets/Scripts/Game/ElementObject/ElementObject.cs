@@ -207,7 +207,7 @@ namespace Play.Element
                     //アニメーションを向きに合わせて変更
                     transform.parent.GetComponent<EnemyAnimController>().ChangeAnim(GetComponent<Play.Element.DiectionTest>().GetDir());
                 }
-                else if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Immortal")
+                else if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Object")
                 {
                     //画像を向きに合わせて変更
                     transform.parent.GetComponent<ChangeSprite>().ChangeImage(GetComponent<Play.Element.DiectionTest>().GetDir());
@@ -369,7 +369,7 @@ namespace Play.Element
                 //アニメーションを向きに合わせて変更
                 transform.parent.GetComponent<EnemyAnimController>().ChangeAnim(GetComponent<Play.Element.DiectionTest>().GetDir());
             }
-            else if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Immortal")
+            else if (LayerMask.LayerToName(gameObject.transform.parent.gameObject.layer) == "Object")
             {
                 //画像を向きに合わせて変更
                 transform.parent.GetComponent<ChangeSprite>().ChangeImage(GetComponent<Play.Element.DiectionTest>().GetDir());
