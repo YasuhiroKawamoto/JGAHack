@@ -18,7 +18,9 @@ namespace Main
             base.SetUp();
 
             var num = TakeOverData.Instance.StageNum - 1;
-            var stage = num < 0 ? 0 : num;
+            var stage = 0 < num ? num : 0;
+            PanelSlide(0);
+            _selectIndex = 0;
             PanelSlide(stage);
         }
 
