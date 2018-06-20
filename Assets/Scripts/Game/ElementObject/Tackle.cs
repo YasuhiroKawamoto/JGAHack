@@ -22,7 +22,6 @@ namespace Play.Element
         [SerializeField, ReadOnly]
         private Direction _dir;
 
-
         private Direction _tmpDir;
         //タックル開始地点
         [SerializeField, ReadOnly]
@@ -54,14 +53,23 @@ namespace Play.Element
 
         public override void Initialize()
         {
+              
+        }
+
+
+        private void OnEnable()
+        {
+            //Layer変更
+            gameObject.layer = LayerMask.NameToLayer("Range");
             //初期位置首都機
             _startPos = transform.position;
             //剛体取得
             _rigidBody2d = GetComponentInParent<Rigidbody2D>();
             //向き取得
             _dir = gameObject.GetComponentInChildren<Play.Element.DiectionTest>().GetDir();
-
             _tmpDir = _dir;
+            //チェック判定をリセット
+            _isFound = false;
             //タックル用当たり判定生成
             SetCollider();
         }
@@ -180,7 +188,7 @@ namespace Play.Element
                 Range = null;
             }
             //判定用オブジェクト生成
-            Range = new GameObject("Renge");
+            Range = new GameObject("Renge");           
             //判定オブジェクトをゲームオブジェクトの子供に設定
             Range.transform.SetParent(gameObject.transform);
             //判定オブジェクトにSpriteRendererを取り付け
