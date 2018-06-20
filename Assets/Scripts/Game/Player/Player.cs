@@ -160,8 +160,7 @@ namespace Play
 		{
 			_playerState = State.Dead;
 
-			// SE
-			SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
+			
 
 			if (retry)
 			{

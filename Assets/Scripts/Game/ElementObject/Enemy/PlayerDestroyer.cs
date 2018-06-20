@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util.Sound;
 
 namespace Play.Enemy
 {
@@ -16,6 +17,8 @@ namespace Play.Enemy
                 var player = col.GetComponent<Player>();
                 if (player && gameObject.GetComponent<CircleCollider2D>().isTrigger)
                 {
+                    // SE
+                    SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
                     // プレイヤー死亡
                     player.Dead();
                 }
@@ -29,6 +32,8 @@ namespace Play.Enemy
             //ボックスコライダー（敵本体）に当たった時の判定
             if (player && !gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
+                // SE
+                SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
                 player.Dead();
             }
         }
