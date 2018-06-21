@@ -34,7 +34,7 @@ namespace Play.Element
             {
                 anim.ChangeAnim(_direction);
             }
-            else
+            else if(spr)
             {
                 spr.ChangeImage(_direction);
             }
@@ -50,10 +50,9 @@ namespace Play.Element
                 {
                     anim.ChangeAnim(_direction);
                 }
-                else
+                else if(spr)
                 {
-                   
-                    GetComponentInParent<ChangeSprite>().ChangeImage(_direction);
+                    spr.ChangeImage(_direction);
                 }
 				_tmpDirection = _direction;
 				if (GetComponent<Tackle>())

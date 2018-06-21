@@ -1595,7 +1595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf1126b1545a864bb1d8b59baac4b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _player: {fileID: 114165727475307158}
   _goal: {fileID: 114043985789540146}
 --- !u!114 &114896551070717052
 MonoBehaviour:
