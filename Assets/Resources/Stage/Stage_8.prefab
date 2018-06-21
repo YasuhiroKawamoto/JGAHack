@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 2569400267638105674}
   - component: {fileID: 114291680660332524}
   m_Layer: 0
-  m_Name: Stage_10
+  m_Name: Stage_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3534,7 +3534,6 @@ MonoBehaviour:
   - {fileID: 21300006, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   - {fileID: 21300002, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   _dir: 0
-  _tmpDir: 0
 --- !u!114 &114029536056936942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3989,7 +3988,6 @@ MonoBehaviour:
   - {fileID: 21300006, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   - {fileID: 21300002, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   _dir: 0
-  _tmpDir: 0
 --- !u!114 &114350310593470386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4018,7 +4016,6 @@ MonoBehaviour:
   - {fileID: 21300006, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   - {fileID: 21300002, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   _dir: 0
-  _tmpDir: 0
 --- !u!114 &114380776279329492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4315,7 +4312,6 @@ MonoBehaviour:
   - {fileID: 21300006, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   - {fileID: 21300002, guid: 82cd24677a3d6d547af6e64d3f4cd2e4, type: 3}
   _dir: 0
-  _tmpDir: 0
 --- !u!114 &114581646265587854
 MonoBehaviour:
   m_ObjectHideFlags: 1
