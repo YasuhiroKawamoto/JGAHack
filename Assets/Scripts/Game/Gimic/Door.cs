@@ -95,7 +95,7 @@ namespace Play
 			//開きアニメーション
 			gameObject.GetComponent<SimpleAnimation>().CrossFade("Open", 0);
             // SE
-            if (SceneManager.GetActiveScene().name != "Main")
+            if (InGameManager.Instance.GameState == InGameManager.State.Play)
             {
                 Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_open);
             }
@@ -125,7 +125,7 @@ namespace Play
 			//当たり判定復活
 			_collider.enabled = true;
             // SE
-            if (SceneManager.GetActiveScene().name != "Main")
+            if (InGameManager.Instance.GameState == InGameManager.State.Play)
             {
                 Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_close);
             }

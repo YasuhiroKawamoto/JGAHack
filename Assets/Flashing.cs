@@ -7,11 +7,6 @@ public class Flashing : MonoBehaviour {
 
     private SpriteRenderer _image;
 
-    //
-    public float _speed = 2.0f;
-
-    private float _time = 0.0f;
-
     // Use this for initialization
     void Start () {
 
@@ -29,8 +24,7 @@ public class Flashing : MonoBehaviour {
     //Alpha値を更新してColorを返す
     private Color GetAlphaColor(Color color)
     {
-        _time += Time.deltaTime * 5.0f * _speed;
-        color.a = Mathf.Sin(_time) * 0.5f + 0.5f;
+        color.a = Mathf.Sin(Time.time * 5)+0.8f;
         return color;
     }
 
