@@ -6,172 +6,175 @@ using DG.Tweening;
 
 namespace Play
 {
-	public class FallObject : MonoBehaviour
-	{
-		private BoxCollider2D _collider = null;
+    public class FallObject : MonoBehaviour
+    {
+        private BoxCollider2D _collider = null;
 
-		public Collider2D Collider
-		{
-			get { return _collider ? _collider : _collider = GetComponent<BoxCollider2D>(); }
-		}
+        public Collider2D Collider
+        {
+            get { return _collider ? _collider : _collider = GetComponent<BoxCollider2D>(); }
+        }
 
-		private Transform _parent = null;
+        private Transform _parent = null;
 
-		private bool _fall = false;
-		private Element.RideFloor _ride = null;
+        private bool _fall = false;
+        private Element.RideFloor _ride = null;
 
-		// 親の前フレームの位置
-		private Vector3 _old;
+        // 親の前フレームの位置
+        private Vector3 _old;
 
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		void Awake()
-		{
-			_parent = transform.parent;
-			SetParent(_parent);
-		}
+        [SerializeField]
+        private float _fallSpeed = 1.0f;
 
-		/// <summary>
-		/// 判定前の更新
-		/// </summary>
-		void FixedUpdate()
-		{
-			// 親の移動量を取得
-			var v = transform.parent.transform.position - _old;
-			transform.position = transform.position + v * Time.deltaTime;
-			_old = transform.parent.transform.position;
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        void Awake()
+        {
+            _parent = transform.parent;
+            SetParent(_parent);
+        }
 
-			if (_ride)
-			{
-				// 乗る(親子関係)
-				if (_ride.transform != transform.parent)
-				{
-					SetParent(_ride.transform.parent.transform);
-				}
-			}
-			else
-			{
-				if (_parent)
-				{
-					SetParent(_parent);
-				}
-			}
+        /// <summary>
+        /// 判定前の更新
+        /// </summary>
+        void FixedUpdate()
+        {
+            // 親の移動量を取得
+            var v = transform.parent.transform.position - _old;
+            transform.position = transform.position + v * Time.deltaTime;
+            _old = transform.parent.transform.position;
 
-			if (_fall && (!_ride))
-			{
-				// 落ちた
-				StartCoroutine(this.Fall());
-			}
+            if (_ride)
+            {
+                // 乗る(親子関係)
+                if (_ride.transform != transform.parent)
+                {
+                    SetParent(_ride.transform.parent.transform);
+                }
+            }
+            else
+            {
+                if (_parent)
+                {
+                    SetParent(_parent);
+                }
+            }
 
-			_fall = false;
-			_ride = null;
-		}
+            if (_fall && (!_ride))
+            {
+                // 落ちた
+                StartCoroutine(this.Fall());
+            }
 
-		/// <summary>
-		/// 当たっているとき
-		/// </summary>
-		/// <param name="other"></param>
-		void OnTriggerStay2D(Collider2D other)
-		{
-			// 足元で判定
-			var myBounds = Collider.bounds;
-			if (other.bounds.Contains(myBounds.center - new Vector3(0.0f, myBounds.extents.y, 0.0f)))
-			{
-				if (other.tag == "Hole")
-				{
-					_fall = true;
-				}
+            _fall = false;
+            _ride = null;
+        }
 
-				var ride = other.GetComponent<Element.RideFloor>();
-				if (ride)
-				{
-					_ride = ride;
-					_fall = false;
-				}
-			}
+        /// <summary>
+        /// 当たっているとき
+        /// </summary>
+        /// <param name="other"></param>
+        void OnTriggerStay2D(Collider2D other)
+        {
+            // 足元で判定
+            var myBounds = Collider.bounds;
+            if (other.bounds.Contains(myBounds.center - new Vector3(0.0f, myBounds.extents.y, 0.0f)))
+            {
+                if (other.tag == "Hole")
+                {
+                    _fall = true;
+                }
 
-		}
+                var ride = other.GetComponent<Element.RideFloor>();
+                if (ride)
+                {
+                    _ride = ride;
+                    _fall = false;
+                }
+            }
 
-		/// <summary>
-		/// 判定から外れたとき
-		/// </summary>
-		/// <param name="other"></param>
-		void OnTriggerExit2D(Collider2D other)
-		{
-			// 離れたとき親子関係解除
-			var ride = other.GetComponent<Element.RideFloor>();
-			if (!ride) return;
+        }
 
-			if (ride.transform.parent == transform.parent)
-			{
-				SetParent(_parent);
-			}
-		}
+        /// <summary>
+        /// 判定から外れたとき
+        /// </summary>
+        /// <param name="other"></param>
+        void OnTriggerExit2D(Collider2D other)
+        {
+            // 離れたとき親子関係解除
+            var ride = other.GetComponent<Element.RideFloor>();
+            if (!ride) return;
 
-		/// <summary>
-		/// 親の設定
-		/// </summary>
-		/// <param name="parent"></param>
-		void SetParent(Transform parent)
-		{
-			transform.parent = parent;
-			_old = parent.transform.position;
-		}
+            if (ride.transform.parent == transform.parent)
+            {
+                SetParent(_parent);
+            }
+        }
 
-		/// <summary>
-		/// 落ちる
-		/// </summary>
-		/// <returns></returns>
-		private IEnumerator Fall()
-		{
-			Debug.Log("落ちたな");
+        /// <summary>
+        /// 親の設定
+        /// </summary>
+        /// <param name="parent"></param>
+        void SetParent(Transform parent)
+        {
+            transform.parent = parent;
+            _old = parent.transform.position;
+        }
 
-			// プレイヤー死亡
-			var player = this.GetComponent<Player>();
+        /// <summary>
+        /// 落ちる
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator Fall()
+        {
+            Debug.Log("落ちたな");
 
-			if (player)
-			{
-				if (player.PlayerState == Player.State.Dead)
-				{
-					yield break;
-				}
+            // プレイヤー死亡
+            var player = this.GetComponent<Player>();
 
-				player.Dead(false);
+            if (player)
+            {
+                if (player.PlayerState == Player.State.Dead)
+                {
+                    yield break;
+                }
 
-				// SE
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_fall);
+                player.Dead(false);
 
-				yield return StartCoroutine(FallStaging(player));
+                // SE
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_fall);
 
-				// サイズを戻す
-				this.transform.localScale = Vector3.one;
+                yield return StartCoroutine(FallStaging(player));
 
-				// TODO 謎
-				player.gameObject.SetActive(false);
-				player.gameObject.SetActive(true);
+                // サイズを戻す
+                this.transform.localScale = Vector3.one;
 
-				// リトライ
-				Play.InGameManager.Instance.StageOver();
-			}
+                // TODO 謎
+                player.gameObject.SetActive(false);
+                player.gameObject.SetActive(true);
 
-		}
-		private IEnumerator FallStaging(Player player)
-		{
-			bool end = false;
+                // リトライ
+                Play.InGameManager.Instance.StageOver();
+            }
 
-			// 小さくしていく
-			this.transform.DOScale(Vector3.zero, 1.0f)
-				.OnComplete(() => end = true);
+        }
+        private IEnumerator FallStaging(Player player)
+        {
+            bool end = false;
 
-			var renderer = player.GetComponent<Renderer>();
-			renderer.sortingOrder = -5;
+            // 小さくしていく
+            this.transform.DOScale(Vector3.zero, 1.0f)
+                .OnComplete(() => end = true);
 
-			var pos = player.transform.position;
-			this.transform.DOMoveY(pos.y - 0.5f, 1.0f);
+            var renderer = player.GetComponent<Renderer>();
+            renderer.sortingOrder = -5;
 
-			// 終わるまで待つ
-			yield return new WaitUntil(() => end);
-		}
-	}
+            var pos = player.transform.position;
+            this.transform.DOMoveY(pos.y - _fallSpeed, 1.0f);
+
+            // 終わるまで待つ
+            yield return new WaitUntil(() => end);
+        }
+    }
 }
