@@ -20,14 +20,15 @@ namespace Play
 
         private void Awake()
         {
-            //子供のセット
-            _icons = transform.GetAllChild();
-            //リソースからアイコンゲット
-            _iconImages = EffectManager.Instance.GetConsoleIcons();
+           
         }
         // Use this for initialization
         void Start()
         {
+             //子供のセット
+            _icons = transform.GetAllChild();
+            //リソースからアイコンゲット
+            _iconImages = EffectManager.Instance.GetConsoleIcons();
             IconReset();
         }
 
