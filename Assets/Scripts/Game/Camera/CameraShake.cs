@@ -29,11 +29,7 @@ namespace Play
         /// <summary>
         /// On Start we reset our camera to apply our base amplitude and frequency
         /// </summary>
-        void Start()
-        {
-            //カメラ状態のリセット
-            CameraReset();
-        }
+        
 
         //カメラを振動させる
         public virtual void ShakeCamera()

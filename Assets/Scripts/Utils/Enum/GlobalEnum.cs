@@ -29,3 +29,80 @@ public static class DirectionEx
         return new Vector3(0.0f, 0.0f, z);
     }
 }
+
+public enum EffectID
+{
+   CheckPoint,Console, DestoryEnemy, DestoryObj, EnemyDistinction, EnemyRecovery, EnemyRespown, GoalPoint, LookOn, Numparent, ParticleLight, Wave
+}
+
+public static class EffectIDEx
+{
+    public static bool Rect(this EffectID ID)
+    {
+        bool isRect = false;
+        switch (ID)
+        {
+            case EffectID.CheckPoint:
+                isRect = false;
+                break;
+            case EffectID.Console:
+                isRect = true;
+                break;
+            case EffectID.DestoryEnemy:
+                isRect = false;
+                break;
+            case EffectID.DestoryObj:
+                isRect = false;
+                break; 
+            case EffectID.EnemyDistinction:
+                isRect = false;
+                break;
+            case EffectID.EnemyRecovery:
+                isRect = true;
+                break;
+            case EffectID.EnemyRespown:
+                isRect = false;
+                break;
+            case EffectID.GoalPoint:
+                isRect = false;
+                break;
+            case EffectID.LookOn:
+                isRect = true;
+                break;
+            case EffectID.Numparent:
+                isRect = false;
+                break;
+            case EffectID.ParticleLight:
+                isRect = false;
+                break;
+            case EffectID.Wave:
+                isRect = false;
+                break;
+        }
+        return isRect;
+    }
+
+
+
+    
+}
+
+
+
+public enum CONSOLE_ICON_ID
+{
+    Direction_Down,
+    Direction_Left,
+    Direction_Right,
+    Direction_Up,
+    Nodata,
+    RideOn,
+    RideOnRock,
+    Shot,
+    ShotRock,
+    Side,
+    Stop,
+    Tackle,
+    TackleRock,
+    Updown
+}

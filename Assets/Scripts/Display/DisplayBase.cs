@@ -5,28 +5,38 @@ using UnityEngine;
 
 namespace Util.Display
 {
-    [Serializable]
-    public abstract class DisplayBase : MonoBehaviour
-    {
-        /// <summary>
-        /// Displayの初期化処理	
-        /// </summary>
-        public abstract IEnumerator Enter();
+	[Serializable]
+	public abstract class DisplayBase : MonoBehaviour
+	{
+		/// <summary>
+		/// Displayの初期化処理	
+		/// </summary>
+		public abstract IEnumerator Enter();
 
-        /// <summary>
-        /// Displayの読み込み後の処理
-        /// </summary>
-        public virtual void EnterComplete()
-        {
-            this.gameObject.SetActive(true);
-        }
+		/// <summary>
+		/// Displayの読み込み後の処理
+		/// </summary>
+		public virtual void EnterComplete()
+		{
+			this.gameObject.SetActive(true);
+		}
 
-        /// <summary>
-        /// 変更後の後始末
-        /// </summary>
-        public virtual void Exit()
-        {
-            this.gameObject.SetActive(false);
-        }
-    }
+		/// <summary>
+		/// 変更後の後始末
+		/// </summary>
+		public virtual void Exit()
+		{
+			this.gameObject.SetActive(false);
+		}
+
+		/// <summary>
+		/// 入力関連
+		/// </summary>
+		public abstract void KeyInput();
+
+		virtual protected void FixedUpdate()
+		{
+			KeyInput();
+		}
+	}
 }
