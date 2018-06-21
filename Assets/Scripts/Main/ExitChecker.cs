@@ -8,57 +8,54 @@ using UnityEditor;
 
 public class ExitChecker : MonoBehaviour
 {
-    void FixedUpdate()
-    {
-        var controller = GameController.Instance;
+	void FixedUpdate()
+	{
+		var controller = GameController.Instance;
 
-        if (controller.GetConnectFlag())
-        {
-            if (controller.ButtonDown(Button.BACK))
-            {
-                StartCoroutine(Exit());
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                StartCoroutine(Exit());
-            }
-        }
-    }
+		if (controller.GetConnectFlag())
+		{
+			if (controller.ButtonDown(Button.BACK))
+			{
+				StartCoroutine(Exit());
+			}
+		}
+		else
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				StartCoroutine(Exit());
+			}
+		}
+	}
 
-    IEnumerator Exit()
-    {
-        var load = Resources.LoadAsync("PopUp");
-        yield return new WaitWhile(() => !load.isDone);
+	IEnumerator Exit()
+	{
+		var load = Resources.LoadAsync("PopUp");
+		yield return new WaitWhile(() => !load.isDone);
 
-        var obj = load.asset as GameObject;
-        var popObj = Instantiate(obj);
-        var pop = popObj.GetComponent<PopUp>();
+		var obj = load.asset as GameObject;
+		var popObj = Instantiate(obj);
+		var pop = popObj.GetComponent<PopUp>();
 
-        bool result = false;
+		bool result = false;
 
-        yield return StartCoroutine(pop.ShowPopUp("ゲームを終了しますか？", (flag) => result = flag,
-        () =>
-        {
-            var con = GameController.Instance;
-            if (con.GetConnectFlag())
-            {
-                if (con.ButtonDown(Button.BACK)) return true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape)) return true;
-            return false;
-        }));
+		yield return StartCoroutine(pop.ShowPopUp("ゲームを終了しますか？", (flag) => result = flag,
+		() =>
+		{
+			var con = GameController.Instance;
+			if (con.GetConnectFlag())
+			{
+				if (con.ButtonDown(Button.BACK)) return true;
+			}
+			else if (Input.GetKeyDown(KeyCode.Escape)) return true;
+			return false;
+		}));
 
-        // TODO:破棄を外部でトライ！！
-        Destroy(popObj);
+		Time.timeScale = 1.0f;
 
-        Time.timeScale = 1.0f;
-
-        if (result) Application.Quit();
+		if (result) Application.Quit();
 #if UNITY_EDITOR
-        if (result) EditorApplication.isPlaying = false;
+		if (result) EditorApplication.isPlaying = false;
 #endif
-    }
+	}
 }
