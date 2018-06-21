@@ -29,8 +29,9 @@ public class Flashing : MonoBehaviour {
     //Alpha値を更新してColorを返す
     private Color GetAlphaColor(Color color)
     {
-        _time += Time.deltaTime * 5.0f * _speed;
-        color.a = Mathf.Sin(_time) * 0.5f + 0.5f;
+        color.a = Mathf.Sin(Time.time * 2) * 1.0f + 0.5f;
+        Debug.Log(_time);
+        Debug.Log(color.a);
         return color;
     }
 
