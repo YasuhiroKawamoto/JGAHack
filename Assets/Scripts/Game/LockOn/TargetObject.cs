@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Extensions;
 using Play.Element;
+using Util.Sound;
 
 namespace Play.LockOn
 {
@@ -75,6 +76,11 @@ namespace Play.LockOn
             {
                 // 画面外に出たらターゲット解除
                 Release();
+                if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                {
+                    SoundManager.Instance.PlayOneShot(AudioKey.in_play_lock_off);
+                }
+               
             }
         }
 

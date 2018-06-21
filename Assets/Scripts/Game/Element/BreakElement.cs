@@ -38,7 +38,10 @@ namespace Play.Element
 					//再生を司るものに情報を送る
 					InGameManager.Instance.RebornSet(this);
                     //敵破壊サウンド
-                    Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_death);
+                    if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                    {
+                        Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_death);
+                    }
                     // 非表示
                     gameObject.SetActive(false);
 
