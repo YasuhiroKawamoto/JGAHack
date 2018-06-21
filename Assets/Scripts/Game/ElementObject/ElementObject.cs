@@ -224,9 +224,11 @@ namespace Play.Element
 		}
 		private IEnumerator ReturnToSanityCorutine()
 		{
-			// SE 
-			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_sanity);
-
+            // SE 
+            if (InGameManager.Instance.GameState == InGameManager.State.Play)
+            {
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_sanity);
+            }
 			// 状態の変更
 			_stats = ElementStates.Remember;
 
@@ -345,9 +347,11 @@ namespace Play.Element
 			// 初期位置
 			_rigidBody2d.gameObject.transform.position = _initPos;
 
-			// SE 
-			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_reborn);
-
+            // SE 
+            if (InGameManager.Instance.GameState == InGameManager.State.Play)
+            {
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_reborn);
+            }
 			//復活エフェクト
 			EffectManager.Instance.CreateEffect(EffectID.EnemyRespown, gameObject.transform.position, 2);
 

@@ -18,7 +18,10 @@ namespace Play.Enemy
                 if (player && gameObject.GetComponent<CircleCollider2D>().isTrigger)
                 {
                     // SE
-                    SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
+                    if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                    {
+                        SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
+                    }
                     // プレイヤー死亡
                     player.Dead();
                 }
@@ -33,7 +36,10 @@ namespace Play.Enemy
             if (player && !gameObject.GetComponent<BoxCollider2D>().isTrigger)
             {
                 // SE
-                SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
+                if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                {
+                    SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
+                }
                 player.Dead();
             }
         }

@@ -139,9 +139,11 @@ namespace Play
 
 				player.Dead(false);
 
-				// SE
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_fall);
-
+                // SE
+                if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                {
+                    Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_fall);
+                }
 				yield return StartCoroutine(FallStaging(player));
 
 				// サイズを戻す
