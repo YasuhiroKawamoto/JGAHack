@@ -28,4 +28,11 @@ public class LockOn : MonoBehaviour {
         transform.localScale = new Vector3(Mathf.Sin(Time.time * 2), Mathf.Sin(Time.time * 2), 1);
 
     }
+
+    //リセット関数
+    void ResetScale()
+    {
+        transform.localScale = new Vector3(0, 0, 0);
+    }
+
 }
