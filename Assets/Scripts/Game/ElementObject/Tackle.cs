@@ -57,19 +57,25 @@ namespace Play.Element
 
 		private void OnEnable()
 		{
-			//Layer変更
-			gameObject.layer = LayerMask.NameToLayer("Range");
-			//初期位置首都機
-			_startPos = transform.position;
-			//剛体取得
-			_rigidBody2d = GetComponentInParent<Rigidbody2D>();
-			//向き取得
-			_dir = gameObject.GetComponentInChildren<Play.Element.DiectionTest>().GetDir();
-			_tmpDir = _dir;
-			//チェック判定をリセット
-			_isFound = false;
-			//タックル用当たり判定生成
-			SetCollider();
+
+            if(gameObject.layer != LayerMask.NameToLayer("Player"))
+            {
+                //Layer変更
+                gameObject.layer = LayerMask.NameToLayer("Range");
+                //初期位置首都機
+                _startPos = transform.position;
+                //剛体取得
+                _rigidBody2d = GetComponentInParent<Rigidbody2D>();
+                //向き取得
+                _dir = gameObject.GetComponentInChildren<Play.Element.DiectionTest>().GetDir();
+                _tmpDir = _dir;
+                //チェック判定をリセット
+                _isFound = false;
+                //タックル用当たり判定生成
+                SetCollider();
+            }
+
+			
 		}
 
 
