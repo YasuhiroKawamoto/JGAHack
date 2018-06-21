@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class LockOn : MonoBehaviour {
 
-    private float _time = 0;
-
-    float maxTime = 3.0f;
-
-
-
 	// Use this for initialization
 	void Start () {
 		
@@ -25,15 +19,13 @@ public class LockOn : MonoBehaviour {
         //回転の角度
         float angle = 100.0f * Time.deltaTime;
 
-        _time += Time.deltaTime;
-
         Quaternion q = Quaternion.AngleAxis(angle, axis);
 
         //画像の回転
         transform.rotation = q * this.transform.rotation;
 
         //カーソルの拡大縮小
-        transform.localScale = new Vector3(Mathf.Sin(_time * 2), Mathf.Sin(_time * 2), 1);
+        transform.localScale = new Vector3(Mathf.Sin(Time.time * 2), Mathf.Sin(Time.time * 2), 1);
 
     }
 
@@ -41,7 +33,6 @@ public class LockOn : MonoBehaviour {
     void ResetScale()
     {
         transform.localScale = new Vector3(0, 0, 0);
-        _time = 0;
     }
 
 }
