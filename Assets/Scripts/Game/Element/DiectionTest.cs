@@ -14,7 +14,9 @@ namespace Play.Element
 
 		private EnemyAnimController anim;
 
-		public override void TypeSet()
+        private ChangeSprite spr;
+
+        public override void TypeSet()
 		{
 			// 初期化でタイプを設定する
 			_type = ElementType.Direction;
@@ -26,11 +28,17 @@ namespace Play.Element
 		public override void Initialize()
 		{
 			anim = GetComponentInParent<EnemyAnimController>();
-			if (anim)
-			{
-				anim.ChangeAnim(_direction);
-			}
-			_tmpDirection = _direction;
+
+            spr = GetComponentInParent<ChangeSprite>();
+            if (anim)
+            {
+                anim.ChangeAnim(_direction);
+            }
+            else
+            {
+                spr.ChangeImage(_direction);
+            }
+            _tmpDirection = _direction;
 		}
 
 
@@ -38,10 +46,15 @@ namespace Play.Element
 		{
 			if (_direction != _tmpDirection)
 			{
-				if (anim)
-				{
-					anim.ChangeAnim(_direction);
-				}
+                if (anim)
+                {
+                    anim.ChangeAnim(_direction);
+                }
+                else
+                {
+                   
+                    GetComponentInParent<ChangeSprite>().ChangeImage(_direction);
+                }
 				_tmpDirection = _direction;
 				if (GetComponent<Tackle>())
 				{
