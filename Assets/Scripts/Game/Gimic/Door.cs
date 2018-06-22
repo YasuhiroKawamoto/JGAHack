@@ -95,9 +95,12 @@ namespace Play
 			//開きアニメーション
 			gameObject.GetComponent<SimpleAnimation>().CrossFade("Open", 0);
             // SE
-            if (InGameManager.Instance.GameState == InGameManager.State.Play)
+            if (InGameManager.IsInstance())
             {
-                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_open);
+                if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                {
+                    Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_open);
+                }
             }
             //開閉時間分待機
             yield return new WaitForSeconds(_rugTime);		
@@ -125,9 +128,12 @@ namespace Play
 			//当たり判定復活
 			_collider.enabled = true;
             // SE
-            if (InGameManager.Instance.GameState == InGameManager.State.Play)
+            if (InGameManager.IsInstance())
             {
-                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_close);
+                if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                {
+                    Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_door_close);
+                }
             }
 			//開閉時間分待機
 			yield return new WaitForSeconds(_rugTime);

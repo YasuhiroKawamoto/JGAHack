@@ -24,9 +24,12 @@ namespace Play
 					//カメラマネージャに現在のチェックポイントを記憶＆カメラ移動
 					CameraManager.Instance.CheckPointUpDate(gameObject.transform);
                     // SE
-                    if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                    if (InGameManager.IsInstance())
                     {
-                        Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_check_point);
+                        if (InGameManager.Instance.GameState == InGameManager.State.Play)
+                        {
+                            Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_check_point);
+                        }
                     }
 				}
 			};
