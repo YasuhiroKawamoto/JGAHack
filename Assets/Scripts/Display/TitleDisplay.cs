@@ -102,7 +102,7 @@ namespace Main
 
 			bool result = false;
 
-			yield return StartCoroutine(pop.ShowPopUp("チュートリアルをプレイしますか？", (flag) => result = flag));
+			yield return StartCoroutine(pop.ShowPopUp("　　チュートリアルを　　 プレイしますか？", (flag) => result = flag));
 
 			Time.timeScale = 1.0f;
 
