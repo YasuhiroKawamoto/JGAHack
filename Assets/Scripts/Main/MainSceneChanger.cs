@@ -32,7 +32,10 @@ namespace Main
 
         void Start()
         {
-            _backStage.ChangeStage(1);
+            // ステージをランダムにロード
+            int num = 10;
+            var rand = Random.Range(1, num + 1);
+            _backStage.ChangeStage(rand);
 
             // BGM開始
             Util.Sound.SoundManager.Instance.Play(AudioKey.MainBGM);
