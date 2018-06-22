@@ -154,9 +154,9 @@ namespace Play
 		{
 			_state = State.Clear;
 
-			// プレイヤーのゴール処理
-			StageManager.Player.Goal();
-
+            // プレイヤーのゴール処理
+            StageManager.Player.Goal();
+   
 			// SE
 			Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.in_clear);
 

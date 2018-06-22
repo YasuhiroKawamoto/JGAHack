@@ -32,7 +32,7 @@ public static class DirectionEx
 
 public enum EffectID
 {
-   CheckPoint,Console, DestoryEnemy, DestoryObj, EnemyDistinction, EnemyRecovery, EnemyRespown, GoalPoint, LookOn, Numparent, ParticleLight, Wave
+    CheckPoint,ClearEffect, Console, DestoryEnemy, DestoryObj, EnemyDistinction, EnemyRecovery, EnemyRespown, GoalPoint, LookOn, Numparent, ParticleLight, Wave
 }
 
 public static class EffectIDEx
@@ -45,6 +45,11 @@ public static class EffectIDEx
             case EffectID.CheckPoint:
                 isRect = false;
                 break;
+
+            case EffectID.ClearEffect:
+                isRect = false;
+                break;
+
             case EffectID.Console:
                 isRect = true;
                 break;

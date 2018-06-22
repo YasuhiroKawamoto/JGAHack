@@ -15,7 +15,9 @@ namespace Play.MapEvent
 					if (InGameManager.IsInstance())
 					{
 						InGameManager.Instance.StageClear();
-						InGameManager.Instance.Messenger.HideWindow();
+                        //クリアエフェクトのセット
+                        EffectManager.Instance.CreateEffect(EffectID.ClearEffect,other.gameObject,new Vector3(0,-3,0));
+                        InGameManager.Instance.Messenger.HideWindow();
 						Util.Sound.SoundManager.Instance.Stop(AudioKey.PlayBGM);
 					}
 				}
