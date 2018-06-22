@@ -114,8 +114,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.2, y: 0.2}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f1792261026704e8ec3c39f87ce4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentAnim: 0
 --- !u!114 &114274190256853596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,25 +177,37 @@ MonoBehaviour:
   m_AnimatePhysics: 0
   m_CullingMode: 1
   m_WrapMode: 0
-  m_Clip: {fileID: 7400000, guid: f51601ac15c9f6740b570847766d96e5, type: 2}
+  m_Clip: {fileID: 7400000, guid: 66c080af534bcb64d868aea0d229bfca, type: 2}
   m_States:
-  - clip: {fileID: 7400000, guid: f51601ac15c9f6740b570847766d96e5, type: 2}
+  - clip: {fileID: 7400000, guid: 66c080af534bcb64d868aea0d229bfca, type: 2}
     name: Default
     defaultState: 1
-  - clip: {fileID: 7400000, guid: 4f0fa6fd426a7dc4590a993a8a848893, type: 2}
+  - clip: {fileID: 7400000, guid: 615e3bd7afecd6e4487e9d40ad2431ea, type: 2}
     name: Front
     defaultState: 0
-  - clip: {fileID: 7400000, guid: 35d4363e7668dcd4c871b325a9df82aa, type: 2}
+  - clip: {fileID: 7400000, guid: 5df9fe65f100d7c4cb710c02b144da79, type: 2}
+    name: FrontWait
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 401c5f6102eaf2d4eb606bff01863ef0, type: 2}
     name: Left
     defaultState: 0
-  - clip: {fileID: 7400000, guid: d49379c64efb0634cb14668487dce20e, type: 2}
+  - clip: {fileID: 7400000, guid: 36525e726d0a1464dbf360e16959fbca, type: 2}
+    name: LeftWait
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 3791ba2aa47d88c49a6a975c33162f3a, type: 2}
     name: Right
     defaultState: 0
-  - clip: {fileID: 7400000, guid: f51601ac15c9f6740b570847766d96e5, type: 2}
+  - clip: {fileID: 7400000, guid: 96ecaf94101d09340be0da3d08d575cf, type: 2}
+    name: RightWait
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: d1fca7cf89dc54646a3e16e098e317c7, type: 2}
     name: Back
     defaultState: 0
-  - clip: {fileID: 7400000, guid: 52ddcab900737ca489a32f9f25d4a409, type: 2}
-    name: Wait
+  - clip: {fileID: 7400000, guid: 66c080af534bcb64d868aea0d229bfca, type: 2}
+    name: BackWait
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 84ce9a3c5604ca74c9cd4585ff5c81f6, type: 2}
+    name: LongWait
     defaultState: 0
 --- !u!114 &114619611835046208
 MonoBehaviour:
@@ -226,9 +237,6 @@ MonoBehaviour:
   _targetObject: {fileID: 0}
   _console: {fileID: 0}
   _container: {fileID: 0}
-  _elementText: {fileID: 114226643485333420, guid: 546392ba5ab9045488d4cf8c5c867df5,
-    type: 2}
-  _textList: []
 --- !u!114 &114979420861968150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -274,12 +282,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: afd78998aa5522340addac9f12c3717e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de50330310045c742b9180376330f9c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

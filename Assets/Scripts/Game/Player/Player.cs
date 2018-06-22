@@ -12,7 +12,7 @@ namespace Play
 
         private Rigidbody2D _rigidbody;
 
-        private float _waitCount = 0;
+        private float _waitCount = 0.2f;
 
 
         public enum State
@@ -31,12 +31,21 @@ namespace Play
 
         // 向き
         [SerializeField, Extensions.ReadOnly]
-        private Direction _direction = Direction.Front;
+        private Direction _direction = Direction.Back;
         public Direction Dir { get { return _direction; } }
 
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+
+            if (!InGameManager.IsInstance())
+            {
+                return;
+            }
+
+            //アニメーション切り替え
+            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
+
         }
 
         void Update()
@@ -177,7 +186,7 @@ namespace Play
             var renderer = GetComponent<Renderer>();
             renderer.sortingOrder = 0;
             //復帰時のアニメーション変更（デフォルト下向き）
-            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.Back);
+            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
         }
 
         public void Goal()

@@ -12,16 +12,20 @@ namespace Play
         public enum ANIMATION_ID
         {
             Front,
+            FrontWait,
             Left,
+            LeftWait,
             Right,
+            RightWait,
             Back,
-            Wait
+            BackWait,
+            LongWait
         }
         //アニメーションセット
         private SimpleAnimation _anim;
        
 
-        private float _waitTime = 1.0f;
+        private float _waitTime = 1.5f;
 
         void Awake()
         {
@@ -29,97 +33,63 @@ namespace Play
             _anim = gameObject.GetComponent<SimpleAnimation>();
         }
 
-        //アニメーション変更（移動方向で変更）
-        public virtual void ChangeAnim(Vector3 vec)
-        {
-            Vector3 direction = vec;
-            if (0.4f >= Mathf.Abs(direction.y))
-            {
-                //左
-                if (-0.4f >= direction.x)
-                {
-                           
-                    _anim.CrossFade("Left", 0);
-                }
-                else if (0.4f <= direction.x)
-                {
-                       
-                    _anim.CrossFade("Right", 0);
-                }
-            }
-            else if (0.4f <= direction.y)
-            {
-                //上
-                if (0.4f >= Mathf.Abs(direction.x))
-                {
-                              
-                    _anim.CrossFade("Front", 0);
-                }
-            }
-            else if (-0.4f >= direction.y)
-            {
-                //下
-                if (0.4f >= Mathf.Abs(direction.x))
-                {
-                          
-                    _anim.CrossFade("Back", 0);
-                }
-            }
-
-            //移動量0
-            if (direction.x == 0 && direction.y == 0)
-            {
-                _waitTime = _waitTime -Time.deltaTime;
-                if (_waitTime <= 0)
-                {
-                   
-                    _anim.CrossFade("Wait", 0);
-                    _waitTime = 1.0f;
-                }
-            }
-            else {
-
-                _waitTime = 1.0f;
-            }
-        }
-
+        //アニメーション変更（移動方向で変更）  
         public virtual void ChangeAnim(Direction dir,float time)
         {
-            switch (dir)
+            
+            //待機時間が1秒を超える
+            if (time >= _waitTime)
             {
-                case Direction.Front:
-                   
-                    _anim.CrossFade("Front", 0);
-                    break;
-
-                case Direction.Left:
-                   
-                    _anim.CrossFade("Left", 0);
-                    break;
-
-                case Direction.Right:
-                  
-                    _anim.CrossFade("Right", 0);
-                    break;
-
-                case Direction.Back:
-                    
-                    _anim.CrossFade("Back", 0);
-                    break;
+                _anim.CrossFade("LongWait", 0);
             }
-
-
-            if (time >= 1)
+            //１秒未満かつ0.3秒以上
+            else if (time >= 0.2f)
             {
-               
-                _anim.CrossFade("Wait", 0);
-            }
+                switch (dir)
+                {
+                    case Direction.Front:
+                        _anim.CrossFade("FrontWait", 0);
+                        break;
 
+                    case Direction.Left:
+                        _anim.CrossFade("LeftWait", 0);
+                        break;
+
+                    case Direction.Right:
+                        _anim.CrossFade("RightWait", 0);
+                        break;
+
+                    case Direction.Back:
+                        _anim.CrossFade("BackWait", 0);
+                        break;
+                }
+            }
+            //それ未満
+            else
+            {
+                switch (dir)
+                {
+                    case Direction.Front:
+                        _anim.CrossFade("Front", 0);
+                        break;
+
+                    case Direction.Left:
+                        _anim.CrossFade("Left", 0);
+                        break;
+
+                    case Direction.Right:
+                        _anim.CrossFade("Right", 0);
+                        break;
+
+                    case Direction.Back:
+                        _anim.CrossFade("Back", 0);
+                        break;
+                }
+            }
         }
 
         public virtual void ChangeAnim(ANIMATION_ID id)
-        {
-            
+        {       
             //アニメ切り替え
             _anim.CrossFade(id.ToString(), 0);
         }
