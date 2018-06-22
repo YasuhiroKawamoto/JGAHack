@@ -1724,11 +1724,21 @@ CompositeCollider2D:
   - m_Collider: {fileID: 2113883505857235922}
     m_ColliderPaths:
     - - X: -40000000
-        Y: 83750000
-      - X: -3125000
-        Y: 83750000
+        Y: 84339392
+      - X: -30000000
+        Y: 84386848
+      - X: -30000000
+        Y: 84339392
+      - X: -20000000
+        Y: 84386848
+      - X: -20000000
+        Y: 84339392
+      - X: -10000000
+        Y: 84386848
+      - X: -10000000
+        Y: 84410576
       - X: 0
-        Y: 84375000
+        Y: 84386848
       - X: 0
         Y: 120000000
       - X: -40000000
@@ -1796,11 +1806,21 @@ CompositeCollider2D:
       - X: 10000000
         Y: 120000000
       - X: 10000000
-        Y: 84375000
-      - X: 13125000
-        Y: 83750000
+        Y: 84358464
+      - X: 20000000
+        Y: 84400280
+      - X: 20000000
+        Y: 84339392
+      - X: 30000000
+        Y: 84386848
+      - X: 30000000
+        Y: 84339392
+      - X: 40000000
+        Y: 84386848
+      - X: 40000000
+        Y: 84339392
       - X: 50000000
-        Y: 83750000
+        Y: 84386848
       - X: 50000000
         Y: -20000000
       - X: 60000000
@@ -1843,9 +1863,14 @@ CompositeCollider2D:
         Y: -80000000
   m_CompositePaths:
     m_Paths:
-    - - {x: -4, y: 8.375}
-      - {x: -0.3125, y: 8.375}
-      - {x: 0, y: 8.4375}
+    - - {x: -4, y: 8.433939}
+      - {x: -3, y: 8.438684}
+      - {x: -3, y: 8.433939}
+      - {x: -2, y: 8.438684}
+      - {x: -2, y: 8.433939}
+      - {x: -1, y: 8.438684}
+      - {x: -1, y: 8.441058}
+      - {x: 0, y: 8.438684}
       - {x: 0, y: 12}
       - {x: -4, y: 12}
       - {x: -4, y: 14.176953}
@@ -1879,9 +1904,14 @@ CompositeCollider2D:
       - {x: 5, y: 14.18107}
       - {x: 5, y: 12}
       - {x: 1, y: 12}
-      - {x: 1, y: 8.4375}
-      - {x: 1.3125, y: 8.375}
-      - {x: 5, y: 8.375}
+      - {x: 1, y: 8.435846}
+      - {x: 2, y: 8.440028}
+      - {x: 2, y: 8.433939}
+      - {x: 3, y: 8.438684}
+      - {x: 3, y: 8.433939}
+      - {x: 4, y: 8.438684}
+      - {x: 4, y: 8.433939}
+      - {x: 5, y: 8.438684}
       - {x: 5, y: -2}
       - {x: 6, y: -2}
       - {x: 6, y: 18}
@@ -2417,67 +2447,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepData:
-  - text: "\u30CF\u30C3\u30AD\u30F3\u30B0\u3092\u8A66\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u3000\u3000\u6A5F\u68B0\u306E\u8FD1\u304F\u307E\u3067\u9032\u3093\u3067\u304F\u3060\u3055\u3044"
+  - text: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u958B\u59CB\u3057\u30DE\u30B9\u3000\u3000\u3000\u6A5F\u68B0\u306E\u8FD1\u304F\u307E\u3067\u9032\u3093\u3067\u304F\u3060\u30B5\u30A4"
     isMove: 1
     isTarget: 0
     isCopy: 0
     isPaste: 0
     targetObj: {fileID: 0}
-  - text: "\u5DE6\u306E\u6A5F\u68B0\u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u5DE6\u306E\u52D5\u3044\u3066\u3044\u308B\u6A5F\u68B0\u3092\u3000\u3000\u3000\u3000\u3000\u3000\u30ED\u30C3\u30AF\u30AA\u30F3\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 1
     isCopy: 0
     isPaste: 0
     targetObj: {fileID: 114628733162074406}
-  - text: "\u30C7\u30FC\u30BF\u3092\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u30C7\u30FC\u30BF\u3092\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 1
     isPaste: 0
     targetObj: {fileID: 0}
-  - text: "\u53F3\u306E\u6A5F\u68B0\u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u53F3\u306E\u6B62\u307E\u3063\u3066\u3044\u308B\u6A5F\u68B0\u3092\u3000\u3000\u3000\u3000\u3000\u30ED\u30C3\u30AF\u30AA\u30F3\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 1
     isCopy: 0
     isPaste: 0
     targetObj: {fileID: 114371380089068104}
-  - text: "\u30C7\u30FC\u30BF\u3092\u30DA\u30FC\u30B9\u30C8\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u30C7\u30FC\u30BF\u3092\u30DA\u30FC\u30B9\u30C8\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 0
     isPaste: 1
     targetObj: {fileID: 0}
-  - text: "\u3053\u308C\u304C\u30CF\u30C3\u30AD\u30F3\u30B0\u3067\u3059\u3000\u3000\u3000\u3000\u3000\u3000\u3067\u306F\u3001\u5148\u3078\u9032\u307F\u307E\u3057\u3087\u3046"
+  - text: "\u52D5\u304D\u304C\u5909\u5316\u3057\u307E\u30B7\u30BF\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3067\u306F\u3001\u5148\u3078\u9032\u307F\u307E\u30B7\u30E7\u30A6"
     isMove: 1
     isTarget: 0
     isCopy: 0
     isPaste: 0
     targetObj: {fileID: 0}
-  - text: "\u5965\u306E\u6A5F\u68B0\u304C\u90AA\u9B54\u3067\u9032\u3081\u307E\u305B\u3093\u306D\u3000\u3000\u4E0B\u306E\u6A5F\u68B0\u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u5965\u306E\u6A5F\u68B0\u304C\u90AA\u9B54\u3067\u9032\u3081\u307E\u305B\u3093\u30CD\u3000\u3000\u4E0B\u306E\u6A5F\u68B0\u3092\u30ED\u30C3\u30AF\u30AA\u30F3\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 1
     isCopy: 0
     isPaste: 0
     targetObj: {fileID: 114432482319336916}
-  - text: "\u30C7\u30FC\u30BF\u3092\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u30C7\u30FC\u30BF\u3092\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 1
     isPaste: 0
     targetObj: {fileID: 0}
-  - text: "\u5965\u306E\u6A5F\u68B0\u306B\u30A2\u30AF\u30BB\u30B9\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u5965\u306E\u6A5F\u68B0\u3092\u30ED\u30C3\u30AF\u30AA\u30F3\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 1
     isCopy: 0
     isPaste: 0
     targetObj: {fileID: 114905900437231178}
-  - text: "\u30C7\u30FC\u30BF\u3092\u30DA\u30FC\u30B9\u30C8\u3057\u3066\u304F\u3060\u3055\u3044"
+  - text: "\u30C7\u30FC\u30BF\u3092\u30DA\u30FC\u30B9\u30C8\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 0
     isPaste: 1
     targetObj: {fileID: 0}
-  - text: "\u3053\u308C\u3067\u9032\u3081\u307E\u3059\u306D\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u76EE\u7684\u5730\u306B\u9032\u307F\u307E\u3057\u3087\u3046"
+  - text: "\u3053\u308C\u3067\u9032\u3081\u307E\u3059\u30CD\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u76EE\u7684\u5730\u306B\u9032\u307F\u307E\u30B7\u30E7\u30A6"
     isMove: 1
     isTarget: 1
     isCopy: 1
