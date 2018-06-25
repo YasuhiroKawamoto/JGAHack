@@ -170,6 +170,8 @@ namespace Play
             if (_playerState == State.Dead) return;
 
             _playerState = State.Dead;
+            _direction = Direction.Back;
+            _waitCount = 0.2f;
 
             if (retry)
             {
@@ -184,9 +186,7 @@ namespace Play
         {
             _playerState = State.Alive;
             var renderer = GetComponent<Renderer>();
-            renderer.sortingOrder = 0;
-            //復帰時のアニメーション変更（デフォルト下向き）
-            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
+            renderer.sortingOrder = 0;          
         }
 
         public void Goal()
