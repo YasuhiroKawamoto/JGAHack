@@ -50,7 +50,13 @@ public class UISet : MonoBehaviour
                 //ワールド座標に変換（オフセット込み）
                 _rectTransform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _targetTransform.position + _offset);
 
-            }        
+            }
+
+            //対象が非アクティブになったら削除
+            if (_targetTransform.gameObject.activeInHierarchy == false)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
