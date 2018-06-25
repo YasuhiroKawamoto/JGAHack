@@ -62,7 +62,7 @@ namespace Play
 
         private IEnumerator ItemCorutine(ItemData data)
         {
-            if (_popUP) yield break;
+            if (PopUP) yield break;
 
             _popUP = true;
 
@@ -98,6 +98,10 @@ namespace Play
         private Arrow _arrow = null;
 
         private bool _popUP = false;
+        public bool PopUP
+        {
+            get { return _popUP; }
+        }
 
         /// <summary>
         /// 設定
@@ -136,7 +140,7 @@ namespace Play
         /// </summary>
         void Update()
         {
-            if (_popUP) return;
+            if (PopUP) return;
 
             var controller = GameController.Instance;
             if (controller.GetConnectFlag()) ControllerInput(controller);
