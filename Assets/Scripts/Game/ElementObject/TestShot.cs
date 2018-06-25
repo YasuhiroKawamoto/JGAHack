@@ -31,8 +31,8 @@ namespace Play.Element
 		float _shotCount;
 		//弾置き場
 		GameObject _bulletPlace;
-		// レンダラー
-		SpriteRenderer _renderer = null;
+		//判定用コライダー
+		BoxCollider2D _col = null;
 
 		Direction _dir;
 
@@ -68,7 +68,7 @@ namespace Play.Element
 			_bulletPlace = GameObject.Find("BulletPlace");
 			//発射カウントのリセット
 			_shotCount = _shotInterval;
-			_renderer = GetComponentInParent<SpriteRenderer>();
+            _col = GetComponentInParent<BoxCollider2D>();
 		}
 
 		// Update is called once per frame
@@ -88,32 +88,34 @@ namespace Play.Element
 					case Direction.Front:
 						//弾の方向設定（正面）
 						_bulletVel = new Vector3(0, 1, 0);
-						//オフセットの設定(テストなので後日修正)
-						_shotOffset = new Vector3(0, _renderer.bounds.size.y, 0);
+						//オフセットの設定
+						_shotOffset = new Vector3(0, (_col.bounds.size.y-0.2f), 0);
 
 						break;
 					case Direction.Back:
 						//弾の方向設定（正面）
 						_bulletVel = new Vector3(0, -1, 0);
-						//オフセットの設定(テストなので後日修正)
-						_shotOffset = new Vector3(0, -_renderer.bounds.size.y, 0);
+						//オフセットの設定
+						_shotOffset = new Vector3(0, -(_col.bounds.size.y - 0.2f), 0);
 
 						break;
 					case Direction.Left:
 						//弾の方向設定（正面）
 						_bulletVel = new Vector3(-1, 0, 0);
-						//オフセットの設定(テストなので後日修正)
-						_shotOffset = new Vector3(-_renderer.bounds.size.x, 0, 0);
+						//オフセットの設定
+						_shotOffset = new Vector3(-(_col.bounds.size.x - 0.2f), 0, 0);
 
 						break;
 					case Direction.Right:
 						//弾の方向設定（正面）
 						_bulletVel = new Vector3(1, 0, 0);
-						//オフセットの設定(テストなので後日修正)
-						_shotOffset = new Vector3(_renderer.bounds.size.x, 0, 0);
+						//オフセットの設定
+						_shotOffset = new Vector3((_col.bounds.size.x - 0.2f), 0, 0);
 
 						break;
 				}
+
+                Debug.Log(_shotOffset);
 
 				//レイによる射撃可能判定
 				RaycastHit2D hitInfo;
@@ -141,7 +143,6 @@ namespace Play.Element
 					// 弾丸の位置を調整
 					bullets.transform.position = transform.position + _shotOffset;
 
-
 					if (_bulletPlace)
 					{
 						//弾丸を弾置き場の子供に設定
@@ -154,7 +155,6 @@ namespace Play.Element
 					}
 					bullets.GetComponent<BulletAniCon>().ChangeAnim(_dir);
 				}
-
 				//発車時間の再設定
 				_shotCount = _shotInterval;
 			}
