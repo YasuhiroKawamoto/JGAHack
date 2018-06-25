@@ -199,6 +199,8 @@ namespace Play
         {
             if (_pausePlane.Move) return;
 
+            if (_pausePlane.IsPopUp()) return;
+
             if (active)
             {
                 _pausePlane.gameObject.SetActive(true);
