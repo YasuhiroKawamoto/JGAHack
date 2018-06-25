@@ -148,9 +148,10 @@ namespace Play
 
 				// サイズを戻す
 				this.transform.localScale = Vector3.one;
-
-				// TODO 謎
-				player.gameObject.SetActive(false);
+                //復帰時のアニメーション変更（デフォルト下向き）
+                gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
+                // TODO 謎
+                player.gameObject.SetActive(false);
 				player.gameObject.SetActive(true);
 
 				// リトライ

@@ -21,9 +21,10 @@ namespace Play.Enemy
                     if (InGameManager.Instance.GameState == InGameManager.State.Play)
                     {
                         SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
-                    }
+                    }               
                     // プレイヤー死亡
                     player.Dead();
+                    player.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
                 }
             }
         }
@@ -39,8 +40,9 @@ namespace Play.Enemy
                 if (InGameManager.Instance.GameState == InGameManager.State.Play)
                 {
                     SoundManager.Instance.PlayOneShot(AudioKey.in_play_death);
-                }
+                }         
                 player.Dead();
+                player.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
             }
         }
     }
