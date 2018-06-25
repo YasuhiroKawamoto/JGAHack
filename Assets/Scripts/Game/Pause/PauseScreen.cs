@@ -168,6 +168,7 @@ namespace Play
 
             if (Input.GetKeyDown(KeyCode.C))
             {
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_pop_enter);
                 StartCoroutine(ItemCorutine(_itemData[_selectIndex]));
             }
         }
