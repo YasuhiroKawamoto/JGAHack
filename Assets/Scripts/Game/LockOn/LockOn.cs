@@ -66,6 +66,13 @@ namespace Play.LockOn
                     {
                         continue;
                     }
+
+                    if (obj.gameObject.activeInHierarchy == false)
+                    {
+                        //再起呼び出し
+                        continue;
+                    }
+
                     return true;
                 }
             }
