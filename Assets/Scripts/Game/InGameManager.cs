@@ -201,8 +201,11 @@ namespace Play
 
             if (_pausePlane.IsPopUp()) return;
 
+
             if (active)
             {
+                if (Time.timeScale == 0.0f) return;
+
                 _pausePlane.gameObject.SetActive(true);
                 _pausePlane.Show();
                 _state = State.Pause;
