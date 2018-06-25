@@ -115,8 +115,6 @@ namespace Play.Element
 						break;
 				}
 
-                Debug.Log(_shotOffset);
-
 				//レイによる射撃可能判定
 				RaycastHit2D hitInfo;
 				//レイの向き
