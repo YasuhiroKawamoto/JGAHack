@@ -83,13 +83,13 @@ namespace Play
                 yield return StartCoroutine(pop.ShowPopUp(data.text, (flag) => result = flag));
             }
 
+            _popUP = false;
+
             if (result)
             {
                 // 処理
                 data.func();
             }
-
-            _popUP = false;
         }
 
         #endregion
