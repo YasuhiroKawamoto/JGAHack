@@ -27,9 +27,9 @@ public class StageTimePanel : MonoBehaviour
         if (_fixedSentenceList != null) return;
 
         _fixedSentenceList = new Dictionary<int, string>();
-        _fixedSentenceList.Add(0, "1st {0}");
-        _fixedSentenceList.Add(1, "2nd {0}");
-        _fixedSentenceList.Add(2, "3rd {0}");
+        _fixedSentenceList.Add(0, "{0}");
+        _fixedSentenceList.Add(1, "{0}");
+        _fixedSentenceList.Add(2, "{0}");
     }
 
     List<Text> GetTexts()
