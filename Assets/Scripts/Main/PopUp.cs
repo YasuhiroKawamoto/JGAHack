@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Extensions;
 
+
 public class PopUp : MonoBehaviour
 {
 
@@ -121,7 +122,8 @@ public class PopUp : MonoBehaviour
 				(controller.MoveDown(Direction.Left)))
 			{
 				_selectNum++;
-				if ((int)Select.length <= _selectNum) _selectNum = 0;
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+                if ((int)Select.length <= _selectNum) _selectNum = 0;
 
 				SetArrow();
 			}
@@ -142,6 +144,7 @@ public class PopUp : MonoBehaviour
 			(Input.GetKeyDown(KeyCode.LeftArrow)))
 			{
 				_selectNum++;
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
 				if ((int)Select.length <= _selectNum) _selectNum = 0;
 
 				SetArrow();
