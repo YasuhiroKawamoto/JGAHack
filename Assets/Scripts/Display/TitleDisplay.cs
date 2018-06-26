@@ -29,6 +29,8 @@ namespace Main
 		{
             //マウスカーソル非表示
             Cursor.visible = false;
+            //強制フルスクリーン
+            Screen.SetResolution(1920, 1080, Screen.fullScreen);
             _phoneImage.transform.DOLocalMove(new Vector3(0.0f, 0.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
 			_phoneImage.transform.DOScale(new Vector3(1.0f, 1.2f, 1.0f), _transTime).SetEase(Ease.OutElastic);
 			_phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 85.0f), _transTime).SetEase(Ease.OutElastic);
