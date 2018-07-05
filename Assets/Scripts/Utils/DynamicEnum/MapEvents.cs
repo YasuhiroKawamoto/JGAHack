@@ -8,5 +8,6 @@ public enum MapEvents
 	CheckPointEvent,
 	EventBase,
 	GoalEvent,
+	TextEvent,
 
 }

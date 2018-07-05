@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a406f492fda5b0f458b76eaecca0baf4
+labels:
+- Data
+- LockOnSetting
+- ScriptableObject
+timeCreated: 1527488177
+licenseType: Free
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

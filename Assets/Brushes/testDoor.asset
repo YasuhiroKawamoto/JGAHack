@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be84b5df95c75364d82833e0d1381f8c, type: 3}
   m_Name: testDoor
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1781689152506064, guid: 52f97d78f63b56448a6de8d789932130, type: 2}
+  _prefab: {fileID: 1052768877325836, guid: 029239e75592775409a42e45c5d0d3c1, type: 2}
   _layerName: Doors
   _prefabOffset: {x: 0.5, y: 0.5, z: 0}
-  _keyPrefab: {fileID: 1070634796189290, guid: c230e78915eacac41ac10bcbeb292be1, type: 2}
+  _keyPrefab: {fileID: 1088544816040926, guid: 0eb3ecbd90de06d43a90607e6f029823, type: 2}
