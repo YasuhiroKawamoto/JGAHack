@@ -118,7 +118,9 @@ namespace Play
             // カメラ遷移終了待ち
             yield return new WaitUntil(() => _cameraManager.GetEndProduction());
 
+#if UNITY_WSA_10_0
             GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Normal);
+#endif
             _state = State.Play;
 
             // タイムカウント開始
@@ -167,7 +169,9 @@ namespace Play
             StageTimeData.Instance.Save();
 
             //ガイドUIの非表示
+#if UNITY_WSA_10_0
             GuidUI.Instance.HideAll();
+#endif
 
             _dataPhone.SetActive(false);
             _clearPlane.gameObject.SetActive(true);

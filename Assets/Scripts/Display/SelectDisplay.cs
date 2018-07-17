@@ -66,6 +66,9 @@ namespace Main
 
         public override void KeyInput()
         {
+
+#if UNITY_WSA_10_0
+            
             if (Util.Scene.SceneManager.Instance.IsLoading) return;
 
             var controller = GameController.Instance;
@@ -129,6 +132,7 @@ namespace Main
                     Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_enter);
                 }
             }
+#endif
         }
 
         /// <summary>

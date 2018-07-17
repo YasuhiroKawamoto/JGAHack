@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Extensions;
 
+
 namespace Play
 {
     public class GuidUI : Util.SingletonMonoBehaviour<GuidUI>
@@ -18,6 +19,7 @@ namespace Play
         [SerializeField, ReadOnly]
         private GameObject[] _uiSet;
 
+#if UNITY_WSA_10_0
         void Start()
         {
             //全行取得
@@ -92,5 +94,6 @@ namespace Play
                 }
             }     
         }
+#endif
     }
 }

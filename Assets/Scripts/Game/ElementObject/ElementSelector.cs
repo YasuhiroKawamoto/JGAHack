@@ -154,8 +154,11 @@ namespace Play
 
             // Console更新
             ConsoleUpDate(obj);
+
             //操作ガイドの変更
+#if UNITY_WSA_10_0
             GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Lockon);
+#endif
 
             // SE
             SoundManager.Instance.PlayOneShot(AudioKey.in_play_lock_on);
@@ -405,8 +408,9 @@ namespace Play
             var target = _targetObject.gameObject.AddComponent<TargetObject>();
             target.SetSelector(this);
 
+#if UNITY_WSA_10_0
             GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Lockon);
-
+#endif
         }
 
         /// <summary>
@@ -415,8 +419,12 @@ namespace Play
         public void TargetRelease()
         {
             _targetObject = null;
+
             //操作ガイドの変更
+#if UNITY_WSA_10_0
             GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Normal);
+#endif
+
             ConsoleOut();
         }
         public void TargetUIRelease()
@@ -434,7 +442,10 @@ namespace Play
                 target.Release();
                 //Console削除
                 ConsoleOut();
+
+#if UNITY_WSA_10_0
                 GuidUI.Instance.GetComponent<GuidUI>().ChangeGuid(GuidUI.GUID_STEP.Normal);
+#endif
             }
         }
 
