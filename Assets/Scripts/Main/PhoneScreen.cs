@@ -49,17 +49,17 @@ namespace Main
                 _panelList = new List<Image>();
             }
 
+            float bHeight = _panel.rectTransform.sizeDelta.y;
+
+            RectTransform contentRectTrans = GetComponent<RectTransform>();
+            contentRectTrans.sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, bHeight * STAGE_NUM + _popOffSet.y * (STAGE_NUM + 2));
+
             for (int i = 0; i < STAGE_NUM; i++)
             {
                 var offSet = _popOffSet;
                 var posX = 0.0f;
 
-                if (i == _selectIndex)
-                {
-                    posX += offSet.x;
-                }
-
-                var posY = i * (_panelRect.y + offSet.y);
+                var posY = (i + 1) * (_panelRect.y + offSet.y);
                 var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
 
                 if (create)
@@ -69,6 +69,8 @@ namespace Main
                     // テキスト変更
                     var text = obj.GetComponentInChildren<Text>();
                     text.text = "STAGE " + (i + 1);
+
+                    obj.GetComponent<TitlePanel>().Stage = i;
                 }
                 else MovePanel(pos, i);
             }
