@@ -6,6 +6,11 @@ using System.Collections;
 /// </summary>
 public class PunipuniController : Extensions.MonoBehaviourEx
 {
+    [SerializeField]
+    private float _maxLength = 3.0f;
+
+    private Vector2 _meshPos = Vector2.zero;
+
     #region フィールド
 
     /// <summary>
@@ -48,7 +53,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// 
     /// </summary>
-    Vector3 BeginMousePosition;
+    protected Vector3 BeginMousePosition;
 
     #endregion
 
@@ -81,7 +86,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// Use this for initialization
     /// </summary>
-    void Start()
+    protected virtual void Start()
     {
         TargetCamera = Camera.main;
 
@@ -104,7 +109,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// Update is called once per frame
     /// </summary>
-    void Update()
+    protected virtual void Update()
     {
         if (Input.GetMouseButtonDown(0)) BeginPunipuni();
         if (Input.GetMouseButtonUp(0)) EndPunipuni();
@@ -139,7 +144,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// ぷにぷにコントローラーの開始
     /// </summary>
-    void BeginPunipuni()
+    protected void BeginPunipuni()
     {
         // 初期位置
         this.BeginMousePosition = TargetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
@@ -172,7 +177,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// ぷにぷにコントローラーの終了
     /// </summary>
-    void EndPunipuni()
+    protected void EndPunipuni()
     {
         // 表示
         VisiblePunipuniController = false;
@@ -181,12 +186,21 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// ぷにぷにコントローラーの追跡処理
     /// </summary>
-    void TrackingPunipuni()
+    protected void TrackingPunipuni()
     {
         // ベジェ曲線パラメータの更新
         var pos = TargetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
         var x = this.BeginMousePosition.x - pos.x;
         var y = this.BeginMousePosition.y - pos.y;
+
+        // 追加
+        var xTmp = Mathf.Abs(x);
+        var yTmp = Mathf.Abs(y);
+        if (xTmp > _maxLength) x = _meshPos.x;
+        if (yTmp > _maxLength) y = _meshPos.y;
+
+        _meshPos = new Vector2(x, y);
+
         UpdateBezierParameter(x, -y);
         // Debug.LogFormat("Mouse X = {0}, y = {1}", Input.mousePosition.x, Input.mousePosition.y);
 

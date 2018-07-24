@@ -34,6 +34,9 @@ namespace Play
         private Direction _direction = Direction.Back;
         public Direction Dir { get { return _direction; } }
 
+        private GameObject _conObj = null;
+        private PlayerController _playerController = null;
+
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -46,6 +49,11 @@ namespace Play
             //アニメーション切り替え
             gameObject.GetComponent<PlayerAnimController>().ChangeAnim(PlayerAnimController.ANIMATION_ID.BackWait);
 
+            _conObj = new GameObject();
+            _conObj.transform.parent = this.transform;
+            _playerController = _conObj.AddComponent<PlayerController>();
+            _playerController.TargetCamera = Camera.main;
+            _playerController.Material = Resources.Load("punimate") as Material;
         }
 
         void Update()
@@ -68,23 +76,13 @@ namespace Play
                 return;
             }
 
-            var controller = GameController.Instance;
-
             // 移動処理とポーズ処理
             Vector3 tryMove = Vector3.zero;
-            if (controller.GetConnectFlag())
-            {
-                tryMove = ControllerControl(controller);
-                //アニメーション切り替え
-                gameObject.GetComponent<PlayerAnimController>().ChangeAnim(_direction, _waitCount);
-            }
-            else
-            {
-                tryMove = KeyboardControl();
-                //アニメーション切り替え
-                gameObject.GetComponent<PlayerAnimController>().ChangeAnim(_direction, _waitCount);
+            //tryMove = TouchControl();
+            tryMove = _playerController.Velocity;
 
-            }
+            //アニメーション切り替え
+            gameObject.GetComponent<PlayerAnimController>().ChangeAnim(_direction, _waitCount);
 
             //待機時間経過
             if (tryMove == Vector3.zero)
@@ -99,6 +97,52 @@ namespace Play
             //移動
             _rigidbody.velocity = Vector3.ClampMagnitude(tryMove, 1f) * _moveSpeed;
         }
+        #region  a
+
+        /// <summary>
+        /// タッチでの操作
+        /// </summary>
+        virtual protected Vector3 TouchControl()
+        {
+            Vector3 tryMove = Vector3.zero;
+
+            var touchPos = Input.mousePosition;
+
+            var self = this.transform;
+            var pos = Camera.main.ScreenToWorldPoint(touchPos);
+            var target = new Vector3(pos.x, pos.y, 0.0f);
+
+            var diff = target - self.position;
+            Debug.DrawLine(self.position, target);
+            Debug.Log("Diff :" + diff);
+
+            var dir = self.position + new Vector3(0.0f, 1.0f, 0.0f);
+            Debug.DrawLine(self.position, dir, Color.red);
+            Debug.Log("Dir :" + dir);
+
+            var axis = Vector3.Cross(dir, diff);
+            Debug.Log("Axis :" + axis);
+
+            var angle = Vector3.Angle(dir, diff) * (axis.z < 0 ? -1 : 1);
+
+            return SetVelocityForRigidbody2D(angle, 1.0f);
+        }
+
+        // 速度を設定
+        // @param 角度
+        // @param 速さ
+        public Vector3 SetVelocityForRigidbody2D(float direction, float speed)
+        {
+            // Setting velocity.
+            Vector3 v = Vector3.zero;
+            v.x = -Mathf.Cos(Mathf.Deg2Rad * direction) * speed;
+            v.y = -Mathf.Sin(Mathf.Deg2Rad * direction) * speed;
+            Debug.Log(v);
+
+            return v;
+        }
+
+        #endregion
 
         /// <summary>
         /// キーボードでの操作
@@ -186,7 +230,7 @@ namespace Play
         {
             _playerState = State.Alive;
             var renderer = GetComponent<Renderer>();
-            renderer.sortingOrder = 0;          
+            renderer.sortingOrder = 0;
         }
 
         public void Goal()
