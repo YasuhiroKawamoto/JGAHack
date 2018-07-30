@@ -2763,6 +2763,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _playerState: 0
   _direction: 0
+  _selector: {fileID: 114286204608670128}
 --- !u!198 &198892803399328124
 ParticleSystem:
   m_ObjectHideFlags: 1

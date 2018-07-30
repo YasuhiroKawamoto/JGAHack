@@ -176,6 +176,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _playerState: 0
   _direction: 0
+  _selector: {fileID: 114961466767107636}
 --- !u!114 &114715342721001528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,7 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f1792261026704e8ec3c39f87ce4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentAnim: 0
 --- !u!114 &114961466767107636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,13 +237,6 @@ MonoBehaviour:
   _targetObject: {fileID: 0}
   _console: {fileID: 0}
   _container: {fileID: 0}
-  _elementText: {fileID: 114226643485333420, guid: 546392ba5ab9045488d4cf8c5c867df5,
-    type: 2}
-  _textList: []
-  _step2Object: {fileID: 0}
-  _step4Object: {fileID: 0}
-  _step7Object: {fileID: 0}
-  _step10Object: {fileID: 0}
 --- !u!212 &212217048682208602
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -18,6 +18,11 @@ public class PlayerController : PunipuniController
 
     protected override void Update()
     {
+
+    }
+
+    public void KeyInput()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             BeginPunipuni();
@@ -53,16 +58,12 @@ public class PlayerController : PunipuniController
         var diff = target - selfPos;
         diff.z = 0.0f;
         Debug.DrawLine(selfPos, target);
-        Debug.Log("Diff :" + diff);
 
         var dir = selfPos + new Vector3(0.0f, 1.0f, 0.0f);
         dir.z = 0.0f;
         Debug.DrawLine(selfPos, dir, Color.red);
-        Debug.Log("Dir :" + dir);
 
         var axis = Vector3.Cross(dir, diff);
-        Debug.Log("Axis :" + axis);
-
         var angle = Vector3.Angle(dir, diff) * (axis.z < 0 ? -1 : 1);
 
         return SetVelocityForRigidbody2D(angle, 1.0f);
@@ -77,7 +78,6 @@ public class PlayerController : PunipuniController
         Vector3 v = Vector3.zero;
         v.x = -Mathf.Cos(Mathf.Deg2Rad * direction) * speed;
         v.y = -Mathf.Sin(Mathf.Deg2Rad * direction) * speed;
-        Debug.Log(v);
 
         return v;
     }

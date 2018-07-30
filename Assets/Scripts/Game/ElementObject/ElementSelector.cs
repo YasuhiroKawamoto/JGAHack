@@ -21,6 +21,8 @@ namespace Play
             Front
         }
 
+        private bool _modeCopy = true;
+
         // ターゲットしているオブジェクト
         [SerializeField, ReadOnly]
         protected ElementObject _targetObject = null;
@@ -36,13 +38,14 @@ namespace Play
         // ロックオン
         private LockOn.LockOn _lockOn = null;
 
-
         private GameObject _dataPanel;
 
         public LockOn.LockOn LockOnObj
         {
             get { return _lockOn; }
         }
+
+        public bool IsInput = false;
 
         void Start()
         {
@@ -59,11 +62,9 @@ namespace Play
             }
         }
 
-        void Update()
+        public void KeyInput()
         {
-            if (!InGameManager.IsInstance()) return;
-
-            if (InGameManager.Instance.GameState != InGameManager.State.Play) return;
+#if UNITY_WSA_10_0
 
             // 選択
             var con = GameController.Instance;
@@ -137,23 +138,50 @@ namespace Play
                     TargetUIRelease();
                 }
             }
+#endif
+#if UNITY_ANDROID
+            if (Input.GetKeyDown(KeyCode.Space)) _modeCopy = !_modeCopy;
+
+            if (_modeCopy)
+            {
+                var obj = TouchSelectObject();
+                if (TargetObject(obj))
+                {
+                    IsInput = true;
+                    CopyEffect(obj);
+
+                    DataPanelUpDate(obj);
+                    SelectObject(obj);
+                }
+            }
+            else
+            {
+                if (MoveElement(TouchSelectObject()))
+                    IsInput = true;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                IsInput = false;
+            }
+#endif
         }
 
         /// <summary>
         /// オブジェクトをターゲット
         /// </summary>
-        virtual protected void TargetObject(ElementObject obj)
+        virtual protected bool TargetObject(ElementObject obj)
         {
             if (obj == null)
             {
-                return;
+                return false;
             }
 
             // 要素をターゲット
             TargetElementObject(obj);
 
             // Console更新
-            ConsoleUpDate(obj);
+            //ConsoleUpDate(obj);
 
             //操作ガイドの変更
 #if UNITY_WSA_10_0
@@ -162,6 +190,8 @@ namespace Play
 
             // SE
             SoundManager.Instance.PlayOneShot(AudioKey.in_play_lock_on);
+
+            return true;
         }
 
         //Console更新
@@ -452,16 +482,18 @@ namespace Play
         /// <summary>
         /// オブジェクトを選択
         /// </summary>
-        virtual protected void SelectObject()
+        virtual protected void SelectObject(ElementObject selectObj)
         {
             SelectRelease();
-            _container.ReceiveAllElement(_targetObject.ElementList);
+            _container.ReceiveAllElement(selectObj.ElementList);
 
             // SE
             SoundManager.Instance.PlayOneShot(AudioKey.in_play_copy);
 
             // ターゲット解除
             TargetUIRelease();
+
+            _targetObject = selectObj;
         }
 
         /// <summary>
@@ -476,10 +508,12 @@ namespace Play
         /// 要素の移動
         /// </summary>
         /// <param name="selectObj"></param>
-        virtual protected void MoveElement(ElementObject selectObj)
+        virtual protected bool MoveElement(ElementObject selectObj)
         {
             // リストを記憶していない場合は移動しない
-            if (_container.List == null) return;
+            if (_container.List == null) return false;
+            if (selectObj == null) return false;
+
             // すべての要素を移動
             selectObj.ReceiveAllElement(_container.List.ToArray());
             //Console更新
@@ -489,27 +523,31 @@ namespace Play
             SoundManager.Instance.PlayOneShot(AudioKey.in_play_paste);
 
             //ペースト時エフェクト
-            PasteEffect();
+            PasteEffect(selectObj);
             //復帰演出セット
             RecoverSet();
             // ターゲット解除
             TargetUIRelease();
+
+            _targetObject = selectObj;
+
+            return true;
         }
 
         //コピー時エフェクト
-        void CopyEffect()
+        void CopyEffect(ElementObject selectObj)
         {
             //コピー時エフェクト
-            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, _targetObject.transform.position);
+            GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, selectObj.transform.position);
             effect.GetComponent<WaveContoller>().setVelocity(gameObject.transform.parent.transform);
         }
 
         //ペースト時エフェクト
-        void PasteEffect()
+        void PasteEffect(ElementObject selectObj)
         {
             //送信エフェクト
             GameObject effect = EffectManager.Instance.CreateEffect(EffectID.Wave, gameObject.transform.parent.position);
-            effect.GetComponent<WaveContoller>().setVelocity(_targetObject.transform);
+            effect.GetComponent<WaveContoller>().setVelocity(selectObj.transform);
         }
 
         //復帰演出セット
@@ -520,6 +558,24 @@ namespace Play
             recover.GetComponent<UISet>().SetTransform(_targetObject.transform);
             recover.GetComponent<EnemyRecovery>().SetTime(_targetObject.GetComponent<ElementObject>().GetReturnTime());
             _targetObject.GetComponent<ElementObject>().EffectUpDate(recover);
+        }
+
+        // 左クリックしたオブジェクトを取得する関数(3D)
+        public ElementObject TouchSelectObject()
+        {
+            ElementObject result = null;
+            // 左クリックされた場所のオブジェクトを取得
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+                if (collition2d)
+                {
+                    var obj = collition2d.transform.gameObject;
+                    result = obj.GetComponentInChildren<ElementObject>();
+                }
+            }
+            return result;
         }
     }
 }

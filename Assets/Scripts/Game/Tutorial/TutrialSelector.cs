@@ -11,14 +11,14 @@ namespace Play.Tutrial
         /// <summary>
         /// オブジェクトをターゲット
         /// </summary>
-        override protected void TargetObject(ElementObject obj)
+        override protected bool TargetObject(ElementObject obj)
         {
             var manager = InGameManager.Instance;
             var messenger = manager.Messenger;
 
             var tutrial = TutrialManager.Instance;
 
-            if (tutrial.IsChange) return;
+            if (tutrial.IsChange) return false;
 
             if (tutrial.CanTarget())
             {
@@ -30,12 +30,14 @@ namespace Play.Tutrial
                     tutrial.NextStep();
                 }
             }
+
+            return true;
         }
 
         /// <summary>
         /// オブジェクトを選択
         /// </summary>
-        override protected void SelectObject()
+        override protected void SelectObject(ElementObject obj)
         {
             var manager = InGameManager.Instance;
             var messenger = manager.Messenger;
@@ -46,7 +48,7 @@ namespace Play.Tutrial
 
             if (tutrial.CanCopy())
             {
-                base.SelectObject();
+                base.SelectObject(obj);
                 // 次に移行
                 tutrial.NextStep();
             }
@@ -56,14 +58,14 @@ namespace Play.Tutrial
         /// 要素の移動
         /// </summary>
         /// <param name="selectObj"></param>
-        override protected void MoveElement(ElementObject selectObj)
+        override protected bool MoveElement(ElementObject selectObj)
         {
             var manager = InGameManager.Instance;
             var messenger = manager.Messenger;
 
             var tutrial = TutrialManager.Instance;
 
-            if (tutrial.IsChange) return;
+            if (tutrial.IsChange) return false;
 
             if (tutrial.CanPaste())
             {
@@ -71,6 +73,7 @@ namespace Play.Tutrial
                 // 次に移行
                 tutrial.NextStep();
             }
+            return true;
         }
     }
 }

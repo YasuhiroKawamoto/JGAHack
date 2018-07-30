@@ -1000,8 +1000,6 @@ CompositeCollider2D:
   - m_Collider: {fileID: 2113883505607446630}
     m_ColliderPaths:
     - - X: 160000000
-        Y: -30000000
-      - X: 160000000
         Y: 100000000
       - X: 150000000
         Y: 100000000
@@ -1042,6 +1040,8 @@ CompositeCollider2D:
       - X: 70000000
         Y: 100000000
       - X: 70000000
+        Y: -30000000
+      - X: 160000000
         Y: -30000000
   m_CompositePaths:
     m_Paths:
@@ -1455,6 +1455,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _playerState: 0
   _direction: 0
+  _selector: {fileID: 114937010708632502}
 --- !u!114 &114529609410124636
 MonoBehaviour:
   m_ObjectHideFlags: 1

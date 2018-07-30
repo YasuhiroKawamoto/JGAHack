@@ -14,7 +14,6 @@ namespace Play
 
         private float _waitCount = 0.2f;
 
-
         public enum State
         {
             Alive,
@@ -36,6 +35,9 @@ namespace Play
 
         private GameObject _conObj = null;
         private PlayerController _playerController = null;
+
+        [SerializeField]
+        private ElementSelector _selector = null;
 
         void Start()
         {
@@ -76,8 +78,17 @@ namespace Play
                 return;
             }
 
+            _selector.KeyInput();
+            if (_selector.IsInput)
+            {
+                return;
+            }
+
             // 移動処理とポーズ処理
             Vector3 tryMove = Vector3.zero;
+
+            // 入力更新
+            _playerController.KeyInput();
             //tryMove = TouchControl();
             tryMove = _playerController.Velocity;
 
@@ -114,15 +125,11 @@ namespace Play
 
             var diff = target - self.position;
             Debug.DrawLine(self.position, target);
-            Debug.Log("Diff :" + diff);
 
             var dir = self.position + new Vector3(0.0f, 1.0f, 0.0f);
             Debug.DrawLine(self.position, dir, Color.red);
-            Debug.Log("Dir :" + dir);
 
             var axis = Vector3.Cross(dir, diff);
-            Debug.Log("Axis :" + axis);
-
             var angle = Vector3.Angle(dir, diff) * (axis.z < 0 ? -1 : 1);
 
             return SetVelocityForRigidbody2D(angle, 1.0f);
@@ -137,7 +144,6 @@ namespace Play
             Vector3 v = Vector3.zero;
             v.x = -Mathf.Cos(Mathf.Deg2Rad * direction) * speed;
             v.y = -Mathf.Sin(Mathf.Deg2Rad * direction) * speed;
-            Debug.Log(v);
 
             return v;
         }

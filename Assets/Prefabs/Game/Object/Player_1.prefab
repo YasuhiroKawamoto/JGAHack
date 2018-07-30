@@ -223,6 +223,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _playerState: 0
   _direction: 0
+  _selector: {fileID: 114717309495250406}
 --- !u!114 &114717309495250406
 MonoBehaviour:
   m_ObjectHideFlags: 1

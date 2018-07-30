@@ -3412,7 +3412,13 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 2113883504211216952}
     m_ColliderPaths:
-    - - X: 167075344
+    - - X: 180000000
+        Y: 180000000
+      - X: 170000000
+        Y: 180000000
+      - X: 170000000
+        Y: -150000000
+      - X: 167075344
         Y: -150000000
       - X: 160000000
         Y: -156985952
@@ -3538,12 +3544,6 @@ CompositeCollider2D:
         Y: -160000000
       - X: 180000000
         Y: -160000000
-      - X: 180000000
-        Y: 180000000
-      - X: 170000000
-        Y: 180000000
-      - X: 170000000
-        Y: -150000000
   m_CompositePaths:
     m_Paths:
     - - {x: 18, y: 18}
@@ -4748,6 +4748,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _playerState: 0
   _direction: 0
+  _selector: {fileID: 114826499484546202}
 --- !u!114 &114816016615707302
 MonoBehaviour:
   m_ObjectHideFlags: 1
