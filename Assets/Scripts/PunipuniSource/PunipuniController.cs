@@ -54,6 +54,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// 
     /// </summary>
     protected Vector3 BeginMousePosition;
+    protected Vector3 BeginMousePositionScreen;
 
     #endregion
 
@@ -147,7 +148,8 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     protected void BeginPunipuni()
     {
         // 初期位置
-        this.BeginMousePosition = TargetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
+        this.BeginMousePositionScreen = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+        this.BeginMousePosition = TargetCamera.ScreenToWorldPoint(this.BeginMousePositionScreen);
 
         // 位置
         transform.position = TargetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
@@ -189,15 +191,11 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     protected void TrackingPunipuni()
     {
         // ベジェ曲線パラメータの更新
-        var pos = TargetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
-        var x = this.BeginMousePosition.x - pos.x;
-        var y = this.BeginMousePosition.y - pos.y;
-
-        // 追加
-        var xTmp = Mathf.Abs(x);
-        var yTmp = Mathf.Abs(y);
-        if (xTmp > _maxLength) x = _meshPos.x;
-        if (yTmp > _maxLength) y = _meshPos.y;
+        var screenMousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+        var mousePos = TargetCamera.ScreenToWorldPoint(screenMousePos);
+        var beginPos = TargetCamera.ScreenToWorldPoint(this.BeginMousePositionScreen);
+        var x = beginPos.x - mousePos.x;
+        var y = beginPos.y - mousePos.y;
 
         _meshPos = new Vector2(x, y);
 
