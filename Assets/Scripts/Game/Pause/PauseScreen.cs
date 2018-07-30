@@ -135,7 +135,6 @@ namespace Play
 					var a = _itemData[ii];
 					StartCoroutine(ItemCorutine(a));
 				});
-
 			}
 
 			// 初期選択項目

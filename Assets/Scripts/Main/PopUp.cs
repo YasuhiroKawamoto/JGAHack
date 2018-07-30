@@ -20,15 +20,12 @@ public class PopUp : MonoBehaviour
 	private Text _text = null;
 
 	[SerializeField]
-	private Arrow _arrow = null;
+	private UnityEngine.UI.Button _yes = null;
 
 	[SerializeField]
-	private Text _yes = null;
+	private UnityEngine.UI.Button _no = null;
 
-	[SerializeField]
-	private Text _no = null;
-
-	private Text[] _select = new Text[(int)Select.length];
+	private UnityEngine.UI.Button[] _select = new UnityEngine.UI.Button[(int)Select.length];
 
 	[SerializeField, Extensions.ReadOnly]
 	private int _selectNum = 0;
@@ -49,13 +46,22 @@ public class PopUp : MonoBehaviour
 
 		_inputBack = input;
 
-		// 矢印の設定
-		SetArrow();
-
 		Time.timeScale = 0.0f;
 
 		// 拡大
 		var scaler = this.gameObject.GetComponent<CanvasScaler>();
+
+		_yes.onClick.AddListener(() =>
+		{
+			_selectNum = 0;
+			_push = true;
+		});
+
+		_no.onClick.AddListener(() =>
+		{
+			_push = true;
+			_selectNum = 1;
+		});
 
 		var scale = scaler.scaleFactor;
 		yield return new WaitWhile(() =>
@@ -105,79 +111,6 @@ public class PopUp : MonoBehaviour
 		Destroy(this.gameObject);
 
 		yield return new WaitUntil(() => deth);
-	}
-
-	void Update()
-	{
-		KeyInput();
-	}
-
-	void KeyInput()
-	{
-		var controller = GameController.Instance;
-
-		if (controller.GetConnectFlag())
-		{
-			if (controller.MoveDown(Direction.Right) ||
-				(controller.MoveDown(Direction.Left)))
-			{
-				_selectNum++;
-                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
-                if ((int)Select.length <= _selectNum) _selectNum = 0;
-
-				SetArrow();
-			}
-
-			if (controller.ButtonDown(Button.A))
-			{
-				_push = true;
-			}
-			if (controller.ButtonDown(Button.B))
-			{
-				_selectNum = 1;
-				_push = true;
-			}
-		}
-		else
-		{
-			if ((Input.GetKeyDown(KeyCode.RightArrow)) ||
-			(Input.GetKeyDown(KeyCode.LeftArrow)))
-			{
-				_selectNum++;
-                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
-				if ((int)Select.length <= _selectNum) _selectNum = 0;
-
-				SetArrow();
-			}
-
-			if (Input.GetKeyDown(KeyCode.C))
-			{
-				_push = true;
-			}
-
-			if (Input.GetKeyDown(KeyCode.V))
-			{
-				_selectNum = 1;
-				_push = true;
-			}
-		}
-
-		if (_inputBack == null) return;
-
-		if (_inputBack())
-		{
-			_selectNum = 1;
-			_push = true;
-		}
-	}
-
-	private void SetArrow()
-	{
-		var pos = _arrow.transform.localPosition;
-		var arrowPos = pos;
-		arrowPos.x = GetleftSidePos(_select[_selectNum]);
-
-		_arrow.SetPos(arrowPos);
 	}
 
 	private float GetleftSidePos(Text textObj)
