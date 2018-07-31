@@ -2225,7 +2225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01555d1bca8955749b25e399df7a8876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetObject: {fileID: 0}
   _console: {fileID: 0}
   _container: {fileID: 0}
   IsInput: 0
@@ -2467,60 +2466,70 @@ MonoBehaviour:
     isTarget: 0
     isCopy: 0
     isPaste: 0
+    isMode: 0
     targetObj: {fileID: 0}
   - text: "\u5DE6\u306E\u52D5\u3044\u3066\u3044\u308B\u6A5F\u68B0\u3092\u3000\u3000\u3000\u3000\u3000\u3000\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
-    isTarget: 0
+    isTarget: 1
     isCopy: 1
     isPaste: 0
+    isMode: 0
     targetObj: {fileID: 114628733162074406}
   - text: "\u30E2\u30FC\u30C9\u3092\u5207\u308A\u66FF\u3048\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 0
     isPaste: 0
+    isMode: 1
     targetObj: {fileID: 0}
   - text: "\u53F3\u306E\u6B62\u307E\u3063\u3066\u3044\u308B\u6A5F\u68B0\u306B\u3000\u3000\u3000\u3000\u3000\u30DA\u30FC\u30B9\u30C8\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
-    isTarget: 0
+    isTarget: 1
     isCopy: 0
     isPaste: 1
+    isMode: 0
     targetObj: {fileID: 114371380089068104}
   - text: "\u52D5\u304D\u304C\u5909\u5316\u3057\u307E\u30B7\u30BF\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3067\u306F\u3001\u5148\u3078\u9032\u307F\u307E\u30B7\u30E7\u30A6"
     isMove: 1
     isTarget: 0
     isCopy: 0
     isPaste: 0
+    isMode: 0
     targetObj: {fileID: 0}
   - text: "\u5965\u306E\u6A5F\u68B0\u304C\u90AA\u9B54\u3067\u9032\u3081\u307E\u305B\u3093\u30CD\u3000\u3000\u30E2\u30FC\u30C9\u3092\u5207\u308A\u66FF\u3048\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 0
     isPaste: 0
+    isMode: 1
     targetObj: {fileID: 0}
   - text: "\u4E0B\u306E\u6A5F\u68B0\u3092\u30B3\u30D4\u30FC\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
-    isTarget: 0
+    isTarget: 1
     isCopy: 1
     isPaste: 0
+    isMode: 0
     targetObj: {fileID: 114432482319336916}
   - text: "\u30E2\u30FC\u30C9\u3092\u5207\u308A\u66FF\u3048\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
     isTarget: 0
     isCopy: 0
     isPaste: 0
+    isMode: 1
     targetObj: {fileID: 0}
   - text: "\u5965\u306E\u6A5F\u68B0\u306B\u30DA\u30FC\u30B9\u30C8\u3057\u3066\u304F\u3060\u30B5\u30A4"
     isMove: 0
-    isTarget: 0
+    isTarget: 1
     isCopy: 0
     isPaste: 1
+    isMode: 0
     targetObj: {fileID: 114905900437231178}
   - text: "\u3053\u308C\u3067\u9032\u3081\u307E\u3059\u30CD\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u76EE\u7684\u5730\u306B\u9032\u307F\u307E\u30B7\u30E7\u30A6"
     isMove: 1
     isTarget: 1
     isCopy: 1
     isPaste: 1
+    isMode: 1
     targetObj: {fileID: 0}
   _step: 1
   _forcus: {fileID: 114861106825863066}

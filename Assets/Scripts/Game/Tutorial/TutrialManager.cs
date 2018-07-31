@@ -6,132 +6,138 @@ using Extensions;
 
 namespace Play.Tutrial
 {
-    public class TutrialManager : SingletonMonoBehaviour<TutrialManager>
-    {
-        [System.Serializable]
-        public struct StepData
-        {
-            public string text;
-            public bool isMove;
-            public bool isTarget;
-            public bool isCopy;
-            public bool isPaste;
-            public Element.ElementObject targetObj;
-        }
+	public class TutrialManager : SingletonMonoBehaviour<TutrialManager>
+	{
+		[System.Serializable]
+		public struct StepData
+		{
+			public string text;
+			public bool isMove;
+			public bool isTarget;
+			public bool isCopy;
+			public bool isPaste;
+			public bool isMode;
+			public Element.ElementObject targetObj;
+		}
 
-        [SerializeField]
-        private List<StepData> _stepData = new List<StepData>();
+		[SerializeField]
+		private List<StepData> _stepData = new List<StepData>();
 
-        [SerializeField, ReadOnly]
-        private int _step = 0;
+		[SerializeField, ReadOnly]
+		private int _step = 0;
 
-        public int Step
-        {
-            get { return _step; }
-        }
+		public int Step
+		{
+			get { return _step; }
+		}
 
-        [SerializeField]
-        private Forcus _forcus = null;
+		[SerializeField]
+		private Forcus _forcus = null;
 
-        [SerializeField]
-        private ButtonIcon _icon = null;
+		[SerializeField]
+		private ButtonIcon _icon = null;
 
-        [SerializeField, ReadOnly]
-        private bool _isChange = false;
+		[SerializeField, ReadOnly]
+		private bool _isChange = false;
 
-        public bool IsChange
-        {
-            get { return _isChange; }
-        }
+		public bool IsChange
+		{
+			get { return _isChange; }
+		}
 
-        void Start()
-        {
-            _step = 0;
-            _forcus.Release();
-            StartCoroutine(StartText());
-        }
+		void Start()
+		{
+			_step = 0;
+			_forcus.Release();
+			StartCoroutine(StartText());
+		}
 
-        IEnumerator StartText()
-        {
-            var manager = InGameManager.Instance;
-            var cameraMan = manager.CameraManager;
+		IEnumerator StartText()
+		{
+			var manager = InGameManager.Instance;
+			var cameraMan = manager.CameraManager;
 
-            yield return new WaitUntil(() => cameraMan.GetEndProduction());
+			yield return new WaitUntil(() => cameraMan.GetEndProduction());
 
-            var messenger = manager.Messenger;
-            messenger.SetMessagePanel(_stepData[_step].text);
-        }
+			var messenger = manager.Messenger;
+			messenger.SetMessagePanel(_stepData[_step].text);
+		}
 
-        /// <summary>
-        /// 次のステップに移行
-        /// </summary>
-        public void NextStep()
-        {
-            if (_stepData.Count - 1 <= _step) return;
+		/// <summary>
+		/// 次のステップに移行
+		/// </summary>
+		public void NextStep()
+		{
+			if (_stepData.Count - 1 <= _step) return;
 
-            _step++;
-            var manager = InGameManager.Instance;
-            var messenger = manager.Messenger;
-            var data = _stepData[_step];
-            messenger.SetMessagePanel(data.text);
+			_step++;
+			var manager = InGameManager.Instance;
+			var messenger = manager.Messenger;
+			var data = _stepData[_step];
+			messenger.SetMessagePanel(data.text);
 
-            StartCoroutine(NextCorutine(data));
-        }
+			StartCoroutine(NextCorutine(data));
+		}
 
-        private IEnumerator NextCorutine(StepData data)
-        {
-            _icon.Hide();
+		private IEnumerator NextCorutine(StepData data)
+		{
+			_icon.Hide();
 
-            if (_stepData.Count - 1 <= _step)
-            {
-                _forcus.Release();
-                yield break;
-            }
+			if (_stepData.Count - 1 <= _step)
+			{
+				_forcus.Release();
+				yield break;
+			}
 
-            _isChange = true;
+			_isChange = true;
 
-            // フォーカスする
-            if (data.targetObj != null)
-            {
-                yield return StartCoroutine(_forcus.SetForcus(data.targetObj.gameObject));
-            }
-            else if (data.isMove)
-            {
-                _forcus.Release();
-            }
+			// フォーカスする
+			if (data.targetObj != null)
+			{
+				yield return StartCoroutine(_forcus.SetForcus(data.targetObj.gameObject));
+			}
+			else if (data.isMove)
+			{
+				_forcus.Release();
+			}
 
-            // 右下に対応した画像を表示
-            //_icon.Show(data);
+			// 右下に対応した画像を表示
+			//_icon.Show(data);
 
-            _isChange = false;
-        }
+			_isChange = false;
+		}
 
 
-        // 確認メソッドたち
+		// 確認メソッドたち
 
-        public bool CanTarget()
-        {
-            return _stepData[_step].isTarget;
-        }
+		public bool CanTarget()
+		{
+			return _stepData[_step].isTarget;
+		}
 
-        public bool CanCopy()
-        {
-            return _stepData[_step].isCopy;
-        }
+		public bool CanCopy()
+		{
+			return _stepData[_step].isCopy;
+		}
 
-        public bool CanMove()
-        {
-            return _stepData[_step].isMove;
-        }
+		public bool CanMove()
+		{
+			return _stepData[_step].isMove;
+		}
 
-        public bool CanPaste()
-        {
-            return _stepData[_step].isPaste;
-        }
+		public bool CanPaste()
+		{
+			return _stepData[_step].isPaste;
+		}
 
-        public Element.ElementObject GetTargetObj()
-        {
-            return _stepData[_step].targetObj;
-        }
-    }
+		public Element.ElementObject GetTargetObj()
+		{
+			return _stepData[_step].targetObj;
+		}
+
+		public bool CanMode()
+		{
+			return _stepData[_step].isMode;
+		}
+	}
 }

@@ -5,77 +5,91 @@ using Play.Element;
 
 namespace Play.Tutrial
 {
-    public class TutrialSelector : ElementSelector
-    {
+	public class TutrialSelector : ElementSelector
+	{
 
-        /// <summary>
-        /// オブジェクトをターゲット
-        /// </summary>
-        override protected bool TargetObject(ElementObject obj)
-        {
-            var manager = InGameManager.Instance;
-            var messenger = manager.Messenger;
+		protected override void SetButtonFunc(UnityEngine.UI.Button button)
+		{
+			button.onClick.AddListener(() =>
+			{
+				var tutrial = TutrialManager.Instance;
+				//if (tutrial.IsChange) return;
+				if (tutrial.CanMode())
+				{
+					_modeCopy = !_modeCopy;
+					tutrial.NextStep();
+				}
+			});
+		}
 
-            var tutrial = TutrialManager.Instance;
+		/// <summary>
+		/// オブジェクトをターゲット
+		/// </summary>
+		override protected bool TargetObject(ElementObject obj)
+		{
+			var manager = InGameManager.Instance;
+			var messenger = manager.Messenger;
 
-            if (tutrial.IsChange) return false;
+			var tutrial = TutrialManager.Instance;
 
-            if (tutrial.CanTarget())
-            {
-                var targetObj = tutrial.GetTargetObj();
-                if (targetObj == null) return base.TargetObject(obj);
-                else
-                {
-                    base.TargetObject(targetObj);
-                    tutrial.NextStep();
-                    return true;
-                }
-            }
+			if (tutrial.IsChange) return false;
 
-            return false;
-        }
+			if (tutrial.CanTarget())
+			{
+				var targetObj = tutrial.GetTargetObj();
+				if (targetObj == null) return base.TargetObject(obj);
+				else
+				{
+					base.TargetObject(targetObj);
+					tutrial.NextStep();
+					return true;
+				}
+			}
 
-        /// <summary>
-        /// オブジェクトを選択
-        /// </summary>
-        override protected void SelectObject(ElementObject obj)
-        {
-            var manager = InGameManager.Instance;
-            var messenger = manager.Messenger;
+			return false;
+		}
 
-            var tutrial = TutrialManager.Instance;
+		/// <summary>
+		/// オブジェクトを選択
+		/// </summary>
+		override protected void SelectObject(ElementObject obj)
+		{
+			var manager = InGameManager.Instance;
+			var messenger = manager.Messenger;
 
-            if (tutrial.IsChange) return;
+			var tutrial = TutrialManager.Instance;
 
-            if (tutrial.CanCopy())
-            {
-                base.SelectObject(obj);
-                // 次に移行
-                tutrial.NextStep();
-            }
-        }
+			if (tutrial.IsChange) return;
 
-        /// <summary>
-        /// 要素の移動
-        /// </summary>
-        /// <param name="selectObj"></param>
-        override protected bool MoveElement(ElementObject selectObj)
-        {
-            var manager = InGameManager.Instance;
-            var messenger = manager.Messenger;
+			if (tutrial.CanCopy())
+			{
+				base.SelectObject(obj);
+				// 次に移行
+				tutrial.NextStep();
+			}
+		}
 
-            var tutrial = TutrialManager.Instance;
+		/// <summary>
+		/// 要素の移動
+		/// </summary>
+		/// <param name="selectObj"></param>
+		override protected bool MoveElement(ElementObject selectObj)
+		{
+			var manager = InGameManager.Instance;
+			var messenger = manager.Messenger;
 
-            if (tutrial.IsChange) return false;
+			var tutrial = TutrialManager.Instance;
 
-            if (tutrial.CanPaste())
-            {
-                base.MoveElement(selectObj);
-                // 次に移行
-                tutrial.NextStep();
-                return true;
-            }
-            return false;
-        }
-    }
+			if (tutrial.IsChange) return false;
+
+			if (tutrial.CanPaste())
+			{
+				base.MoveElement(selectObj);
+				// 次に移行
+				tutrial.NextStep();
+				return true;
+			}
+			return false;
+		}
+	}
 }
