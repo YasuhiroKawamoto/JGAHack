@@ -60,12 +60,17 @@ namespace Play
             {
                 _dataPanel = GameObject.Find("DataPanel");
             }
+
+            var button = InGameManager.Instance._modeButton;
+            button.onClick.AddListener(() =>
+            {
+                _modeCopy = !_modeCopy;
+            });
         }
 
         public void KeyInput()
         {
 #if UNITY_ANDROID
-            if (Input.GetKeyDown(KeyCode.Space)) _modeCopy = !_modeCopy;
 
             var obj = TouchSelectObject();
 
