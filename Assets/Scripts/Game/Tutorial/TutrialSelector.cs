@@ -23,15 +23,16 @@ namespace Play.Tutrial
             if (tutrial.CanTarget())
             {
                 var targetObj = tutrial.GetTargetObj();
-                if (targetObj == null) base.TargetObject(obj);
+                if (targetObj == null) return base.TargetObject(obj);
                 else
                 {
                     base.TargetObject(targetObj);
                     tutrial.NextStep();
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -72,8 +73,9 @@ namespace Play.Tutrial
                 base.MoveElement(selectObj);
                 // 次に移行
                 tutrial.NextStep();
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }

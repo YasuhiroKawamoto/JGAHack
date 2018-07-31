@@ -179,7 +179,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
     /// <summary>
     /// ぷにぷにコントローラーの終了
     /// </summary>
-    protected void EndPunipuni()
+    public void EndPunipuni()
     {
         // 表示
         VisiblePunipuniController = false;

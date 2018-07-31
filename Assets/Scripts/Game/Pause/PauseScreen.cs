@@ -6,220 +6,213 @@ using System;
 
 namespace Play
 {
-	public class PauseScreen : ScreenBase
-	{
-		#region item
+    public class PauseScreen : ScreenBase
+    {
+        #region item
 
-		public enum Item
-		{
-			Resume = 0,
-			Reset,
-			Select,
-			length,
-		}
+        public enum Item
+        {
+            Resume = 0,
+            Reset,
+            Select,
+            length,
+        }
 
-		struct ItemData
-		{
-			public System.Action func;
-			public string text;
-			public bool isPopup;
+        struct ItemData
+        {
+            public System.Action func;
+            public string text;
+            public bool isPopup;
 
-			public ItemData(string text, System.Action func, bool pop = false)
-			{
-				this.func = func;
-				this.text = text;
-				this.isPopup = pop;
-			}
-		}
+            public ItemData(string text, System.Action func, bool pop = false)
+            {
+                this.func = func;
+                this.text = text;
+                this.isPopup = pop;
+            }
+        }
 
-		private ItemData[] _itemData = null;
+        private ItemData[] _itemData = null;
 
-		private void SetItemFunc()
-		{
-			// データ作成
-			_itemData = new ItemData[(int)Item.length];
+        private void SetItemFunc()
+        {
+            // データ作成
+            _itemData = new ItemData[(int)Item.length];
 
-			_itemData[(int)Item.Resume] = new ItemData("", () =>
-			{
-				Play.InGameManager.Instance.GamePause(false);
-			});
+            _itemData[(int)Item.Resume] = new ItemData("", () =>
+            {
+                Play.InGameManager.Instance.GamePause(false);
+            });
 
-			_itemData[(int)Item.Reset] = new ItemData("ステージをリセットしますか？", () =>
-			{
-				// リロード
-				Time.timeScale = 1.0f;
-				Play.InGameManager.Instance.GameReLoad();
-			}, true);
+            _itemData[(int)Item.Reset] = new ItemData("ステージをリセットしますか？", () =>
+            {
+                // リロード
+                Time.timeScale = 1.0f;
+                Play.InGameManager.Instance.GameReLoad();
+            }, true);
 
 
-			_itemData[(int)Item.Select] = new ItemData("セレクトに戻りますか？", () =>
-			{
-				Time.timeScale = 1.0f;
-				InGameManager.Instance.TimerStop();
-				InGameManager.Instance.BackMain("Select");
-			}, true);
-		}
+            _itemData[(int)Item.Select] = new ItemData("セレクトに戻りますか？", () =>
+            {
+                Time.timeScale = 1.0f;
+                InGameManager.Instance.TimerStop();
+                InGameManager.Instance.BackMain("Select");
+            }, true);
+        }
 
-		private IEnumerator ItemCorutine(ItemData data)
-		{
-			if (PopUP) yield break;
+        private IEnumerator ItemCorutine(ItemData data)
+        {
+            if (PopUP) yield break;
 
-			_popUP = true;
+            _popUP = true;
 
-			bool result = true;
+            bool result = true;
 
-			if (data.isPopup)
-			{
-				result = false;
+            if (data.isPopup)
+            {
+                result = false;
 
-				var load = Resources.LoadAsync("PopUp");
+                var load = Resources.LoadAsync("PopUp");
 
-				yield return new WaitWhile(() => !load.isDone);
+                yield return new WaitWhile(() => !load.isDone);
 
-				var obj = load.asset as GameObject;
-				var popObj = Instantiate(obj);
-				var pop = popObj.GetComponent<PopUp>();
+                var obj = load.asset as GameObject;
+                var popObj = Instantiate(obj);
+                var pop = popObj.GetComponent<PopUp>();
 
-				yield return StartCoroutine(pop.ShowPopUp(data.text, (flag) => result = flag));
-			}
+                yield return StartCoroutine(pop.ShowPopUp(data.text, (flag) => result = flag));
+            }
 
-			_popUP = false;
+            _popUP = false;
 
-			if (result)
-			{
-				// 処理
-				data.func();
-			}
-		}
+            if (result)
+            {
+                // 処理
+                data.func();
+            }
+        }
 
-		#endregion
+        #endregion
+        private bool _popUP = false;
+        public bool PopUP
+        {
+            get { return _popUP; }
+        }
 
-		[SerializeField]
-		private Arrow _arrow = null;
+        /// <summary>
+        /// 設定
+        /// </summary>
+        override public void SetUp()
+        {
+            base.SetUp();
 
-		private bool _popUP = false;
-		public bool PopUP
-		{
-			get { return _popUP; }
-		}
+            if (!IsCreated()) return;
 
-		/// <summary>
-		/// 設定
-		/// </summary>
-		override public void SetUp()
-		{
-			base.SetUp();
+            for (int i = 0; i < (int)Item.length; i++)
+            {
+                var offSet = _popOffSet;
+                var posX = 0.0f;
 
-			if (!IsCreated()) return;
+                var posY = i * (_panelRect.y + offSet.y);
+                var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
 
-			for (int i = 0; i < (int)Item.length; i++)
-			{
-				var offSet = _popOffSet;
-				var posX = 0.0f;
+                var obj = CreatePanel(pos, i);
 
-				var posY = i * (_panelRect.y + offSet.y);
-				var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
+                // テキスト変更
+                var text = obj.GetComponentInChildren<Text>();
+                text.text = Enum.ToObject(typeof(Item), i).ToString();
 
-				var obj = CreatePanel(pos, i);
+                var button = obj.GetComponentInChildren<UnityEngine.UI.Button>();
+                var ii = i + 0;
+                button.onClick.AddListener(() =>
+                {
+                    Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_pop_enter);
+                    Debug.Log(ii);
+                    var a = _itemData[ii];
+                    StartCoroutine(ItemCorutine(a));
+                });
+            }
 
-				// テキスト変更
-				var text = obj.GetComponentInChildren<Text>();
-				text.text = Enum.ToObject(typeof(Item), i).ToString();
+            // 初期選択項目
+            _selectIndex = 0;
+            SelectChange(0);
 
-				var button = obj.GetComponentInChildren<UnityEngine.UI.Button>();
-				var ii = i + 0;
-				button.onClick.AddListener(() =>
-				{
-					Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_pop_enter);
-					Debug.Log(ii);
-					var a = _itemData[ii];
-					StartCoroutine(ItemCorutine(a));
-				});
-			}
+            // 処理の設定
+            SetItemFunc();
+        }
 
-			// 初期選択項目
-			_selectIndex = 0;
-			SelectChange(0);
+        /// <summary>
+        /// 更新
+        /// </summary>
+        void Update()
+        {
+            if (PopUP) return;
 
-			// 処理の設定
-			SetItemFunc();
-		}
+            var controller = GameController.Instance;
+            if (controller.GetConnectFlag()) ControllerInput(controller);
+            else KeyInput();
+        }
 
-		/// <summary>
-		/// 更新
-		/// </summary>
-		void Update()
-		{
-			if (PopUP) return;
+        /// <summary>
+        /// キー入力
+        /// </summary>
+        private void KeyInput()
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                // SE 
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+                SelectChange(-1);
+            }
 
-			var controller = GameController.Instance;
-			if (controller.GetConnectFlag()) ControllerInput(controller);
-			else KeyInput();
-		}
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                // SE 
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+                SelectChange(1);
+            }
 
-		/// <summary>
-		/// キー入力
-		/// </summary>
-		private void KeyInput()
-		{
-			if (Input.GetKeyDown(KeyCode.UpArrow))
-			{
-				// SE 
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
-				SelectChange(-1);
-			}
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_pop_enter);
+                StartCoroutine(ItemCorutine(_itemData[_selectIndex]));
+            }
+        }
 
-			if (Input.GetKeyDown(KeyCode.DownArrow))
-			{
-				// SE 
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
-				SelectChange(1);
-			}
+        /// <summary>
+        /// コントローラー入力
+        /// </summary>
+        /// <param name="con"></param>
+        private void ControllerInput(GameController con)
+        {
+            if (con.MoveDown(Direction.Front))
+            {
+                // SE 
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+                SelectChange(-1);
+            }
 
-			if (Input.GetKeyDown(KeyCode.C))
-			{
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_pop_enter);
-				StartCoroutine(ItemCorutine(_itemData[_selectIndex]));
-			}
-		}
+            if (con.MoveDown(Direction.Back))
+            {
+                // SE 
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+                SelectChange(1);
+            }
 
-		/// <summary>
-		/// コントローラー入力
-		/// </summary>
-		/// <param name="con"></param>
-		private void ControllerInput(GameController con)
-		{
-			if (con.MoveDown(Direction.Front))
-			{
-				// SE 
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
-				SelectChange(-1);
-			}
+            if (con.ButtonDown(Button.A))
+            {
+                StartCoroutine(ItemCorutine(_itemData[_selectIndex]));
+            }
+        }
 
-			if (con.MoveDown(Direction.Back))
-			{
-				// SE 
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
-				SelectChange(1);
-			}
+        private void SelectChange(int num)
+        {
+            var max = _panelList.Count - 1;
+            _selectIndex += num;
+            if (_selectIndex < 0) _selectIndex = max;
+            else if (max < _selectIndex) _selectIndex = 0;
 
-			if (con.ButtonDown(Button.A))
-			{
-				StartCoroutine(ItemCorutine(_itemData[_selectIndex]));
-			}
-		}
-
-		private void SelectChange(int num)
-		{
-			var max = _panelList.Count - 1;
-			_selectIndex += num;
-			if (_selectIndex < 0) _selectIndex = max;
-			else if (max < _selectIndex) _selectIndex = 0;
-
-			var image = _panelList[_selectIndex];
-			var pos = _arrow.Initpos;
-			pos.y = image.transform.localPosition.y;
-			_arrow.SetPos(pos);
-		}
-	}
+            var image = _panelList[_selectIndex];
+        }
+    }
 }

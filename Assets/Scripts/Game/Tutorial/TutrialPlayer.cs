@@ -4,26 +4,26 @@ using UnityEngine;
 
 namespace Play.Tutrial
 {
-	public class TutrialPlayer : Player
-	{
-		// override protected Vector3 ControllerControl(GameController con)
-		// {
-		//     var tutrial = TutrialManager.Instance;
-		//     if (tutrial.CanMove())
-		//     {
-		//         return base.ControllerControl(con);
-		//     }
-		//     return Vector3.zero;
-		// }
+    public class TutrialPlayer : Player
+    {
+        override protected Vector3 TouchControl()
+        {
+            Vector3 tryMove = Vector3.zero;
+            var tutrial = TutrialManager.Instance;
 
-		// override protected Vector3 KeyboardControl()
-		// {
-		//     var tutrial = TutrialManager.Instance;
-		//     if (tutrial.CanMove())
-		//     {
-		//         return base.KeyboardControl();
-		//     }
-		//     return Vector3.zero;
-		// }
-	}
+            if (tutrial.CanMove())
+            {
+                _playerController.KeyInput();
+
+                tryMove = _playerController.Velocity;
+            }
+            else
+            {
+                _playerController.EndPunipuni();
+                _playerController.Velocity = Vector3.zero;
+            }
+
+            return tryMove;
+        }
+    }
 }

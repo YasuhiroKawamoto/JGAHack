@@ -56,6 +56,8 @@ public class PlayerController : PunipuniController
         var pos = Camera.main.ScreenToWorldPoint(touchPos);
         var target = new Vector3(pos.x, pos.y, 0.0f);
         var diff = target - selfPos;
+
+        return Vector3.Normalize(diff);
         diff.z = 0.0f;
         Debug.DrawLine(selfPos, target);
 

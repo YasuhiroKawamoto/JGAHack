@@ -64,87 +64,14 @@ namespace Play
 
         public void KeyInput()
         {
-#if UNITY_WSA_10_0
-
-            // 選択
-            var con = GameController.Instance;
-
-            var isTarget = TargetChoice.None;
-            bool isSelect = false;
-            bool isChange = false;
-
-            if (con.GetConnectFlag())
-            {
-                isTarget = con.ButtonDown(Button.R1) ? TargetChoice.Front :
-                            con.ButtonDown(Button.L1) ? TargetChoice.Next : TargetChoice.None;
-
-                isSelect = con.ButtonDown(Button.A);
-                isChange = con.ButtonDown(Button.B);
-            }
-            else
-            {
-                isTarget = Input.GetKeyDown(KeyCode.Space) ? TargetChoice.Next : TargetChoice.None;
-                isSelect = Input.GetKeyDown(KeyCode.C);
-                isChange = Input.GetKeyDown(KeyCode.V);
-            }
-
-            if (isTarget != TargetChoice.None)
-            {
-                // カメラにエレメントオブジェクトが移っているとき探す
-                if (LockOnObj.CheckOnScreenAll())
-                {
-                    // 次のターゲットオブジェクトを取得
-                    if (isTarget != TargetChoice.Next)
-                    {
-                        // 選択
-                        TargetObject(LockOnObj.GetTarget(1));
-                    }
-                    else if (isTarget != TargetChoice.Front)
-                    {
-                        TargetObject(LockOnObj.GetTarget(-1));
-                    }
-                }
-            }
-
-            // 要素吸出し
-            if (isSelect)
-            {
-                if (_targetObject)
-                {
-                    //コピー時エフェクト
-                    CopyEffect();
-                    //Dataパネル更新
-                    DataPanelUpDate(_targetObject);
-                    SelectObject();
-                }
-            }
-
-            // 要素を移す
-            if (isChange)
-            {
-                if (_targetObject)
-                {
-
-                    MoveElement(_targetObject);
-
-                }
-            }
-
-            if (_targetObject)
-            {
-                //正気に戻ったらConsole破棄
-                if (_targetObject.Stats == ElementObject.ElementStates.Remember)
-                {
-                    TargetUIRelease();
-                }
-            }
-#endif
 #if UNITY_ANDROID
             if (Input.GetKeyDown(KeyCode.Space)) _modeCopy = !_modeCopy;
 
+            var obj = TouchSelectObject();
+
+            if (obj == null) return;
             if (_modeCopy)
             {
-                var obj = TouchSelectObject();
                 if (TargetObject(obj))
                 {
                     IsInput = true;

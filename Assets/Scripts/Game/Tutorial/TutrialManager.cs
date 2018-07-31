@@ -101,7 +101,7 @@ namespace Play.Tutrial
             }
 
             // 右下に対応した画像を表示
-            _icon.Show(data);
+            //_icon.Show(data);
 
             _isChange = false;
         }
