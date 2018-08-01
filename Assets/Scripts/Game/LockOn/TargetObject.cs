@@ -8,35 +8,36 @@ using Util.Sound;
 
 namespace Play.LockOn
 {
-	public class TargetObject : MonoBehaviourEx
-	{
-		// 参照しているセレクター
-		private ElementSelector _selector = null;
-		public ElementSelector Selector
-		{
-			get { return _selector; }
-		}
+    public class TargetObject : MonoBehaviourEx
+    {
+        // 参照しているセレクター
+        private ElementSelector _selector = null;
+        public ElementSelector Selector
+        {
+            get { return _selector; }
+        }
 
-		// 要素オブジェクト
-		private Element.ElementObject _elementObj = null;
+        // 要素オブジェクト
+        private Element.ElementObject _elementObj = null;
 
-		public ElementObject ElementObj
-		{
-			get
-			{ return _elementObj; }
-		}
+        public ElementObject ElementObj
+        {
+            get
+            { return _elementObj; }
+        }
 
-		private LockOnSetting _setting = null;
-		public LockOnSetting Setting
-		{
-			get { return _setting ? _setting : _setting = Resources.Load("Settings\\LockOnSetting") as LockOnSetting; }
-		}
+        private LockOnSetting _setting = null;
+        public LockOnSetting Setting
+        {
+            get { return _setting ? _setting : _setting = Resources.Load("Settings\\LockOnSetting") as LockOnSetting; }
+        }
 
-		/// <summary>
-		/// 初期化
-		/// </summary>
-		void InitSetting()
-		{
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        void InitSetting()
+        {
+#if UNITY_WSA_10_0
 			_elementObj = GetComponent<Element.ElementObject>();
 
 			// TODO: 仮で選択したオブジェクトにテキストを付与
@@ -56,33 +57,18 @@ namespace Play.LockOn
 			canvas.transform.localPosition = new Vector3(0.0f, 0.5f, 0.0f);
 			canvas.transform.localScale = new Vector3(0.3f, 0.3f, 1.0f);
 			// ======================================================
-		}
+#endif
+        }
 
-		/// <summary>
-		/// セレクターの設定
-		/// </summary>
-		/// <param name="selector"></param>
-		public void SetSelector(ElementSelector selector)
-		{
-			_selector = selector;
+        /// <summary>
+        /// セレクターの設定
+        /// </summary>
+        /// <param name="selector"></param>
+        public void SetSelector(ElementSelector selector)
+        {
+            _selector = selector;
 
-			InitSetting();
-		}
-
-		void Update()
-		{
-			var lockOn = Selector.LockOnObj;
-			if (!lockOn.CheckOnScreen(transform.position))
-			{
-				if (InGameManager.IsInstance())
-				{
-					if (InGameManager.Instance.GameState == InGameManager.State.Play)
-					{
-						SoundManager.Instance.PlayOneShot(AudioKey.in_play_lock_off);
-					}
-				}
-
-			}
-		}
-	}
+            InitSetting();
+        }
+    }
 }
