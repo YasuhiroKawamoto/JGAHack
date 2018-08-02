@@ -22,8 +22,7 @@ namespace Main
 
             DestroyPanel();
 
-            if (SelectIndex == 0) PanelSlide(stage);
-            else PanelSlide(0);
+            PanelSlide(0);
         }
 
         private Image MovePanel(Vector3 pos, int index)

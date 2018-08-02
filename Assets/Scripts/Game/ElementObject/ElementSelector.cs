@@ -322,7 +322,7 @@ namespace Play
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                int layerMask = LayerMask.GetMask(new string[] { "Gimic", "Object" });
+                int layerMask = LayerMask.GetMask(new string[] { "Gimic", "Object", "Enemy" });
                 Collider2D collition2d = Physics2D.OverlapPoint(tapPoint, layerMask);
                 Debug.Log(collition2d);
                 if (collition2d)
