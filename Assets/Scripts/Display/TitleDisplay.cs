@@ -105,7 +105,6 @@ namespace Main
             // SE
             Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_enter);
 
-#if UNITY_WSA_10_0
             var load = Resources.LoadAsync("PopUp");
             yield return new WaitWhile(() => !load.isDone);
 
@@ -128,8 +127,7 @@ namespace Main
 
                 yield break;
             }
-#endif
-            yield return null;
+
             DisplayManager.Instance.ChangeDisplay(_selectDisplay);
         }
     }

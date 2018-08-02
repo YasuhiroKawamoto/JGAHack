@@ -51,8 +51,12 @@ namespace Play
             {
                 _dataPanel = GameObject.Find("DataPanel");
             }
-            var button = InGameManager.Instance._modeButton;
-            SetButtonFunc(button);
+
+            if (InGameManager.IsInstance())
+            {
+                var button = InGameManager.Instance._modeButton;
+                SetButtonFunc(button);
+            }
         }
 
         protected virtual void SetButtonFunc(UnityEngine.UI.Button button)
