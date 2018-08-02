@@ -2900,6 +2900,7 @@ MonoBehaviour:
   _counter: {fileID: 241970392}
   _dataPhone: {fileID: 2093736782}
   _modeButton: {fileID: 291200019}
+  _pauseButton: {fileID: 45013928}
 --- !u!4 &1582135143
 Transform:
   m_ObjectHideFlags: 0
