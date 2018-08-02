@@ -318,11 +318,16 @@ namespace Play
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+                int layerMask = LayerMask.GetMask(new string[] { "Gimic", "Object" });
+                Collider2D collition2d = Physics2D.OverlapPoint(tapPoint, layerMask);
+                Debug.Log(collition2d);
                 if (collition2d)
                 {
                     var obj = collition2d.transform.gameObject;
-                    result = obj.GetComponentInChildren<ElementObject>();
+                    result = obj.GetComponent<ElementObject>();
+
+                    if (result == null)
+                        result = obj.GetComponentInChildren<ElementObject>();
                 }
             }
             return result;
