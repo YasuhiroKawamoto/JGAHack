@@ -165,14 +165,15 @@ namespace Play
         {
             if (_playerState == State.Dead) return;
 
+            _playerController.EndPunipuni();
+            _playerController.Velocity = Vector3.zero;
+
             _playerState = State.Dead;
             _direction = Direction.Back;
             _waitCount = 0.2f;
 
             if (retry)
             {
-                _playerController.EndPunipuni();
-                _playerController.Velocity = Vector3.zero;
                 InGameManager.Instance.StageOver();
             }
         }
