@@ -6,120 +6,130 @@ using DG.Tweening;
 
 namespace Main
 {
-    public class PhoneScreen : ScreenBase
-    {
-        // 作成するパネルの数
-        public int STAGE_NUM = 7;
+	public class PhoneScreen : ScreenBase
+	{
+		// 作成するパネルの数
+		public int STAGE_NUM = 7;
 
-        private Tween _moveTween = null;
+		private Tween _moveTween = null;
 
-        override public void SetUp()
-        {
-            base.SetUp();
+		private System.Action<int> _selectFunc = null;
 
-            var num = TakeOverData.Instance.StageNum - 1;
-            var stage = 0 < num ? num : 0;
+		public void SetButtonFunc(System.Action<int> func)
+		{
+			_selectFunc = func;
+		}
 
-            DestroyPanel();
+		override public void SetUp()
+		{
+			base.SetUp();
 
-            PanelSlide(0);
-        }
+			var num = TakeOverData.Instance.StageNum - 1;
+			var stage = 0 < num ? num : 0;
 
-        private Image MovePanel(Vector3 pos, int index)
-        {
-            var obj = _panelList[index];
+			DestroyPanel();
 
-            obj.rectTransform.localScale = Vector3.one;
-            _moveTween = obj.rectTransform.DOLocalMove(pos, 0.15f)
-                                .OnComplete(() => _moveTween = null);
+			PanelSlide(0);
+		}
 
-            return obj;
-        }
+		private Image MovePanel(Vector3 pos, int index)
+		{
+			var obj = _panelList[index];
 
-        /// <summary>
-        /// パネルのセットアップ
-        /// </summary>
-        private void PanelSetup()
-        {
-            var create = IsCreated();
+			obj.rectTransform.localScale = Vector3.one;
+			_moveTween = obj.rectTransform.DOLocalMove(pos, 0.15f)
+								.OnComplete(() => _moveTween = null);
 
-            if (create)
-            {
-                _panelList = new List<Image>();
-            }
+			return obj;
+		}
 
-            float bHeight = _panel.rectTransform.sizeDelta.y;
+		/// <summary>
+		/// パネルのセットアップ
+		/// </summary>
+		private void PanelSetup()
+		{
+			var create = IsCreated();
 
-            RectTransform contentRectTrans = GetComponent<RectTransform>();
-            contentRectTrans.sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, bHeight * STAGE_NUM + _popOffSet.y * (STAGE_NUM + 2));
+			if (create)
+			{
+				_panelList = new List<Image>();
+			}
 
-            for (int i = 0; i < STAGE_NUM; i++)
-            {
-                var offSet = _popOffSet;
-                var posX = 0.0f;
+			float bHeight = _panel.rectTransform.sizeDelta.y;
 
-                var posY = (i + 1) * (_panelRect.y + offSet.y);
-                var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
+			RectTransform contentRectTrans = GetComponent<RectTransform>();
+			contentRectTrans.sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, bHeight * STAGE_NUM + _popOffSet.y * (STAGE_NUM + 2));
 
-                if (create)
-                {
-                    var obj = CreatePanel(pos, i);
+			for (int i = 0; i < STAGE_NUM; i++)
+			{
+				var offSet = _popOffSet;
+				var posX = 0.0f;
 
-                    // テキスト変更
-                    var text = obj.GetComponentInChildren<Text>();
-                    text.text = "STAGE " + (i + 1);
+				var posY = (i + 1) * (_panelRect.y + offSet.y);
+				var pos = new Vector3(_initPos.x - posX, _initPos.y - posY, _initPos.z);
 
-                    obj.GetComponent<TitlePanel>().Stage = i;
-                }
-                else MovePanel(pos, i);
-            }
-        }
+				if (create)
+				{
+					var obj = CreatePanel(pos, i);
 
-        /// <summary>
-        /// パネルを次に移動
-        /// </summary>
-        public int PanelNext()
-        {
-            return PanelSlide(1);
-        }
+					// テキスト変更
+					var text = obj.GetComponentInChildren<Text>();
+					text.text = "STAGE " + (i + 1);
 
-        /// <summary>
-        /// パネルを前に移動
-        /// </summary>
-        public int PanelBefore()
-        {
-            return PanelSlide(-1);
-        }
+					var panel = obj.GetComponent<TitlePanel>();
+					panel.Stage = i;
+					panel.Screen = this;
+					panel.SelectFunc = _selectFunc;
+				}
+				else MovePanel(pos, i);
+			}
+		}
 
-        /// <summary>
-        /// パネルのスライド移動
-        /// </summary>
-        /// <param name="c"></param>
-        private int PanelSlide(int c)
-        {
+		/// <summary>
+		/// パネルを次に移動
+		/// </summary>
+		public int PanelNext()
+		{
+			return PanelSlide(1);
+		}
 
-            if (_moveTween != null)
-            {
-                return -1;
-            }
+		/// <summary>
+		/// パネルを前に移動
+		/// </summary>
+		public int PanelBefore()
+		{
+			return PanelSlide(-1);
+		}
 
-            // 上下の場合スキップ移動
-            var count = STAGE_NUM;
-            if (_selectIndex + c < 0)
-            {
-                c = STAGE_NUM - 1;
-            }
-            else if (count <= _selectIndex + c)
-            {
-                c = -STAGE_NUM + 1;
-            }
+		/// <summary>
+		/// パネルのスライド移動
+		/// </summary>
+		/// <param name="c"></param>
+		private int PanelSlide(int c)
+		{
 
-            var margin = _panelRect.y + _popOffSet.y;
-            _initPos.y += (margin * c);
-            _selectIndex += c;
-            PanelSetup();
+			if (_moveTween != null)
+			{
+				return -1;
+			}
 
-            return _selectIndex;
-        }
-    }
+			// 上下の場合スキップ移動
+			var count = STAGE_NUM;
+			if (_selectIndex + c < 0)
+			{
+				c = STAGE_NUM - 1;
+			}
+			else if (count <= _selectIndex + c)
+			{
+				c = -STAGE_NUM + 1;
+			}
+
+			var margin = _panelRect.y + _popOffSet.y;
+			_initPos.y += (margin * c);
+			_selectIndex += c;
+			PanelSetup();
+
+			return _selectIndex;
+		}
+	}
 }

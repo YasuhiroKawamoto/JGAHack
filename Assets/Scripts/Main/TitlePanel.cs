@@ -4,28 +4,53 @@ using UnityEngine;
 
 public class TitlePanel : MonoBehaviour
 {
-    private int _stage = 0;
+	public Main.PhoneScreen Screen = null;
 
-    public int Stage
-    {
-        get { return _stage; }
-        set { _stage = value; }
-    }
+	public System.Action<int> SelectFunc = null;
 
-    void Start()
-    {
-        var button = this.GetComponent<UnityEngine.UI.Button>();
-        button.onClick.AddListener(() =>
-        {
-            Play.InGameManager.Destroy();
+	private int _stage = 0;
 
-            var index = _stage;
-            Main.TakeOverData.Instance.StageNum = index + 1;
+	private Sprite _defaultImage = null;
+	[SerializeField]
+	private Sprite _selectImage = null;
 
-            // 呼び出しはこれ
-            Util.Scene.SceneManager.Instance.ChangeSceneFadeInOut("Game");
-            // SE
-            Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_enter);
-        });
-    }
+	public int Stage
+	{
+		get { return _stage; }
+		set { _stage = value; }
+	}
+
+	void Start()
+	{
+		// 初期Sprite記憶
+		var image = this.GetComponent<UnityEngine.UI.Image>();
+		_defaultImage = image.sprite;
+
+		var button = this.GetComponent<UnityEngine.UI.Button>();
+		button.onClick.AddListener(() =>
+		{
+			Play.InGameManager.Destroy();
+
+			var index = _stage;
+
+			if (index == Main.TakeOverData.Instance.StageNum)
+			{
+				// 呼び出しはこれ
+				Util.Scene.SceneManager.Instance.ChangeSceneFadeInOut("Game");
+				// SE
+				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_enter);
+			}
+			else
+			{
+				// 選択
+				Main.TakeOverData.Instance.StageNum = index;
+				SelectFunc(Main.TakeOverData.Instance.StageNum);
+			}
+		});
+	}
+
+	public void UnSelect()
+	{
+
+	}
 }
