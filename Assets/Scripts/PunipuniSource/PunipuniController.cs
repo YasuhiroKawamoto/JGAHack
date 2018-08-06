@@ -157,7 +157,7 @@ public class PunipuniController : Extensions.MonoBehaviourEx
         this.PosZ = TargetCamera.transform.position.z + 1.0f;
 
         // 表示
-        VisiblePunipuniController = true;
+        VisiblePunipuniController = false;
 
         // ベジェ曲線パラメータ
         var x = 0;

@@ -2225,9 +2225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01555d1bca8955749b25e399df7a8876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _console: {fileID: 0}
   _container: {fileID: 0}
   IsInput: 0
+  _imageCopy: {fileID: 21300000, guid: 1fd23165cde0afc43909d9028db00d05, type: 3}
+  _imagePaste: {fileID: 21300000, guid: edee6394081385143ba477ed33830632, type: 3}
 --- !u!114 &114256619707928940
 MonoBehaviour:
   m_ObjectHideFlags: 1

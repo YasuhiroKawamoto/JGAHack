@@ -7427,9 +7427,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b47be9c8f4c8714d935738397770089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetObject: {fileID: 0}
-  _console: {fileID: 0}
   _container: {fileID: 0}
+  IsInput: 0
+  _imageCopy: {fileID: 21300000, guid: 1fd23165cde0afc43909d9028db00d05, type: 3}
+  _imagePaste: {fileID: 21300000, guid: edee6394081385143ba477ed33830632, type: 3}
 --- !u!114 &114596973788265254
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -17,6 +17,8 @@ namespace Play.Tutrial
                 if (tutrial.CanMode())
                 {
                     _modeCopy = !_modeCopy;
+                    if (_modeCopy) button.GetComponent<UnityEngine.UI.Image>().sprite = _imageCopy;
+                    else button.GetComponent<UnityEngine.UI.Image>().sprite = _imagePaste;
                     tutrial.NextStep();
                 }
             });

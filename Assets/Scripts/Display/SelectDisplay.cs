@@ -8,65 +8,65 @@ using Util.Display;
 
 namespace Main
 {
-	public sealed class SelectDisplay : DisplayBase
-	{
-		// タイトルディスプレイ
-		[SerializeField]
-		private TitleDisplay _titleDisplay = null;
+    public sealed class SelectDisplay : DisplayBase
+    {
+        // タイトルディスプレイ
+        [SerializeField]
+        private TitleDisplay _titleDisplay = null;
 
-		// 携帯UI
-		[SerializeField]
-		private Image _phoneImage = null;
+        // 携帯UI
+        [SerializeField]
+        private Image _phoneImage = null;
 
-		[SerializeField]
-		private float _transTime = 1.0f;
+        [SerializeField]
+        private float _transTime = 1.0f;
 
-		[SerializeField]
-		private Main.PhoneScreen _phoneScreen = null;
+        [SerializeField]
+        private Main.PhoneScreen _phoneScreen = null;
 
-		private Text _stageName = null;
+        private Text _stageName = null;
 
-		[SerializeField]
-		private StageTimePanel _timePanel = null;
+        [SerializeField]
+        private StageTimePanel _timePanel = null;
 
-		[SerializeField]
-		private BackStage _backStage = null;
+        [SerializeField]
+        private BackStage _backStage = null;
 
-		public override IEnumerator Enter()
-		{
-			_phoneImage.transform.DOLocalMove(new Vector3(100.0f, -3.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
-			_phoneImage.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), _transTime).SetEase(Ease.OutElastic);
-			_phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
+        public override IEnumerator Enter()
+        {
+            _phoneImage.transform.DOLocalMove(new Vector3(100.0f, -3.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
+            _phoneImage.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), _transTime).SetEase(Ease.OutElastic);
+            _phoneImage.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _transTime).SetEase(Ease.OutElastic);
 
-			var button = _phoneImage.transform.Find("Button");
-			button.transform.DOScale(Vector3.one, _transTime);
+            var button = _phoneImage.transform.Find("Button");
+            button.transform.DOScale(Vector3.one, _transTime);
 
-			yield return new WaitForSeconds(_transTime);
+            yield return new WaitForSeconds(_transTime);
 
-			// 携帯画面にステージパネルを出す
-			_phoneScreen.SetButtonFunc(PanelSlideTry);
-			_phoneScreen.SetUp();
+            // 携帯画面にステージパネルを出す
+            _phoneScreen.SetButtonFunc(PanelSlideTry);
+            _phoneScreen.SetUp();
 
-			// ステージ名テキストを取得
-			_stageName = this.transform.transform.Find("StageName").GetComponentInChildren<Text>();
+            // ステージ名テキストを取得
+            _stageName = this.transform.transform.Find("StageName").GetComponentInChildren<Text>();
 
-			ChangeStageName(_phoneScreen.SelectIndex);
+            ChangeStageName(_phoneScreen.SelectIndex);
 
-			_timePanel.UpdateView(_phoneScreen.SelectIndex);
-		}
+            _timePanel.UpdateView(_phoneScreen.SelectIndex);
+        }
 
-		public override void EnterComplete()
-		{
-			base.EnterComplete();
-		}
+        public override void EnterComplete()
+        {
+            base.EnterComplete();
+        }
 
-		public override void Exit()
-		{
-			base.Exit();
-		}
+        public override void Exit()
+        {
+            base.Exit();
+        }
 
-		public override void KeyInput()
-		{
+        public override void KeyInput()
+        {
 
 #if UNITY_WSA_10_0
             
@@ -134,37 +134,37 @@ namespace Main
                 }
             }
 #endif
-		}
+        }
 
-		/// <summary>
-		/// パネルの移動のトライ
-		/// </summary>
-		/// <param name="func"></param>
-		private void PanelSlideTry(int index)
-		{
-			if (0 <= index)
-			{
-				// SE 
-				Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
+        /// <summary>
+        /// パネルの移動のトライ
+        /// </summary>
+        /// <param name="func"></param>
+        private void PanelSlideTry(int index)
+        {
+            if (0 <= index)
+            {
+                // SE 
+                Util.Sound.SoundManager.Instance.PlayOneShot(AudioKey.sy_arrow_move);
 
-				ChangeStageName(index);
-				_timePanel.UpdateView(_phoneScreen.SelectIndex);
-			}
-		}
+                ChangeStageName(index);
+                _timePanel.UpdateView(index);
+            }
+        }
 
-		/// <summary>
-		/// ステージ名変更
-		/// </summary>
-		/// <param name="index"></param>
-		private void ChangeStageName(int index)
-		{
-			if (0 <= index)
-			{
-				var stage = index + 1;
-				_stageName.text = "STAGE " + stage;
+        /// <summary>
+        /// ステージ名変更
+        /// </summary>
+        /// <param name="index"></param>
+        private void ChangeStageName(int index)
+        {
+            if (0 <= index)
+            {
+                var stage = index + 1;
+                _stageName.text = "STAGE " + stage;
 
-				_backStage.ChangeStage(stage);
-			}
-		}
-	}
+                _backStage.ChangeStage(stage);
+            }
+        }
+    }
 }

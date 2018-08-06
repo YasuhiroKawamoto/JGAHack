@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5371d17c5c5bdad479e3d344f231af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Screen: {fileID: 0}
+  _selectImage: {fileID: 21300000, guid: b53f74a38acf5a74993a446342627974, type: 3}
 --- !u!114 &114609657540763038
 MonoBehaviour:
   m_ObjectHideFlags: 1
